@@ -59,8 +59,8 @@
   <section>
     <div class="container">
       <div class="list-crear_mascota-btn">
-        <a th:href="@{/mascota/editar-perfil}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
-          Mascota!</a>
+<!--        <a th:href="@{/mascota/editar-perfil}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una-->
+<!--          Mascota!</a>-->
       </div>
       <div class="row align-items-center">
         <table class="table table-hover">
@@ -68,26 +68,23 @@
             <tr>
 
               <th scope="col">Nombre</th>
-              <th scope="col">Sexo</th>
+              <th scope="col">Apellido</th>
               <th scope="col">Tipo</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="mascota : ${mascotas}">
-              <td>
+            <tr th:each="empleado : ${empleados}">
 
-              </td>
-              <td scope="row" th:text="${mascota.nombre}">
+              <td scope="row" th:text="${empleado.nombre}">
                 </th>
-              <td scope="row" th:text="${mascota.sexo}">
+              <td scope="row" th:text="${empleado.apellido}">
                 </th>
-              <td scope="row" th:text="${mascota.tipo}">
+
                 </th>
               <td>
                 <!-- Declaramos y enviamos el valor de la variable action -->
-                <a th:href="@{/mascota/editar-perfil(id=__${mascota.id}__, action='Actualizar')}">Editar</a> -
-                <a th:href="@{/mascota/editar-perfil(id=__${mascota.id}__, action='Eliminar')}">Eliminar</a>
+<!--                <a terfil(id=__${mascota.id}__, action='Eliminar')}">Eliminar</a>-->
               </td>
             </tr>
 

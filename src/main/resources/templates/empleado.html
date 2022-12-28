@@ -11,7 +11,7 @@
   <title>Mostrar Empleados</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -19,7 +19,7 @@
     rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/one-page-wonder.min.css" rel="stylesheet">
+  <link href="/css/one-page-wonder.min.css" rel="stylesheet">
 
 </head>
 
@@ -71,7 +71,7 @@
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
             <h2 class="display-4">mostrar todos</h2>
-<!--            <form action="/registrar" method="GET" >-->
+            <form action="/empleado/mostrar" method="POST" >
 
 <!--              &lt;!&ndash; Este p utiliza una etiqueta de Thymeleaf que preguntará si la variable 'error' no se encuentra null.-->
 <!--              Si contiene algún valor, lo introduce dentro de la etiqueta <p> y le aplica el style in-line &ndash;&gt;-->
@@ -89,16 +89,16 @@
               <label>Clave</label>
               <input type="password" class="form-control" name="clave1" th:value="${clave1}" />
 
-              <br /><button type="submit" class="btn btn-primary">Registrarme</button>
-<!--            </form>-->
-            <table>
               <tr>
                 <th> NAME</th>
 
               </tr>
-              <tr th:each="empleados:${listEmpleados}" ></tr>
-              <td th:text="${empleado.nombre}" ></td>
-            </table>
+<!--              <tr th:each="empleados:${listEmpleados}" ></tr>-->
+<!--              <td th:text="${empleado.nombre}" ></td>-->
+
+              <br /><button type="submit" class="btn btn-primary">Registrarme</button>
+            </form>
+
           </div>
         </div>
       </div>
@@ -115,8 +115,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
