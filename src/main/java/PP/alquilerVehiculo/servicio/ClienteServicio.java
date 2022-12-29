@@ -26,12 +26,7 @@ public class  ClienteServicio implements BaseService<Cliente> {
         validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
 
         //Creamos el Objeto Cliente
-<<<<<<< HEAD
         Cliente cliente  = new Cliente();
-
-=======
-        Cliente cliente = new Cliente();
->>>>>>> entidades
 
         //Seteamos sus atributos con los parámetros recibidos
         cliente.setNombre(nombre);
@@ -93,11 +88,6 @@ public class  ClienteServicio implements BaseService<Cliente> {
             throw new ClienteServiceException("El telefono del cliente no puede ser nulo.");
         }
     }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> entidades
     //Modificar un Cliente ya existente en la base de datos
     @Transactional
     public void modificar(long id, String nombre, String apellido, String email, String clave1, String clave2, String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
@@ -108,12 +98,8 @@ public class  ClienteServicio implements BaseService<Cliente> {
         //
         //Validación de los parámetros
         validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
-<<<<<<< HEAD
-
-=======
         //Validación del mail
         validarMail(id, email);
->>>>>>> entidades
 
         //Validamos que se encuentre un Cliente con el Id recibido
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
@@ -140,8 +126,6 @@ public class  ClienteServicio implements BaseService<Cliente> {
         }
     }
 
-<<<<<<< HEAD
-=======
     //Método para deshabilitar un Cliente
     @Transactional
     public void deshabilitar(long id) throws ClienteServiceException {
@@ -192,13 +176,10 @@ public class  ClienteServicio implements BaseService<Cliente> {
         }
     }
 
->>>>>>> entidades
     public Cliente buscarPorId(long id) {
         return clienteRepositorio.getReferenceById(id);
     }
 
-<<<<<<< HEAD
-=======
     //Método para delegar la tarea de validar los parámetros
     private void validar(String nombre, String apellido, String email, String clave1, String clave2, String idZona, boolean newUser) throws ClienteServiceException {
 
@@ -245,7 +226,6 @@ public class  ClienteServicio implements BaseService<Cliente> {
 //            throw new ClienteServiceException("El nuevo mail ya está en uso.");
 //        }
     }
->>>>>>> entidades
     public void GenerarReservas() {
     }
 
@@ -255,11 +235,8 @@ public class  ClienteServicio implements BaseService<Cliente> {
     public void consultarReservas() {
     }
 
-<<<<<<< HEAD
-=======
     public void RegistraCleinte() {
     }
->>>>>>> entidades
 
     @Override
     @Transactional
@@ -315,10 +292,7 @@ public class  ClienteServicio implements BaseService<Cliente> {
     @Override
     @Transactional
     public boolean delete(long id) throws Exception {
-<<<<<<< HEAD
 
-=======
->>>>>>> entidades
         try {
             if (clienteRepositorio.existsById(id)) {
                 clienteRepositorio.deleteById(id);
@@ -327,10 +301,6 @@ public class  ClienteServicio implements BaseService<Cliente> {
                 throw new Exception();
             }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> entidades
         } catch (Exception e) {
             throw new Exception(e.getMessage());
 
