@@ -55,11 +55,14 @@ public class ClienteControlador {
 
         return "redirect:/inicio";
     }
+<<<<<<< HEAD
     @GetMapping("/clientes")
     public String mostrarClientes(ModelMap modelo) throws Exception {
         List<Cliente> listaCliente = clienteServicio.findAll();
         modelo.addAttribute("listClient",listaCliente);
     return "clientes";
     }
+=======
+>>>>>>> entidades
 
 }
