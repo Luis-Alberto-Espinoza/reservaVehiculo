@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClienteServicio implements BaseService<Cliente> {
+public class  ClienteServicio implements BaseService<Cliente> {
     public ClienteRepositorio clienteRepositorio;
 
     public ClienteServicio(ClienteRepositorio clienteRepositorio) {
@@ -26,7 +26,8 @@ public class ClienteServicio implements BaseService<Cliente> {
         validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
 
         //Creamos el Objeto Cliente
-        Cliente cliente = new Cliente();
+        Cliente cliente  = new Cliente();
+
 
         //Seteamos sus atributos con los parámetros recibidos
         cliente.setNombre(nombre);

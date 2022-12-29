@@ -1,5 +1,10 @@
 package PP.alquilerVehiculo.repositorios;
 
-public interface VehiculoRepositorio extends BaseRepository{
+import PP.alquilerVehiculo.entidad.Vehiculo;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface VehiculoRepositorio extends JpaRepository<Vehiculo, Long> {
 
 }

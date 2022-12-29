@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cliente")
@@ -53,6 +54,12 @@ public class ClienteControlador {
         session.setAttribute("usuariosession", clienteServicio.buscarPorId(Long.parseLong(id)));
 
         return "redirect:/inicio";
+    }
+    @GetMapping("/clientes")
+    public String mostrarClientes(ModelMap modelo) throws Exception {
+        List<Cliente> listaCliente = clienteServicio.findAll();
+        modelo.addAttribute("listClient",listaCliente);
+    return "clientes";
     }
 
 }
