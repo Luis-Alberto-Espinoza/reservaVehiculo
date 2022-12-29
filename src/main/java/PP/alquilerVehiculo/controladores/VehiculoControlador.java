@@ -20,7 +20,7 @@ public class VehiculoControlador {
 
     public String listarAutos(ModelMap modelo) throws Exception {
         List<Vehiculo> listaAutos = vehiculoServicio.findAll();
-modelo.addAttribute("autos", listaAutos);
+        modelo.addAttribute("autos", listaAutos);
         return "autos";
 
     }
