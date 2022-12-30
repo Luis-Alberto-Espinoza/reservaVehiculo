@@ -75,7 +75,7 @@ public class Controlador {
 
         }
         if (respuesta) {
-            return "exito";
+            return "/cliente/";
         } else {
             return "perfil";
         }

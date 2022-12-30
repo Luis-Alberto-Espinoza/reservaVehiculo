@@ -47,8 +47,8 @@
     <div class="masthead-content">
       <div class="container">
         <h1 class="masthead-heading mb-0">Actualizar usuario</h1>
-        <h2 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}"
-          th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></h2>
+<!--        <h2 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}"-->
+<!--          th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></h2>-->
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
@@ -67,14 +67,13 @@
           <div class="p-5">
             <h2 class="display-4">Actualiza tus datos</h2>
             <!-- Action actualizado para apuntar al controlador de actualizar perfil -->
-            <form action="/usuario/actualizar-perfil" method="POST" enctype="multipart/form-data">
-
-<!--              &lt;!&ndash; Este p utiliza una etiqueta de Thymeleaf que preguntará si la variable 'error' no se encuentra null.-->
-<!--              Si contiene algún valor, lo introduce dentro de la etiqueta <p> y le aplica el style in-line &ndash;&gt;-->
-<!--              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>-->
+            <form th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">
+<!--&lt;!&ndash;              &lt;!&ndash; Este p utiliza una etiqueta de Thymeleaf que preguntará si la variable 'error' no se encuentra null.&ndash;&gt;-->
+<!--&lt;!&ndash;              Si contiene algún valor, lo introduce dentro de la etiqueta <p> y le aplica el style in-line &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>&ndash;&gt;-->
 
 <!--              &lt;!&ndash; Id del perfil del Usuario viajando como tipo 'hidden' &ndash;&gt;-->
-<!--              <input type="hidden" name="id" th:value="${perfil.id}">-->
+              <input type="hidden" name="id" th:value="${perfil.id}">
 
               <!-- Atributos del formulario pre-cargados con los datos del Objeto inyecado 'perfil' -->
               <label>Nuevo Nombre</label>
@@ -88,7 +87,7 @@
 
 
               <label>Nueva Clave</label>
-              <input type="password" class="form-control" name="clave1" th:value="${clave1}" />
+              <input type="password" class="form-control" name="clave1"  th:value="${clave1}" />
 
               <label>Repetir Clave</label>
               <input type="password" class="form-control" name="clave2" th:value="${clave2}" />

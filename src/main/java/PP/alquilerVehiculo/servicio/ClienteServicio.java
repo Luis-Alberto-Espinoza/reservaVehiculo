@@ -15,6 +15,10 @@ import java.util.Optional;
 public class  ClienteServicio implements BaseService<Cliente> {
     public ClienteRepositorio clienteRepositorio;
 
+    public  Cliente buscarXcorreo(String correo){
+        return clienteRepositorio.buscarPorMail(correo);
+    }
+
     public ClienteServicio(ClienteRepositorio clienteRepositorio) {
         this.clienteRepositorio = clienteRepositorio;
     }
@@ -23,7 +27,7 @@ public class  ClienteServicio implements BaseService<Cliente> {
     public  void registrar(String nombre, String apellido, String email, String clave1, String clave2, String direccion, Long edad, long telefono, long dni) throws ClienteServiceException {
 
         //Validación de los parámetros
-        validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
+        validar(nombre, apellido, email, clave1, clave2  ); //, direccion, edad, telefono, dni);
 
         //Creamos el Objeto Cliente
         Cliente cliente  = new Cliente();
@@ -44,7 +48,7 @@ public class  ClienteServicio implements BaseService<Cliente> {
         Cliente para que lo guarde en la base de datos. */
         clienteRepositorio.save(cliente);
     }
-    private void validar(String nombre, String apellido, String email, String clave1, String clave2, String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
+    private void validar(String nombre, String apellido, String email, String clave1, String clave2 ) throws ClienteServiceException {// , String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
 
         //Validaciones de los argumentos
         if (nombre == null || nombre.isEmpty()) {
@@ -59,7 +63,7 @@ public class  ClienteServicio implements BaseService<Cliente> {
             throw new ClienteServiceException("El email del cliente no puede ser nulo.");
         } else if (!email.contains("@")) {
             throw new ClienteServiceException("El email del cliente no es válido.");
-        } else if (clienteRepositorio.buscarPorMail(email) != null ) {
+        } else if (clienteRepositorio.buscarPorMail(email) .equals("cambia aca!!!!") ) {
             throw new ClienteServiceException("El mail ya está en uso.");
         }
 
@@ -74,35 +78,37 @@ public class  ClienteServicio implements BaseService<Cliente> {
             throw new ClienteServiceException("Las contraseñas no coinciden.");
         }
 
-        if (direccion == null || direccion.isEmpty()) {
-            throw new ClienteServiceException("La direccion del cliente no puede ser nulo.");
-        }
-
-        if (edad == 0 || edad < 18 ) {
-            throw new ClienteServiceException("El Edad del cliente no puede ser menor a 18 años.");
-        }
-        if (dni == null || dni.longValue() < 8) {
-            throw new ClienteServiceException("El DNI del cliente no fue bien colocado.");
-        }
-        if (telefono == 0 ) {
-            throw new ClienteServiceException("El telefono del cliente no puede ser nulo.");
-        }
+//        if (direccion == null || direccion.isEmpty()) {
+//            throw new ClienteServiceException("La direccion del cliente no puede ser nulo.");
+//        }
+//
+//        if (edad == 0 || edad < 18 ) {
+//            throw new ClienteServiceException("El Edad del cliente no puede ser menor a 18 años.");
+//        }
+//        if (dni == null || dni.longValue() < 8) {
+//            throw new ClienteServiceException("El DNI del cliente no fue bien colocado.");
+//        }
+//        if (telefono == 0 ) {
+//            throw new ClienteServiceException("El telefono del cliente no puede ser nulo.");
+//        }
     }
     //Modificar un Cliente ya existente en la base de datos
     @Transactional
-    public void modificar(long id, String nombre, String apellido, String email, String clave1, String clave2, String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
+    public void modificar(long id, String nombre, String apellido, String email, String clave1, String clave2 )throws ClienteServiceException { //  ,  String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
 
         /* Llamamos a un método de ClienteRepositorio para buscar un registro por el Id,
         atrapamos el resultado usando el método get() y lo guardo en mi Objeto Cliente */
         // Cliente cliente = clienteRepositorio.findById(id).get();
         //
         //Validación de los parámetros
-        validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
+        System.out.println(" ClienteServicio 104 Modificar + mail "+email );
+        //validar(nombre, apellido, email, clave1, clave2 ); // , direccion, edad, telefono, dni);
         //Validación del mail
-        validarMail(id, email);
+       // validarMail(id, email);
 
         //Validamos que se encuentre un Cliente con el Id recibido
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
+        System.out.println(" ClienteServicio 111 Modificar + respuesta "+respuesta.toString() );
 
         //Método que devuelve true si se encontró un registro en la base de datos
         if (respuesta.isPresent()) {
