@@ -2,6 +2,7 @@ package PP.alquilerVehiculo.servicio;
 
 import PP.alquilerVehiculo.entidad.ReservaWeb;
 import PP.alquilerVehiculo.repositorios.ReservaRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class ReservaServicio implements BaseService<ReservaWeb> {
+    @Autowired
     public ReservaRepositorio reservaRepositorio;
 
     public ReservaServicio(ReservaRepositorio reservaRepositorio) {

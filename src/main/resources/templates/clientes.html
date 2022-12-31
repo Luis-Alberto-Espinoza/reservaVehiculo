@@ -51,7 +51,7 @@
       <div class="container">
         <h1 class="masthead-heading mb-0">Alquiler de Vehiculos</h1>
         <h2 class="masthead-subheading mb-0">Mostrar Clientes.</h2>
-<!--        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡mostrar empleados!</a>-->
+        <a href="/cliente" class="btn btn-primary btn-xl rounded-pill mt-5">¡mostrar empleados!</a>
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
@@ -97,6 +97,8 @@
                           <td>
                               <!-- Declaramos y enviamos el valor de la variable action -->
                               <a th:href="@{/cliente/editar-perfil(id=__${cliente.id}__,accion=Editar)}">Editar</a>
+                              <a th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">Editar</a>
+
                           </td>
                       </tr>
 

@@ -78,7 +78,7 @@
                     <td scope="row" th:text="${vehiculo.operativo}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
-<!--                        <a th:href="@{/reserva/generar_reserva(id=__${vehiculo.id}__,accion=Reservar)}">Reservar</a>-->
+                        <a th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Reservar</a>
                     </td>
                 </tr>
                 </tbody>

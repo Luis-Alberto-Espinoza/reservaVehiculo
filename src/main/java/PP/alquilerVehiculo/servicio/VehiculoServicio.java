@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehiculoServicio implements BaseService<Vehiculo> {
@@ -19,7 +20,9 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
 
     @Override
     public Vehiculo findById(long id) throws Exception {
-        return null;
+        Optional<Vehiculo> obj = vehiculoRepositorio.findById(id);
+
+        return obj.get();
     }
 
     @Override
