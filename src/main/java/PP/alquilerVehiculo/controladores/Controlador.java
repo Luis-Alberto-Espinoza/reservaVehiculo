@@ -33,10 +33,10 @@ public class Controlador {
         return "index.html";
     }
 
-    @RequestMapping("/inicio")
-    public String inicio() {
-        return "inicio";
-    }
+//    @RequestMapping("/inicio")
+//    public String inicio() {
+//        return "inicio";
+//    }
 
     @GetMapping("/login")
 //public String login(@RequestParam String correo, @RequestParam String password) {
