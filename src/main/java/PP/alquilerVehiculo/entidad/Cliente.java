@@ -33,7 +33,6 @@ public class Cliente extends Persona{
 
     @OneToMany(mappedBy = "cliente")
     private List<ReservaWeb> reserva;
-
     private Date alta;
     private Date baja;
 }

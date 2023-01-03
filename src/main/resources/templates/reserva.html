@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Alquiler de Vehiculos - Reserva</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Alquiler de Vehiculos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/editar-perfil(id=${clienteLog.id})}">Historial</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente}">Home</a>
+<!--                    <a class="nav-link" th:href="@{/cliente/(id=${clienteLog.id})}">Home</a>-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/index">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">Formulario de Reserva</h1>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Datos de la Reserva</h2>
+                    <form action="/reserva/confi_reserva" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="idc" th:value="${clienteLog.id}">
+                        <input type="hidden" name="idv" th:value="${vehiculo.id}">
+                        <label><h3>DATOS DEL CLIENTE</h3></label><br>
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" name="nombre" th:value="${clienteLog.nombre}"/>
+                        <label>Apellido</label>
+                        <input type="text" class="form-control" name="apellido" th:value="${clienteLog.apellido}"/>
+                        <label>DNI</label>
+                        <input type="text" class="form-control" name="dni" th:value="${clienteLog.dni}"/>
+                        <label>Edad</label>
+                        <input type="text" class="form-control" name="id" th:value="${clienteLog.id}"/>
+                        <label>Telefono</label>
+                        <input type="text" class="form-control" name="telefono" th:value="${clienteLog.telefono}"/>
+                        <label>Direccion</label>
+                        <input type="text" class="form-control" name="direccion" th:value="${clienteLog.direccion}"/>
+                        <label>E-Mail</label>
+                        <input type="email" class="form-control" name="email" th:value="${clienteLog.mail}"/><br>
+                        <!--                DATOS VEHICULO     -->
+                        <label><h3>DATOS DEL VEHICULO</h3></label><br>
+                        <label>Patente</label>
+                        <input type="text" class="form-control" name="patente" th:value="${vehiculo.patente}"/>
+                        <label>marca</label>
+                        <input type="text" class="form-control" name="marca" th:value="${vehiculo.marca}"/>
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" name="modelo" th:value="${vehiculo.modelo}"/>
+                        <label>Tipo Vehiculo</label>
+                        <input type="text" class="form-control" name="tipoVehiculo" th:value="${vehiculo.tipoVehiculo}"/>
+                        <label>Tipo Gama</label>
+                        <input type="text" class="form-control" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
+                        <!--                DATOS RESERVA     -->
+                        <label><h3>DATOS DE LA RESERVA</h3></label><br>
+<!--                        <label>Fecha de Gestión</label>-->
+<!--                        <input type="Date" class="form-control" name="fechaRegistrp"/>-->
+                        <!--              // th:value="${vehiculo.typeGama}"/>-->
+                        <label>Fecha de Retiro</label>
+                        <input type="Date" class="form-control" name="fRetiro"/>
+                        <!--              // th:value="${vehiculo.typeGama}"/>-->
+                        <label>Fecha de Devolución</label>
+                        <input type="Date" class="form-control" name="fDevolucion"/>
+                        <!--              // th:value="${vehiculo.typeGama}"/>-->
+                        <br/>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

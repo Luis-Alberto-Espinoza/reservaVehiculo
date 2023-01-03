@@ -1,7 +1,9 @@
 package PP.alquilerVehiculo.controladores;
 
 import PP.alquilerVehiculo.entidad.Cliente;
+import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
+import PP.alquilerVehiculo.servicio.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,21 +22,25 @@ public class Controlador {
     //ATRIBUTO - Cliente Service
     @Autowired
     private ClienteServicio clienteServicio;
+    @Autowired
+    VehiculoServicio vehiculoServicio;
 
     //Método que devolverá el index.html cuando se ingrese a la url raíz de la aplicación
     @GetMapping("/")
-    public String index() {
+    public String index(ModelMap modelo) throws Exception {
+        List<Vehiculo> listaAutos = vehiculoServicio.findAll();
+        modelo.addAttribute("autos", listaAutos);
         return "index.html";
     }
 
-    @RequestMapping("/inicio")
-    public String inicio() {
-        return "inicio";
-    }
+//    @RequestMapping("/inicio")
+//    public String inicio() {
+//        return "inicio";
+//    }
 
     @GetMapping("/login")
 //public String login(@RequestParam String correo, @RequestParam String password) {
-public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
         if (error != null) {
             model.put("error", "Nombre de Usuario o clave incorrecto");
         }
@@ -43,7 +49,8 @@ public String login(@RequestParam(required = false) String error, @RequestParam(
         }
         return "login.html";
     }
-//
+
+    //
     @PostMapping("/login12")
     public String login12(@RequestParam String correo, @RequestParam String password) {
         boolean respuesta = false;
@@ -53,12 +60,12 @@ public String login(@RequestParam(required = false) String error, @RequestParam(
 
             for (int i = 0; i < clienteList.size(); i++) {
                 if (clienteList.get(i).getClave1().equals(password) & clienteList.get(i).getMail().equals(correo)) {
-                         System.out.println("existe el correo " + clienteList.get(i).getMail());
+                    System.out.println("existe el correo " + clienteList.get(i).getMail());
                     respuesta = true;
                     numero = i;
 
                 } else {
-                      System.out.println("no existe coincidencias");
+                    System.out.println("no existe coincidencias");
                 }
             }
             System.out.println(" el id es el " + numero);
@@ -68,7 +75,7 @@ public String login(@RequestParam(required = false) String error, @RequestParam(
 
         }
         if (respuesta) {
-            return "exito";
+            return "/cliente/";
         } else {
             return "perfil";
         }
@@ -82,7 +89,8 @@ public String login(@RequestParam(required = false) String error, @RequestParam(
         //Devolvemos el html
         return "registro.html";
     }
-//
+
+    //
     //Método que responderá a una petición POST solicitada en la url raíz/registrar y recibirá una serie de argumentos
     @PostMapping("/registrar")
     public String registrar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,

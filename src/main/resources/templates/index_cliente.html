@@ -20,7 +20,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Alquiler de Vehículos</a>
+        <a class="navbar-brand" href="/">Alquiler de Vehículos - Bienvenido</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Salir</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/xxx">Historial de Reservas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/editar-perfil(id=${clienteLog.id})}">Editar Perfil</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -37,17 +43,17 @@
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
-            <h1 class="masthead-heading mb-0">Nuestros Vehiculos</h1>
+            <h1 class="masthead-heading mb-0" th:text="${clienteLog.nombre}"></h1>
+            <h1 class="masthead-heading mb-0" th:text="${clienteLog.apellido}"></h1>
         </div>
     </div>
-    <div class="bg-circle-1 bg-circle"></div>
-    <div class="bg-circle-2 bg-circle"></div>
-    <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div>
 </header>
 <section>
     <div class="container">
+
         <div class="row align-items-center">
+            <h1 class="row align-items-center" >Estos son nuestros vehiculos </h1>
+
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -72,7 +78,7 @@
                     <td scope="row" th:text="${vehiculo.operativo}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
-                        <a th:href="@{/reserva/generar_reserva(id=__${vehiculo.id}__,accion=Reservar)}">Reservar</a>
+                        <a th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Reservar</a>
                     </td>
                 </tr>
                 </tbody>
