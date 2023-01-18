@@ -100,7 +100,7 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
         reservaRepositorio.save(newReserva);
     }
 
-    public List<ReservaWeb> lDeAutosR(Cliente cliente) {
+        public List<ReservaWeb> lDeAutosR(Cliente cliente) {
 //        List<ReservaWeb> listaVehiculosR = new ArrayList<>();
         List<ReservaWeb> listaVehiculosR = reservaRepositorio.listaVehiculoXcliente(cliente.getId());
 

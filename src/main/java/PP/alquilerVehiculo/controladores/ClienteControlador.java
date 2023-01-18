@@ -4,6 +4,7 @@ import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.excepciones.ClienteServiceException;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
+import PP.alquilerVehiculo.servicio.EmpleadoServicio;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,18 @@ public class ClienteControlador {
     private ClienteServicio clienteServicio;
     @Autowired
     private VehiculoServicio vehiculoServicio;
+    @Autowired
+    private EmpleadoServicio empleadoServicio;
 
-    @PostMapping("/")
-    public String clienteInicio(@RequestParam String correo, @RequestParam String password, ModelMap modelo) throws Exception {
+
+    @GetMapping("/")
+    //http://localhost:9000/cliente/?correo=Correocliente_14%40correo.com&password=123456
+    public String clienteInicio(@RequestParam String correo, ModelMap modelo) throws Exception {
+//    public String clienteInicio(@RequestParam String correo, @RequestParam String password, ModelMap modelo) throws Exception {
 
         Cliente usuario = clienteServicio.buscarXcorreo(correo);
-        System.out.println(">==== usuario" + usuario.getApellido());
-        modelo.addAttribute("clienteLog", usuario);
+        System.out.println(">==== usuario " + usuario.getApellido());
+        modelo.addAttribute("clienteLog" , usuario);
         List<Vehiculo> listVehiculos = vehiculoServicio.findAll();
         modelo.addAttribute("autos", listVehiculos);
         return "index_cliente";
@@ -37,6 +43,7 @@ public class ClienteControlador {
     public String editarPerfil(@RequestParam Long id, ModelMap modelo) {
         Cliente clienteLog = null;
         clienteLog = clienteServicio.buscarPorId(id);
+
         modelo.addAttribute("perfil", clienteLog);
         return "perfil";
     }

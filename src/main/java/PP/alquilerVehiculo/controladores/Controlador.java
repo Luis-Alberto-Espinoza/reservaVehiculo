@@ -1,8 +1,10 @@
 package PP.alquilerVehiculo.controladores;
 
 import PP.alquilerVehiculo.entidad.Cliente;
+import PP.alquilerVehiculo.entidad.Empleado;
 import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
+import PP.alquilerVehiculo.servicio.EmpleadoServicio;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +27,13 @@ public class Controlador {
     @Autowired
     VehiculoServicio vehiculoServicio;
 
+    @Autowired
+    private EmpleadoServicio empleadoServicio;
+
     //Método que devolverá el index.html cuando se ingrese a la url raíz de la aplicación
     @GetMapping("/")
     public String index(ModelMap modelo) throws Exception {
+        System.out.println("36 index controlador");
         List<Vehiculo> listaAutos = vehiculoServicio.findAll();
         modelo.addAttribute("autos", listaAutos);
         return "index.html";
@@ -41,6 +47,7 @@ public class Controlador {
     @GetMapping("/login")
 //public String login(@RequestParam String correo, @RequestParam String password) {
     public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model) {
+        System.out.println("49 controlador login");
         if (error != null) {
             model.put("error", "Nombre de Usuario o clave incorrecto");
         }
@@ -52,20 +59,25 @@ public class Controlador {
 
     //
     @PostMapping("/login12")
-    public String login12(@RequestParam String correo, @RequestParam String password) {
+    public void login12(@RequestParam String correo, @RequestParam String password, ModelMap modelo) {
+        System.out.println("62 controlador login post");
+        System.out.println("correo " + correo);
+        System.out.println("password " + password);
         boolean respuesta = false;
         int numero = 0;
         try {
             List<Cliente> clienteList = clienteServicio.findAll();
 
+
             for (int i = 0; i < clienteList.size(); i++) {
                 if (clienteList.get(i).getClave1().equals(password) & clienteList.get(i).getMail().equals(correo)) {
-                    System.out.println("existe el correo " + clienteList.get(i).getMail());
+//                    System.out.println("existe el correo " + clienteList.get(i).getMail());
                     respuesta = true;
                     numero = i;
 
+
                 } else {
-                    System.out.println("no existe coincidencias");
+                    //  System.out.println("no existe coincidencias "+ clienteList.get(i).getMail());
                 }
             }
             System.out.println(" el id es el " + numero);
@@ -75,9 +87,11 @@ public class Controlador {
 
         }
         if (respuesta) {
-            return "/cliente/";
+            System.out.println("pase por la 85");
+            modelo.put("correo", correo);
+            // return "index_cliente";
         } else {
-            return "perfil";
+            // return "/";
         }
 
     }
@@ -126,5 +140,40 @@ public class Controlador {
 
         //Página que va a retornar si todo sale todo bien
         return "exito.html";
+    }
+
+    @PostMapping("/prueba")
+    public String usuarioType(ModelMap modelo, String correo) throws Exception {
+        System.out.println("llegue a usuarioType ");
+        System.out.println("correo de entrada " + correo);
+//        String correo = "CorreoEmpleado_07@correo.com";// ventas
+//        String correo = "CorreoEmpleado_01@correo.com"; //gerente
+//        String correo = "CorreoEmpleado_04@correo.com"; //administrador
+        // String correo = "Correocliente_11@correo.com"; // cliente
+
+        if (clienteServicio.buscarXcorreo(correo) != null) {
+            Cliente cliente = clienteServicio.buscarXcorreo(correo);
+            modelo.put("clienteLog", cliente);
+            List<Vehiculo> listVehiculos = vehiculoServicio.findAll();
+            modelo.addAttribute("autos", listVehiculos);
+            modelo.addAttribute("correo", cliente.getMail());
+            return "/index_cliente";
+        } else if (empleadoServicio.buscarXmail(correo) != null) {
+            Empleado empleado = empleadoServicio.buscarXmail(correo);
+            System.out.println((empleado.getTypeEmpleado()));
+            if (empleado.getTypeEmpleado().toLowerCase().equals("ventas")) {
+                modelo.put("clienteLog", empleado);
+                return "index_ventas";
+            } else if (empleado.getTypeEmpleado().toLowerCase().equals("gerente")) {
+                modelo.put("clienteLog", empleado);
+                return "index_gerente";
+            } else if (empleado.getTypeEmpleado().toLowerCase().equals("administrador")) {
+                modelo.put("clienteLog", empleado);
+                return "index_administrador";
+            }
+        }
+//       if( Cliente cliente = clienteServicio.buscarXcorreo(correo);
+        // Empleado empleado= empleadoServicio.buscarXmail(correo);
+        return "login";
     }
 }

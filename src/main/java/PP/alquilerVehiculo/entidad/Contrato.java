@@ -16,7 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contrato extends Base{
-private String sucursal;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date fechaContrato;
     @ManyToOne(fetch = FetchType.EAGER )

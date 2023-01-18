@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Alquiler de Vehiculos - Reserva</title>
+    <title>Alquiler de Vehiculos - Genera Contrato</title>
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
@@ -29,11 +29,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/cliente/editar-perfil(id=${clienteLog.id})}">Historial</a>
+<!--                    <a class="nav-link" th:href="@{/contrato/editar-perfil(id=${clienteLog.id})}">Historial</a>-->
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/cliente}">Home</a>
+<!--                    <a class="nav-link" th:href="@{/cliente}">Home</a>-->
 <!--                    <a class="nav-link" th:href="@{/cliente/(id=${clienteLog.id})}">Home</a>-->
                 </li>
                 <li class="nav-item">
@@ -47,7 +47,7 @@
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
-            <h1 class="masthead-heading mb-0">Formulario de Reserva</h1>
+            <h1 class="masthead-heading mb-0">Formulario de Contrato</h1>
         </div>
     </div>
 </header>
@@ -62,8 +62,8 @@
             </div>
             <div class="col-lg-6 order-lg-1">
                 <div class="p-5">
-                    <h2 class="display-4">Datos de la Reserva</h2>
-                    <form action="/reserva/confi_reserva" method="POST" enctype="multipart/form-data">
+                    <h2 class="display-4">Contrato</h2>
+                    <form action="/contrato/confi_contrato" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="idc" th:value="${clienteLog.id}">
                         <input type="hidden" name="idv" th:value="${vehiculo.id}">
                         <label><h3>DATOS DEL CLIENTE</h3></label><br>
@@ -95,11 +95,13 @@
                         <input type="text" class="form-control" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
                         <!--                DATOS RESERVA     -->
                         <label><h3>DATOS DE LA RESERVA</h3></label><br>
+                        <label>NUMERO DE RESERVA</label>
+                        <input type="text" class="form-control" name="id_reserva" th:value="${datoReserva.id}"/>
 <!--                        <label>Fecha de Gestión</label>-->
 <!--                        <input type="Date" class="form-control" name="fechaRegistrp"/>-->
                         <!--              // th:value="${vehiculo.typeGama}"/>-->
-                        <label>Fecha de Retiro</label>
-                        <input type="Date" class="form-control" name="fRetiro"/>
+                        <label>Fecha de Reserva</label>
+                        <input type="text" class="form-control" name="fReserva"th:value="${datoReserva.fechaReserva}"/>
                         <!--              // th:value="${vehiculo.typeGama}"/>-->
                         <label>Fecha de Devolución</label>
                         <input type="Date" class="form-control" name="fDevolucion"/>
