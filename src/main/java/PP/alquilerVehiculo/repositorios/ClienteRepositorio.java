@@ -15,7 +15,7 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
 //    @Query(value = "SELECT * FROM Cliente", nativeQuery = true)
 //    List<Cliente> findAllActivo();
 
-        @Query("SELECT c FROM Cliente c WHERE c.mail = :mail")
-        public Cliente buscarPorMail(@Param("mail") String mail);
+                @Query("SELECT c FROM Cliente c WHERE c.mail = :mail")
+                public Cliente buscarPorMail(@Param("mail") String mail);
 
 }

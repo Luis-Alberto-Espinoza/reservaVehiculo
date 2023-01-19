@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmpleadoRepositorio extends JpaRepository<Empleado, Long> {
-//    @Query ("SELECT e FROM Empleado e WHERE e.mail = :correo")
-//    public Empleado buscarPorEmail (@Param("mail") String correo);
+    @Query ("SELECT e FROM Empleado e WHERE e.mail = :mail")
+    public Empleado buscarPorEmail (@Param("mail") String mail);
+
+
 }

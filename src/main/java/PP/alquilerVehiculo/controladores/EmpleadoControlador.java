@@ -37,5 +37,13 @@ public class EmpleadoControlador {
 
         return "indexe";
     }
+    @GetMapping("/prueba_empleado")
+    public void LEVentas()throws Exception {
+        System.out.println("llegaste a prba empleado!!!! ");
+       // Empleado empleado = empleadoServicio.findById(11120L);
+       // System.out.println (empleado.getTypeEmpleado());
+        Empleado empleado = empleadoServicio.buscarXmail("CorreoEmpleado_09@correo.com");
+        System.out.println(empleado.getId()+" id "+ empleado.getTypeEmpleado()+"  "+empleado.getNombre());
+    }
 
 }

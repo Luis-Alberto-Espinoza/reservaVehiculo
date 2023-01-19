@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-//
+
 @Table(name ="Empleado")
 @Getter
 @Setter
