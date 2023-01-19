@@ -162,7 +162,7 @@ public class Controlador {
             Empleado empleado = empleadoServicio.buscarXmail(correo);
             System.out.println((empleado.getTypeEmpleado()));
             if (empleado.getTypeEmpleado().toLowerCase().equals("ventas")) {
-                modelo.put("clienteLog", empleado);
+                modelo.put("empleadoLog", empleado);
                 return "index_ventas";
             } else if (empleado.getTypeEmpleado().toLowerCase().equals("gerente")) {
                 modelo.put("clienteLog", empleado);
