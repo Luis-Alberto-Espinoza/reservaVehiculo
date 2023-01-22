@@ -66,9 +66,11 @@ public class ContratoControlador {
         contratoServicio.guardarContrato(reserva, empleado);
         Vehiculo auto = reserva.getDatosVehiculo();
         Cliente cliente = reserva.getCliente();
+        Contrato contrato = contratoServicio.contratoXidReserva(reserva.getId());
         modelo.put("vehiculo", auto);
         modelo.put("clienteLog", cliente);
         modelo.put("empleadoLog", empleado);
+        modelo.put("id_contrato", contrato.getId());
         return "exito_contrato";
     }
 }

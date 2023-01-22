@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -92,11 +92,17 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
     }
 
     @Transactional
-    public void guardarReserva(Cliente cliente, Vehiculo vehiculo) {
+    public void guardarReserva(Cliente cliente, Vehiculo vehiculo, List<LocalDate> lFechas) {
         ReservaWeb newReserva = new ReservaWeb();
-        newReserva.setFechaReserva(new Date());
+//        newReserva.setFechaReserva(new Date());
         newReserva.setCliente(cliente);
         newReserva.setDatosVehiculo(vehiculo);
+        System.out.println ("100 -----    "+ lFechas.get(0).toString());
+
+        newReserva.setFechaRetiro(lFechas.get(1));
+        newReserva.setFechaEntrega(lFechas.get(0));
+        newReserva.setFechaReserva(lFechas.get(2));
+
         reservaRepositorio.save(newReserva);
     }
 
@@ -120,6 +126,13 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
 
         System.out.println(listaDeReservaXcliente.size() + " linea 122 RS");
         System.out.println(listaDeReservaXcliente.get(1).getDatosVehiculo().getMarca() + " linea 123 RS");
+
+    }
+    public ReservaWeb buscarXfechaRegistro(Date fechaReserva){
+        return reservaRepositorio.reservaxfechaRegistro(fechaReserva);
+    }
+    public ReservaWeb ultimaReserva(Cliente cliente){
+        return reservaRepositorio.ultimaReserva(cliente.getId());
 
     }
 }
