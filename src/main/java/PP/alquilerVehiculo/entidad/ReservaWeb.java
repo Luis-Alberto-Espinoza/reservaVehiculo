@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table(name = "Reserva")
@@ -16,14 +17,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservaWeb extends Base {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date fechaRetiro;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date fechaEntrega;
-   // @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date fechaReserva;
 
+    private LocalDate fechaRetiro;
+    private LocalDate fechaEntrega;
+    private LocalDate fechaReserva;
+
+
+    private String estadoReserva;
     @ManyToOne (fetch = FetchType.EAGER )
     @JoinColumn(name = "fk_cliente", nullable = false)
     private Cliente cliente;

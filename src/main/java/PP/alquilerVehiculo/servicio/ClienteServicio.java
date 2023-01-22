@@ -18,7 +18,10 @@ public class  ClienteServicio implements BaseService<Cliente> {
     public  Cliente buscarXcorreo(String correo){
         return clienteRepositorio.buscarPorMail(correo);
     }
-
+    @Transactional
+    public  Cliente buscarXdni(long dni){
+        return clienteRepositorio.buscarPorDNI(dni);
+    }
     public ClienteServicio(ClienteRepositorio clienteRepositorio) {
         this.clienteRepositorio = clienteRepositorio;
     }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,13 @@ public interface ReservaRepositorio extends JpaRepository<ReservaWeb, Long> {//e
     //funciona //public ReservaWeb reservaxid (@Param("id") Long id);
     public ReservaWeb reservaxid(@Param("id") Long id);
 
+    @Query("SELECT r FROM ReservaWeb r  WHERE fechaReserva = :fechaReserva")
+    public ReservaWeb reservaxfechaRegistro(@Param("fechaReserva") Date fechaReserva);
+
     @Query("SELECT l FROM ReservaWeb l WHERE l.cliente.id = :id")
     public List<ReservaWeb> listaVehiculoXcliente(@Param("id") Long id);
 
+    @Query("SELECT MAX(r) FROM ReservaWeb r WHERE r.cliente.id = :id")
+//    @Query("SELECT MAX('r') FROM ReservaWeb r WHERE r.cliente.id = :id") // funciona
+    public ReservaWeb ultimaReserva(@Param("id") Long id);// funciona
 }

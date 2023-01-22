@@ -48,7 +48,7 @@
     <div class="masthead-content">
       <div class="container">
         <h1 class="masthead-heading mb-0">Alquiler de Vehiculo</h1>
-        <h2 class="masthead-subheading mb-0">EL CONTRATO ESTA REGISTRADO.</h2>
+        <h2 class="masthead-subheading mb-0">LA RESERVA ESTÁ REGISTRADA.</h2>
 <!--        <a href="/#" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>-->
       </div>
     </div>
@@ -56,24 +56,23 @@
   </header>
 
   <section>
-      <div class="container">
-          <div class="row align-items-center">
-              <div class="col-lg-6 order-lg-2">
-                  <div class="p-5">
-                      <!--            <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">-->
-                  </div>
-              </div>
-              <div class="col-lg-6 order-lg-1">
-                  <div class="p-5">
-                      <h2> EL NUMERO DE CONTRATO</h2>
-                      <h3 th:text="${id_contrato}"></h3>
-                      <!--            <h2 class="display-4" th:text="${titulo}"></h2>-->
-                      <!--            <p th:text="${descripcion}"></p>-->
-                  </div>
-              </div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+<!--            <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">-->
           </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+              <h2> EL NUMERO DE RESERVA</h2>
+                <h3 th:text="${id_ures}"></h3>
+<!--            <h2 class="display-4" th:text="${titulo}"></h2>-->
+<!--            <p th:text="${descripcion}"></p>-->
+          </div>
+      </div>
+    </div>
   </section>
-
 
 
   <!-- Footer -->
