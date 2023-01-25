@@ -2,43 +2,33 @@
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Alquiler de Vehiculo - Historial Reserva</title>
-
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
           rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="/css/one-page-wonder.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
-
 </head>
 
 <body>
-
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/cliente/(correo=${clienteLog.mail})}" >Alquiler de Vehículos - Home</a>
+        <a class="navbar-brand" th:href="@{/cliente/(correo=${clienteLog.mail})}">Alquiler de Vehículos - Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Home</a>-->
-<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
                 </li>
@@ -47,35 +37,27 @@
     </div>
 </nav>
 
-<!--<header class="masthead text-center text-white">-->
-<!--    <div class="masthead-content">-->
-<!--        <div class="container">-->
-<!--            <h1 class="masthead-heading mb-0">Mis Reservas</h1>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</header>-->
-
 <section>
-
-    <div class="container">
-<!--<div> mostrar el texto con el nombre del cliente-->
-<!--    <h2 th:text="${autoReservado.id}">Historial de reserva - </h2>-->
-<!--</div>-->
-        <div class="list-crear_mascota-btn" style="padding-top: 30px" >
-            <a th:href="@{/cliente/(correo=${clienteLog.mail})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
-                Reserva!</a>
+    <div class="container" style="padding-top: 100px">
+        <div>
+            <h2 th:text="${clienteLog.nombre}"></h2>
+        </div>
+        <div class="list-crear_mascota-btn">
+            <a th:href="@{/cliente/(correo=${clienteLog.mail})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
+                ¡Agrega una Reserva!</a>
         </div>
         <br>
         <div class="row align-items-center">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Reserva</th>
+                    <th scope="col">ID Reserva</th>
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
-                    <th scope="col">Patente</th>
+                    <th scope="col">PATENTE</th>
                     <th scope="col">FECHA INICIO</th>
                     <th scope="col">FECHA FIN</th>
+                    <th scope="col">Acciones</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -89,34 +71,26 @@
                     </th>
                     <td scope="row" th:text="${autoReservado.datosVehiculo.patente}">
                     </th>
-                    <td scope="row" th:text="${autoReservado.fechaReserva}">
+                    <td scope="row" th:text="${autoReservado.fechaRetiro}">
                     </th>
+                    <td scope="row" th:text="${autoReservado.fechaEntrega}">
                     <td>
-                        <!-- Declaramos y enviamos el valor de la variable action -->
-                        <!--                <a terfil(id=__${mascota.id}__, action='Eliminar')}">Eliminar</a>-->
+                        <a th:href="@{/reserva/delet_reserva/(id_reserva=${autoReservado.id})}" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
-
         </div>
     </div>
 </section>
-
-
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">
         <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
-    <!-- /.container -->
 </footer>
-
 <!-- Bootstrap core JavaScript -->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>

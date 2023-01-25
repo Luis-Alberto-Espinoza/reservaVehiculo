@@ -54,21 +54,22 @@ public class ReservaControlador {
     public String reserva(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc
             , @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro
             , @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
-            //, @RequestParam(value = "fDevolucion") @DateTimeFormat(pattern = "YYYY/MM/dd") Date fDevolucion
+                          //, @RequestParam(value = "fDevolucion") @DateTimeFormat(pattern = "YYYY/MM/dd") Date fDevolucion
     ) throws Exception {
-        System.out.println("54 line fechas llegada por parametro "+ ( fDevolucion +"  ----  "+fRetiro.getClass().getSimpleName()));
-        System.out.println("54 line fechas llegada por parametro "+ ( fRetiro +"  ----  "+fRetiro.getClass().getSimpleName()));
+        System.out.println("54 line fechas llegada por parametro " + (fDevolucion + "  ----  " + fRetiro.getClass().getSimpleName()));
+        System.out.println("54 line fechas llegada por parametro " + (fRetiro + "  ----  " + fRetiro.getClass().getSimpleName()));
         Cliente cliente = clienteServicio.findById(idc);
         Vehiculo auto = vehiculoServicio.findById(idv);
-        System.out.println("59 llegue + fretiro "+ fRetiro);
+        System.out.println("59 llegue + fretiro " + fRetiro);
         List<LocalDate> listadoFechas = new ArrayList<>();
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         Date fechaRegistro = new Date();
-        LocalDate fechaRegistro1 = fechaRegistro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();;
-             listadoFechas.add(fechaRegistro1);
+        LocalDate fechaRegistro1 = fechaRegistro.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        ;
+        listadoFechas.add(fechaRegistro1);
 //        listadoFechas.add(fechaRegistrp);
-        System.out.println("lista fechas --"+ listadoFechas.size()+ "  "+ listadoFechas);
+        System.out.println("lista fechas --" + listadoFechas.size() + "  " + listadoFechas);
 
         //////////////
         try {
@@ -113,5 +114,35 @@ public class ReservaControlador {
 
 //        modelo.put("vehiculosReservados", autosReservados);
         return "/hitorial_reserva_cliente";
+    }
+
+    @GetMapping("/edit_reserva")
+    public String editarReserva(long id_reserva, ModelMap modelo) throws Exception {
+        ReservaWeb reservaWeb = reservaServicio.findById(id_reserva);
+        List<Vehiculo> listaAutos = vehiculoServicio.findAll();
+        modelo.addAttribute("autos", listaAutos);
+        Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
+        modelo.put("clienteLog", cliente);
+        return "autos_reserva";
+    }
+
+    @GetMapping("/delet_reserva")
+    public String eliminarReserva(long id_reserva, ModelMap modelo) throws Exception {
+        ReservaWeb reservaWeb = reservaServicio.findById(id_reserva);
+        System.out.println("129 ResContr reserva id " + reservaWeb.getId());
+        Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
+
+        reservaServicio.delete(id_reserva);
+
+        List<ReservaWeb> autosReservados = reservaServicio.lDeAutosR(cliente);
+        modelo.put("autoReservado", autosReservados);
+
+
+        modelo.put("clienteLog", cliente);
+        modelo.addAttribute("id", cliente.getId());
+
+        return "/hitorial_reserva_cliente";
+
+
     }
 }
