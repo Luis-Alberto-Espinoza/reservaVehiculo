@@ -18,10 +18,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
     @Autowired
     public ReservaRepositorio reservaRepositorio;
 
-//    public ReservaServicio(ReservaRepositorio reservaRepositorio) {
-//        this.reservaRepositorio = reservaRepositorio;
-//    }
-
     @Override
     @Transactional
     public List<ReservaWeb> findAll() throws Exception {
@@ -43,7 +39,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -55,7 +50,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             return entity;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -69,12 +63,9 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             } else {
                 throw new Exception();
             }
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
-
     }
 
     @Override
@@ -87,30 +78,32 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             return reservaWeb;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
     @Transactional
-    public void guardarReserva(Cliente cliente, Vehiculo vehiculo, List<LocalDate> lFechas) {
-        ReservaWeb newReserva = new ReservaWeb();
-//        newReserva.setFechaReserva(new Date());
-        newReserva.setCliente(cliente);
-        newReserva.setDatosVehiculo(vehiculo);
-        System.out.println ("100 -----    "+ lFechas.get(0).toString());
+    public void guardarReserva(Cliente cliente, Vehiculo vehiculo, List<LocalDate> lFechas) throws Exception {
+        //validar que la reserva se pueda realizar teniendo en cuenta las fechas y el vehiculo
+        if (disponibilidadReserva(lFechas.get(1) ,lFechas.get(0) , vehiculo)){
+            //Se crea la nueva reserva y se le setea los atributos recibidos
+            ReservaWeb newReserva = new ReservaWeb();
+            newReserva.setCliente(cliente);
+            newReserva.setDatosVehiculo(vehiculo);
+            newReserva.setFechaRetiro(lFechas.get(1));
+            newReserva.setFechaEntrega(lFechas.get(0));
+            newReserva.setFechaReserva(lFechas.get(2));
 
-        newReserva.setFechaRetiro(lFechas.get(1));
-        newReserva.setFechaEntrega(lFechas.get(0));
-        newReserva.setFechaReserva(lFechas.get(2));
-
-        reservaRepositorio.save(newReserva);
+            //Se hace persistir a la nueva reserva
+            reservaRepositorio.save(newReserva);
+            System.out.println("SI!!!! se guardo la reserva!!!!!");
+        }else {
+            System.out.println("no se guardo la reserva");
+        }
     }
 
         public List<ReservaWeb> lDeAutosR(Cliente cliente) {
 //        List<ReservaWeb> listaVehiculosR = new ArrayList<>();
         List<ReservaWeb> listaVehiculosR = reservaRepositorio.listaVehiculoXcliente(cliente.getId());
-
-
         return listaVehiculosR;
     }
 
@@ -123,16 +116,31 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
     public void pruebaD(Cliente cliente) {
         System.out.println(" 120 rs " + cliente.getId() + "  " + cliente.getNombre());
         List<ReservaWeb> listaDeReservaXcliente = reservaRepositorio.listaVehiculoXcliente(cliente.getId());
-
-        System.out.println(listaDeReservaXcliente.size() + " linea 122 RS");
-        System.out.println(listaDeReservaXcliente.get(1).getDatosVehiculo().getMarca() + " linea 123 RS");
-
     }
+
     public ReservaWeb buscarXfechaRegistro(Date fechaReserva){
         return reservaRepositorio.reservaxfechaRegistro(fechaReserva);
     }
     public ReservaWeb ultimaReserva(Cliente cliente){
         return reservaRepositorio.ultimaReserva(cliente.getId());
+    }
 
+    public boolean disponibilidadReserva(LocalDate fRetiro, LocalDate  fDevolucion, Vehiculo vehiculo) throws Exception {
+
+        boolean sePuedeReservar = false ;
+        try {
+            List<ReservaWeb> metodo1 = reservaRepositorio.metodo1(fRetiro, fDevolucion, vehiculo.getId());
+            List<ReservaWeb> metodo2 = reservaRepositorio.metodo2(fRetiro, fDevolucion, vehiculo.getId());
+            List<ReservaWeb> metodo3 = reservaRepositorio.metodo3(fRetiro, fDevolucion, vehiculo.getId());
+           // List<ReservaWeb> metodoA = reservaRepositorio.metodoA(fRetiro, fDevolucion);
+
+            //System.out.println("El metodo a nos trae esto "+metodoA.get(0).getDatosVehiculo().getId());
+            if(metodo1.size() == 0 & metodo2.size() == 0 & metodo3.size() == 0){
+                sePuedeReservar = true;
+            }
+            return sePuedeReservar;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }

@@ -20,7 +20,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-<!--        <a class="navbar-brand" th:href="@{/cliente(correo=${clienteLog.correo})" >Alquiler de Vehículos - Bienvenido</a>-->
+        <!--        <a class="navbar-brand" th:href="@{/cliente(correo=${clienteLog.correo})" >Alquiler de Vehículos - Bienvenido</a>-->
         <a class="navbar-brand" th:href="@{/cliente/(correo=${clienteLog.mail})}">Alquiler de Vehículos - Bienvenido</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,10 +52,24 @@
 </header>
 <section>
     <div class="container">
-
         <div class="row align-items-center">
-            <h1 class="row align-items-center" >Estos son nuestros Vehículos </h1>
+<di>
 
+
+            <form action="/reserva/recibir_fecha" method="GET" enctype="multipart/form-data">
+
+                <h1>fecha de check in</h1>
+                <label>Fecha de Retiro</label>
+                <input type="Date" class="form-control" name="fRetiro"/>
+                <label>Fecha de Devolución</label>
+                <input type="Date" class="form-control" name="fDevolucion"/>
+                <br/>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <br/>
+            </form>
+            <br>
+</di>
+            <h1 class="row align-items-center">Estos son nuestros Vehículos </h1>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -65,7 +79,6 @@
                     <th scope="col">TIPO</th>
                     <th scope="col">GAMA</th>
                     <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">DISPONIBILIDAD</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
@@ -77,7 +90,6 @@
                     <td scope="row" th:text="${vehiculo.tipoVehiculo}">
                     <td scope="row" th:text="${vehiculo.typeGama}">
                     <td scope="row" th:text="${vehiculo.combustible}">
-                    <td scope="row" th:text="${vehiculo.operativo}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
                         <a th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Reservar</a>
