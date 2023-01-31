@@ -1,6 +1,8 @@
 package PP.alquilerVehiculo.controladores;
 
+import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Empleado;
+import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.servicio.EmpleadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,15 @@ public class EmpleadoControlador {
     @Autowired
     private EmpleadoServicio empleadoServicio;
 
+
+    @GetMapping("/ventas")
+    //http://localhost:9000/cliente/?correo=Correocliente_14%40correo.com&password=123456
+    public String ventasHome(@RequestParam String correo, ModelMap modelo) throws Exception {
+        Empleado usuario = empleadoServicio.buscarXmail(correo);
+        System.out.println(">==== usuario " + usuario.getApellido());
+        modelo.addAttribute("empleadoLog" , usuario);
+        return "index_ventas";
+    }
     @GetMapping("/tabla")
     public String mostrar_e(ModelMap modelo) throws Exception {
         List<Empleado> listaEmpleados = empleadoServicio.findAll();

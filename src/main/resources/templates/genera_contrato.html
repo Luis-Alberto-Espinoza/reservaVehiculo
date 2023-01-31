@@ -15,27 +15,21 @@
           rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Alquiler de Vehiculos</a>
+        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home
+            Empleado - Ventas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-<!--                    <a class="nav-link" th:href="@{/contrato/editar-perfil(id=${clienteLog.id})}">Historial</a>-->
-
-                </li>
-                <li class="nav-item">
-<!--                    <a class="nav-link" th:href="@{/cliente}">Home</a>-->
-<!--                    <a class="nav-link" th:href="@{/cliente/(id=${clienteLog.id})}">Home</a>-->
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
                 </li>
@@ -45,7 +39,7 @@
 </nav>
 
 <section>
-    <div class="container">
+    <div class="container" style="padding-top: 100px">
         <div class="row align-items-center">
             <div class="col-lg-6 order-lg-2">
                 <div class="p-5">
@@ -58,11 +52,14 @@
                     <form action="/contrato/confi_contrato" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="idc" th:value="${clienteLog.id}">
                         <input type="hidden" name="idv" th:value="${vehiculo.id}">
+
+                        <!--                DATOS DEL CLIENTE      -->
                         <label><h3>DATOS DEL CLIENTE</h3></label><br>
                         <label>Nombre</label>
-                        <input type="text" class="form-control" name="nombre" th:value="${clienteLog.nombre}"/>
+                        <input type="text" class="form-control mayus" name="nombre" th:value="${clienteLog.nombre}"/>
                         <label>Apellido</label>
-                        <input type="text" class="form-control" name="apellido" th:value="${clienteLog.apellido}"/>
+                        <input type="text" class="form-control mayus" name="apellido"
+                               th:value="${clienteLog.apellido}"/>
                         <label>DNI</label>
                         <input type="text" class="form-control" name="dni" th:value="${clienteLog.dni}"/>
                         <label>Edad</label>
@@ -70,47 +67,46 @@
                         <label>Telefono</label>
                         <input type="text" class="form-control" name="telefono" th:value="${clienteLog.telefono}"/>
                         <label>Direccion</label>
-                        <input type="text" class="form-control" name="direccion" th:value="${clienteLog.direccion}"/>
+                        <input type="text" class="form-control mayus" name="direccion"
+                               th:value="${clienteLog.direccion}"/>
                         <label>E-Mail</label>
                         <input type="email" class="form-control" name="email" th:value="${clienteLog.mail}"/><br>
+
                         <!--                DATOS VEHICULO     -->
                         <label><h3>DATOS DEL VEHICULO</h3></label><br>
                         <label>Patente</label>
-                        <input type="text" class="form-control" name="patente" th:value="${vehiculo.patente}"/>
+                        <input type="text" class="form-control mayustt" name="patente" th:value="${vehiculo.patente}"/>
                         <label>marca</label>
-                        <input type="text" class="form-control" name="marca" th:value="${vehiculo.marca}"/>
+                        <input type="text" class="form-control mayus" name="marca" th:value="${vehiculo.marca}"/>
                         <label>Modelo</label>
-                        <input type="text" class="form-control" name="modelo" th:value="${vehiculo.modelo}"/>
+                        <input type="text" class="form-control mayustt" name="modelo" th:value="${vehiculo.modelo}"/>
                         <label>Tipo Vehiculo</label>
-                        <input type="text" class="form-control" name="tipoVehiculo" th:value="${vehiculo.tipoVehiculo}"/>
+                        <input type="text" class="form-control mayus" name="tipoVehiculo"
+                               th:value="${vehiculo.tipoVehiculo}"/>
                         <label>Tipo Gama</label>
-                        <input type="text" class="form-control" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
+                        <input type="text" class="form-control mayus" name="typeGama"
+                               th:value="${vehiculo.typeGama}"/><br>
+
                         <!--                DATOS RESERVA     -->
                         <label><h3>DATOS DE LA RESERVA</h3></label><br>
                         <label>NUMERO DE RESERVA</label>
                         <input type="text" class="form-control" name="id_reserva" th:value="${datoReserva.id}"/>
-<!--                        <label>Fecha de Gestión</label>-->
-<!--                        <input type="Date" class="form-control" name="fechaRegistrp"/>-->
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
-                        <label>Fecha de Reserva</label>
-                        <input type="text" class="form-control" name="fReserva"th:value="${datoReserva.fechaReserva}"/>
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
+                        <label>Fecha de Retiro</label>
+                        <input type="text" class="form-control" name="fReserva" th:value="${datoReserva.fechaRetiro}"/>
                         <label>Fecha de Devolución</label>
-                        <input type="Date" class="form-control" name="fDevolucion"/>
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
-                        <br/>
+                        <input type="text" class="form-control" name="fDevolucion"
+                               th:value="${datoReserva.fechaEntrega}"/> <br/>
+
+                        <!--                DATOS DEL EMPLEADO-->
                         <label><h3>DATOS DEL EMPLEADO</h3></label><br>
                         <label>ID EMPLEADO</label>
                         <input type="text" class="form-control" name="ide" th:value="${empleadoLog.id}"/>
-                        <!--                        <label>Fecha de Gestión</label>-->
-                        <!--                        <input type="Date" class="form-control" name="fechaRegistrp"/>-->
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
-                        <label>NOMBRE DEL EMPLEADO</label>
-                        <input type="text" class="form-control" name="nombre_emple"th:value="${empleadoLog.nombre}"/>
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
-                        <label>APELLIDO DEL EMPLEADO</label>
-                        <input type="text" class="form-control" name="apellido_emple"th:value="${empleadoLog.apellido}"/>
-                        <!--              // th:value="${vehiculo.typeGama}"/>-->
+                        <label>Nombre del Empleado</label>
+                        <input type="text" class="form-control mayus" name="nombre_emple"
+                               th:value="${empleadoLog.nombre}"/>
+                        <label>Apellido del Empleado</label>
+                        <input type="text" class="form-control mayus" name="apellido_emple"
+                               th:value="${empleadoLog.apellido}"/>
                         <br/>
                         <button type="submit" class="btn btn-primary">Confirmar</button>
                     </form>

@@ -11,5 +11,8 @@ public interface EmpleadoRepositorio extends JpaRepository<Empleado, Long> {
     @Query ("SELECT e FROM Empleado e WHERE e.mail = :mail")
     public Empleado buscarPorEmail (@Param("mail") String mail);
 
+    @Query("SELECT COUNT(e.mail) FROM Empleado e WHERE e.mail = :mail")
+    public String existeEmpleado(@Param("mail") String mail);
+
 
 }

@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home Empleado Ventas</title>
+
+    <title>Alquiler de Vehiculos - EXITO</title>
+
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
           rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="/css/one-page-wonder.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <style type="text/css">
 
-
-</style>
 </head>
+
 <body>
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home Empleado - Ventas</a>
+        <a  class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/reserva/hreservas(id=${clienteLog.id})}">Historial</a>
+
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
                 </li>
@@ -39,26 +46,45 @@
         </div>
     </div>
 </nav>
+
 <header class="masthead text-center text-white">
-    <div class="list-crear_mascota-btn" style="padding-top: 30px" >
+    <div class="masthead-content">
         <div class="container">
-            <h1 class="masthead-heading mb-0 mayustt" th:text="'nombre: '+${empleadoLog.nombre}"></h1>
-            <h1 class="masthead-heading mb-0 mayustt" th:text="'Apellido: '+${empleadoLog.apellido}"></h1>
-            <h1 class="masthead-heading mb-0" th:text="'Número de Empleado: '+${empleadoLog.id}"></h1>
+            <h3 class="masthead-subheading mb-0">LA RESERVA ESTÁ REGISTRADA.</h3>
         </div>
-        <a th:href="@{/contrato/(ide=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-115 ">Realizar Contrato</a>
-        <a th:href="@{/reserva/(ide=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-115 ">Hacer Reserva</a>
     </div>
+
 </header>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                </div>
+            </div>
+            <div class="col-lg-10 order-lg-1">
+                <div class="p-5">
+                    <h2> TOME NOTA!! EL NÚMERO DE RESERVA ES:</h2>
+                    <h1 th:text="${id_ures}" class="display-4"></h1>
+                </div>
+            </div>
+        </div>
+</section>
+
 
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">
         <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
+    <!-- /.container -->
 </footer>
+
 <!-- Bootstrap core JavaScript -->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>

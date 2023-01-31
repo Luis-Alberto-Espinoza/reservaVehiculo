@@ -45,61 +45,63 @@
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
-            <h1 class="masthead-heading mb-0" th:text="${clienteLog.nombre}"></h1>
-            <h1 class="masthead-heading mb-0" th:text="${clienteLog.apellido}"></h1>
+            <h1 class="masthead-heading mb-0 mayus"
+                th:text="'Nombre, apellido del Cliente: '+${clienteLog.nombre}+', '+${clienteLog.apellido}"></h1>
         </div>
     </div>
 </header>
 <section>
     <div class="container">
         <div class="row align-items-center">
-<di>
-
-
             <form action="/reserva/recibir_fecha" method="GET" enctype="multipart/form-data">
 
-                <h1>fecha de check in</h1>
+                <h2>Para encontrar su Vehículo ideal</h2>
+                <h1>Ingrese las fechas de la reserva</h1>
+                <input type="hidden" name="idc" th:value="${clienteLog.id}">
                 <label>Fecha de Retiro</label>
-                <input type="Date" class="form-control" name="fRetiro"/>
+                <input type="Date" class="form-control" name="fRetiro"/> <br/>
                 <label>Fecha de Devolución</label>
                 <input type="Date" class="form-control" name="fDevolucion"/>
                 <br/>
-                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="submit" class="btn btn-primary">Buscar</button>
                 <br/>
             </form>
-            <br>
-</di>
-            <h1 class="row align-items-center">Estos son nuestros Vehículos </h1>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">MARCA</th>
-                    <th scope="col">MODELO</th>
-                    <th scope="col">CILINDRADA</th>
-                    <th scope="col">TIPO</th>
-                    <th scope="col">GAMA</th>
-                    <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="vehiculo : ${autos}">
-                    <td scope="row" th:text="${vehiculo.marca}">
-                    <td scope="row" th:text="${vehiculo.modelo}">
-                    <td scope="row" th:text="${vehiculo.cilindradaMotor}">
-                    <td scope="row" th:text="${vehiculo.tipoVehiculo}">
-                    <td scope="row" th:text="${vehiculo.typeGama}">
-                    <td scope="row" th:text="${vehiculo.combustible}">
-                    <td>
-                        <!-- Declaramos y enviamos el valor de la variable action -->
-                        <a th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Reservar</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            </di>
+            <div class="row align-items-center">
+
+                <br/>
+<!--                <h1 class="row align-items-center">Estos son nuestros Vehículos </h1>-->
+<!--            <table class="table table-hover">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col" class="mayus">MARCA</th>-->
+<!--                    <th scope="col" class="mayus">MODELO</th>-->
+<!--                    <th scope="col">CILINDRADA</th>-->
+<!--                    <th scope="col" class="mayus">TIPO</th>-->
+<!--                    <th scope="col" class="mayus">GAMA</th>-->
+<!--                    <th scope="col" class="mayus">COMBUSTIBLE</th>-->
+<!--                    <th scope="col">Acciones</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="vehiculo : ${autos}">-->
+<!--                    <td scope="row" class="mayus" th:text="${vehiculo.marca}">-->
+<!--                    <td scope="row" class="mayustt" th:text="${vehiculo.modelo}">-->
+<!--                    <td scope="row" th:text="${vehiculo.cilindradaMotor}">-->
+<!--                    <td scope="row" class="mayus" th:text="${vehiculo.tipoVehiculo}">-->
+<!--                    <td scope="row" class="mayus" th:text="${vehiculo.typeGama}">-->
+<!--                    <td scope="row" class="mayus" th:text="${vehiculo.combustible}">-->
+<!--                    <td>-->
+<!--                        &lt;!&ndash; Declaramos y enviamos el valor de la variable action &ndash;&gt;-->
+<!--                        <a th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Reservar</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
         </div>
     </div>
 </section>
+<br><br/>
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">

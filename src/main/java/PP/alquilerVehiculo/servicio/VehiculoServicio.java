@@ -5,6 +5,7 @@ import PP.alquilerVehiculo.repositorios.VehiculoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,9 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
         return listaVehiculos;
     }
 
+    public List<Vehiculo> autosDisponiblesXfechas(LocalDate fRetiro, LocalDate fDevolucion) throws Exception {
+        return  vehiculoRepositorio.xidv_DisponibleFehcas(fRetiro, fDevolucion);
+    }
     @Override
     public Vehiculo findById(long id) throws Exception {
         Optional<Vehiculo> obj = vehiculoRepositorio.findById(id);

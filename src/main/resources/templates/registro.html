@@ -20,6 +20,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/one-page-wonder.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
 
 </head>
 
@@ -36,9 +37,6 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/registro">Registro</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/login">Log In</a>
           </li>
         </ul>
@@ -46,22 +44,9 @@
     </div>
   </nav>
 
-  <header class="masthead text-center text-white">
-    <div class="masthead-content">
-      <div class="container">
-        <h1 class="masthead-heading mb-0">Alquiler de Vehiculos</h1>
-        <h2 class="masthead-subheading mb-0">Encontra tu automovil ideal.</h2>
-        <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
-      </div>
-    </div>
-    <div class="bg-circle-1 bg-circle"></div>
-    <div class="bg-circle-2 bg-circle"></div>
-    <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div>
-  </header>
 
   <section>
-    <div class="container">
+    <div class="container" style="padding-top: 100px">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-2">
           <div class="p-5">
@@ -72,10 +57,6 @@
           <div class="p-5">
             <h2 class="display-4">Registrate</h2>
             <form action="/registrar" method="POST" enctype="multipart/form-data">
-
-              <!-- Este p utiliza una etiqueta de Thymeleaf que preguntará si la variable 'error' no se encuentra null.
-              Si contiene algún valor, lo introduce dentro de la etiqueta <p> y le aplica el style in-line -->
-              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>
 
               <label>Nombre</label>
               <input type="text" class="form-control" name="nombre" th:value="${nombre}" />
@@ -108,7 +89,7 @@
               <label>Repetir Clave</label>
               <input type="password" class="form-control" name="clave2" th:value="${clave2}" />
 
-              <br /><button type="submit" class="btn btn-primary">Registrarme</button>
+              <br /><button type="submit" class="btn btn-primary">Registrar</button>
             </form>
           </div>
         </div>
@@ -120,7 +101,7 @@
   <!-- Footer -->
   <footer class="py-5 bg-black">
     <div class="container">
-      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p>
+      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
     <!-- /.container -->
   </footer>

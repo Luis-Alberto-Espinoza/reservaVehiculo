@@ -20,7 +20,7 @@
 
   <!-- Custom styles for this template -->
   <link href="/css/one-page-wonder.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -42,45 +42,25 @@
       </div>
     </div>
   </nav>
-
-<!--  <header class="masthead text-center text-white">-->
-<!--    <div class="masthead-content">-->
-<!--      <div class="container">-->
-<!--        <h1 class="masthead-heading mb-0">Actualizar usuario</h1>-->
-<!--&lt;!&ndash;        <h2 class="masthead-subheading mb-0" th:if="${session.usuariosession != null}"&ndash;&gt;-->
-<!--&lt;!&ndash;          th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></h2>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="bg-circle-1 bg-circle"></div>-->
-<!--    <div class="bg-circle-2 bg-circle"></div>-->
-<!--    <div class="bg-circle-3 bg-circle"></div>-->
-<!--    <div class="bg-circle-4 bg-circle"></div>-->
-<!--  </header>-->
-
   <section>
-    <div class="container " >
+    <div class="container " style="padding-top: 100px">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-2">
 
         </div>
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <h2 class="display-4">Actualiza tus datos</h2>
+            <h2 class="display-4">Actualiza tus Datos</h2>
             <!-- Action actualizado para apuntar al controlador de actualizar perfil -->
             <form th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">
-<!--&lt;!&ndash;              &lt;!&ndash; Este p utiliza una etiqueta de Thymeleaf que preguntará si la variable 'error' no se encuentra null.&ndash;&gt;-->
-<!--&lt;!&ndash;              Si contiene algún valor, lo introduce dentro de la etiqueta <p> y le aplica el style in-line &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              <p th:if="${error != null}" th:text="${error}" style="color:red;"></p>&ndash;&gt;-->
-
-<!--              &lt;!&ndash; Id del perfil del Usuario viajando como tipo 'hidden' &ndash;&gt;-->
               <input type="hidden" name="id" th:value="${perfil.id}">
 
               <!-- Atributos del formulario pre-cargados con los datos del Objeto inyecado 'perfil' -->
               <label>Nuevo Nombre</label>
-              <input type="text" class="form-control" name="nombre" th:value="${perfil.nombre}" />
+              <input type="text" class="form-control mayus" name="nombre" th:value="${perfil.nombre}" />
 
               <label>Nuevo Apellido</label>
-              <input type="text" class="form-control" name="apellido" th:value="${perfil.apellido}" />
+              <input type="text" class="form-control mayus" name="apellido" th:value="${perfil.apellido}" />
 
               <label>Nuevo E-Mail</label>
               <input type="email" class="form-control" name="email" th:value="${perfil.mail}" />

@@ -65,4 +65,7 @@ public class EmpleadoServicio implements BaseService<Empleado> {
         }
 
     }
+    public String existeEmpleado(String correo){
+        return empleadoRepositorio.existeEmpleado(correo);
+    }
 }

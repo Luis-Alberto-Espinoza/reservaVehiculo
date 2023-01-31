@@ -1,8 +1,10 @@
 package PP.alquilerVehiculo.controladores;
 
 import PP.alquilerVehiculo.entidad.Cliente;
+import PP.alquilerVehiculo.entidad.Empleado;
 import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
+import PP.alquilerVehiculo.servicio.EmpleadoServicio;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class VehiculoControlador {
     @Autowired
     ClienteServicio clienteServicio;
 
+    @Autowired
+    EmpleadoServicio empleadoServicio;
+
     @GetMapping("/tablav")
 
     public String listarAutos(ModelMap modelo) throws Exception {
@@ -30,9 +35,10 @@ public class VehiculoControlador {
 
     }
     @GetMapping("/resEmp")
-
-    public String listarAutosReserva(ModelMap modelo, @RequestParam long dni) throws Exception {
+    public String listarAutosReserva(ModelMap modelo, @RequestParam long dni, @RequestParam Long ide) throws Exception {
         System.out.println("35 de VehiculoControlador " + dni);
+        Empleado empleado = empleadoServicio.findById(ide);
+        modelo.put("empleadoLog", empleado);
         List<Vehiculo> listaAutos = vehiculoServicio.findAll();
         Cliente cliente = clienteServicio.buscarXdni(dni);
         System.out.println("38 line cliente " + cliente);
