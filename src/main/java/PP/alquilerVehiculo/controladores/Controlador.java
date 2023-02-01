@@ -82,9 +82,16 @@ public class Controlador {
                             @RequestParam String direccion, @RequestParam long edad,
                             @RequestParam Long telefono, @RequestParam Long dni) throws ClienteServiceException {
 
-        System.out.println("llegue al controlador" );
+        System.out.println("llegue al controlador");
         //Llamamos al método registrar de ClienteServicio y le pasamos los parámetros recibidos por el controlador
-            if(clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni));
+        if (clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni)) {
+            //Inyectamos textos a los campos de exito.html
+            modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
+            modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
+
+            //Página que va a retornar si todo sale todo bien
+            return "exito.html";
+        } else {
 
             //Añadimos el Objeto ModelMap en los parámetros y usamos su método .put() para insertar un valor por pantalla.
             //Seteamos los mismos valores recibidos como argumentos dentro de los inputs del HTML
@@ -100,12 +107,7 @@ public class Controlador {
             //Página que va a retornar si algo sale mal
             return "registro.html";
         }
-        //Inyectamos textos a los campos de exito.html
-        modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
-        modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
 
-        //Página que va a retornar si todo sale todo bien
-        return "exito.html";
     }
 
     /*metodo simil LOGIN */
