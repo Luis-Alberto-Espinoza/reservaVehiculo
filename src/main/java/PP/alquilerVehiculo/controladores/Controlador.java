@@ -3,6 +3,7 @@ package PP.alquilerVehiculo.controladores;
 import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Empleado;
 import PP.alquilerVehiculo.entidad.Vehiculo;
+import PP.alquilerVehiculo.excepciones.ClienteServiceException;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
 import PP.alquilerVehiculo.servicio.EmpleadoServicio;
 import PP.alquilerVehiculo.servicio.ServicioGeneral;
@@ -75,19 +76,17 @@ public class Controlador {
     //
     //Método que responderá a una petición POST solicitada en la url raíz/registrar y recibirá una serie de argumentos
     @PostMapping("/registrar")
-    public String registrar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,
+    public String registrar(ModelMap modelo,
+                            @RequestParam String nombre, @RequestParam String apellido,
                             @RequestParam String email, @RequestParam String clave1, @RequestParam String clave2,
                             @RequestParam String direccion, @RequestParam long edad,
-                            @RequestParam Integer telefono, @RequestParam Long dni) {
+                            @RequestParam Long telefono, @RequestParam Long dni) throws ClienteServiceException {
 
+        System.out.println("llegue al controlador" );
         //Llamamos al método registrar de ClienteServicio y le pasamos los parámetros recibidos por el controlador
-        try {
-            clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
-        } catch (Exception ex) {
+            if(clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni));
 
             //Añadimos el Objeto ModelMap en los parámetros y usamos su método .put() para insertar un valor por pantalla.
-            modelo.put("error", ex.getMessage()); // 1ro Nombre de la variable - 2do Valor contenido
-
             //Seteamos los mismos valores recibidos como argumentos dentro de los inputs del HTML
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -101,7 +100,6 @@ public class Controlador {
             //Página que va a retornar si algo sale mal
             return "registro.html";
         }
-
         //Inyectamos textos a los campos de exito.html
         modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
         modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
