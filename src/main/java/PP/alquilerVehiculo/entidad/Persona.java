@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @MappedSuperclass
 @Getter
@@ -25,7 +26,7 @@ public abstract class Persona implements Serializable {
     private String nombre;
     private String apellido;
     private String direccion;
-    private long edad;
+    private LocalDate fechaNacimiento;
     private long dni;
     private long telefono;
 

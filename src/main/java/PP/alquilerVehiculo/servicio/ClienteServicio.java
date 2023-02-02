@@ -8,6 +8,8 @@ import PP.alquilerVehiculo.repositorios.ClienteRepositorio;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,10 +40,10 @@ public class ClienteServicio implements BaseService<Cliente> {
     }
 
     @Transactional
-    public boolean registrar(String nombre, String apellido, String email, String clave1, String clave2, String direccion, Long edad, long telefono, long dni) throws ClienteServiceException {
+    public boolean registrar(String nombre, String apellido, String email, String clave1, String clave2, String direccion, LocalDate fNacimiento, long telefono, long dni) throws ClienteServiceException {
         System.out.println("llegue a registrar");
         //Validación de los parámetros
-        if (validar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni)) {
+        if (validar(nombre, apellido, email, clave1, clave2, direccion, fNacimiento, telefono, dni)) {
             System.out.println("despues de la validacion en el controlador");
 
             //Creamos el Objeto Cliente
@@ -56,7 +58,7 @@ public class ClienteServicio implements BaseService<Cliente> {
             cliente.setDni(dni);
             cliente.setDireccion(direccion);
             cliente.setTelefono(telefono);
-            cliente.setEdad(edad);
+            cliente.setFechaNacimiento(fNacimiento);
 
         /* Invocamos al atributo repositorio (que es en realidad una interfaz que extiende
         de JpaRepository) y llamamos al método 'save' enviándole como argumento el Objeto
@@ -68,7 +70,7 @@ public class ClienteServicio implements BaseService<Cliente> {
     }
 
     private boolean validar(String nombre, String apellido, String email, String clave1, String clave2,
-                            String direccion, long edad, long telefono, Long dni) {
+                            String direccion, LocalDate fNacimiento, long telefono, Long dni) {
         int contaor = 0;
         System.out.println("//////////////////////////////////////////////////////////////////////");
         System.out.println("");
@@ -113,8 +115,11 @@ public class ClienteServicio implements BaseService<Cliente> {
             contaor++;
             System.out.println("La direccion del cliente no puede ser nulo.");
         }
+        Date fechaActual = new Date();
 
-        if (edad == 0 || edad < 18) {
+        int fechaRegistro = (fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).getYear();
+
+        if (fNacimiento == null || (fechaRegistro-fNacimiento.getYear()) < 18) {
             contaor++;
             System.out.println("El Edad del cliente no puede ser menor a 18 años.");
         }

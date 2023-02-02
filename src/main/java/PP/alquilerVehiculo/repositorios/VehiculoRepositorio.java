@@ -1,5 +1,6 @@
 package PP.alquilerVehiculo.repositorios;
 
+import PP.alquilerVehiculo.entidad.ReservaWeb;
 import PP.alquilerVehiculo.entidad.Vehiculo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,9 @@ public interface VehiculoRepositorio extends JpaRepository<Vehiculo, Long> {
 //            SELECT `datos_vehiculo_id` FROM reserva
 //            WHERE fecha_retiro BETWEEN '2023-02-01' and '2023-02-15'
 //            OR fecha_entrega BETWEEN '2023-02-01' and '2023-02-23');
+
+    @Query("SELECT r.datosVehiculo FROM ReservaWeb r WHERE NOT (r.fechaEntrega >= :checkin AND r.fechaEntrega <= :checkout AND r.fechaRetiro >= :checkin AND r.fechaRetiro <= :checkout AND r.fechaRetiro <= :checkin AND r.fechaEntrega >= :checkout  )")
+    public List <Vehiculo> listadoVehiculoDisponiblesFechas (@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion);
+
 
 }

@@ -10,6 +10,7 @@ import PP.alquilerVehiculo.servicio.ServicioGeneral;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
 import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/")
@@ -79,12 +81,12 @@ public class Controlador {
     public String registrar(ModelMap modelo,
                             @RequestParam String nombre, @RequestParam String apellido,
                             @RequestParam String email, @RequestParam String clave1, @RequestParam String clave2,
-                            @RequestParam String direccion, @RequestParam long edad,
+                            @RequestParam String direccion, @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fNacimiento,
                             @RequestParam Long telefono, @RequestParam Long dni) throws ClienteServiceException {
 
         System.out.println("llegue al controlador");
         //Llamamos al método registrar de ClienteServicio y le pasamos los parámetros recibidos por el controlador
-        if (clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni)) {
+        if (clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, fNacimiento, telefono, dni)) {
             //Inyectamos textos a los campos de exito.html
             modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
             modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
@@ -100,7 +102,7 @@ public class Controlador {
             modelo.put("email", email);
             modelo.put("clave1", clave1);
             modelo.put("direccion", direccion);
-            modelo.put("edad", edad);
+            modelo.put("fNacimiento", fNacimiento);
             modelo.put("telefono", telefono);
             modelo.put("dni", dni);
 
@@ -113,8 +115,9 @@ public class Controlador {
     /*metodo simil LOGIN */
     @PostMapping("/usuarioType")
     public String usuarioType(ModelMap modelo, String correo, String password) throws Exception {
+        System.out.println("entre al controlador"+ correo+ "  "+ password);
         String respuesta = validadorUsuario(correo, password);
-        System.out.println(respuesta);
+        System.out.println(respuesta +" line119 vcontrolador");
         if (respuesta.equals("cliente")) {
             Cliente cliente = clienteServicio.buscarXcorreo(correo);
             modelo.put("clienteLog", cliente);
@@ -141,6 +144,7 @@ public class Controlador {
      * con el password se lo compara con la clave del registro en la bd*/
     public String validadorUsuario(String correo, String password) throws Exception {
         String respuesta = "";
+        System.out.println(clienteServicio.hayCliente(correo));
         if (clienteServicio.hayCliente(correo).equals("1")) {
             if (clienteServicio.buscarXcorreo(correo).getClave1().equals(password)) {
                 respuesta = "cliente";

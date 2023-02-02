@@ -20,7 +20,8 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
     }
 
     public List<Vehiculo> autosDisponiblesXfechas(LocalDate fRetiro, LocalDate fDevolucion) throws Exception {
-        return  vehiculoRepositorio.xidv_DisponibleFehcas(fRetiro, fDevolucion);
+        System.out.println("23 sv cantidad de vehiculos"+vehiculoRepositorio.listadoVehiculoDisponiblesFechas(fRetiro, fDevolucion).size());
+        return  vehiculoRepositorio.listadoVehiculoDisponiblesFechas(fRetiro, fDevolucion);
     }
     @Override
     public Vehiculo findById(long id) throws Exception {
