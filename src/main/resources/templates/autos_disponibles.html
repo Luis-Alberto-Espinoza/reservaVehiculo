@@ -45,25 +45,30 @@
 
                 <thead>
                 <tr>
+<!--                    <th scope="col">Contador</th>-->
+                    <th scope="col">Id Vehiculo</th>
+
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
                     <th scope="col">CILINDRADA</th>
                     <th scope="col">TIPO</th>
                     <th scope="col">GAMA</th>
                     <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">DISPONIBILIDAD</th>
+                    <th scope="col">PRECIO</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="vehiculo : ${autos}">
+<!--                    <td class="mayus"scope="row" th:text="${vehiculo.index}">-->
+                    <td class="mayus"scope="row" th:text="${vehiculo.id}">
                     <td class="mayus"scope="row" th:text="${vehiculo.marca}">
                     <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
                     <td scope="row" th:text="${vehiculo.cilindradaMotor}">
                     <td class="mayus"scope="row" th:text="${vehiculo.tipoVehiculo}">
                     <td class="mayus"scope="row" th:text="${vehiculo.typeGama}">
                     <td class="mayus"scope="row" th:text="${vehiculo.combustible}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.operativo}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.precio}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
                         <a th:href="@{/reserva/generar_reserva(idv=${vehiculo.id},idc=${clienteLog.id}, fecha1=${fecha1}, fecha2=${fecha2})}">Reservar</a>

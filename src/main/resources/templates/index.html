@@ -73,6 +73,8 @@
                     <th scope="col">TIPO</th>
                     <th scope="col">GAMA</th>
                     <th scope="col">COMBUSTIBLE</th>
+                    <th scope="col">PRECIO
+                    </th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
@@ -84,6 +86,7 @@
                     <td scope="row" th:text="${vehiculo.tipoVehiculo}">
                     <td scope="row" th:text="${vehiculo.typeGama}">
                     <td scope="row" th:text="${vehiculo.combustible}">
+                    <td scope="row" th:text="${vehiculo.precio}">
                     <td>
                         <!-- Se vincula el boton de reserva a la pagina de login -->
                         <a th:href=login>Reservar</a>

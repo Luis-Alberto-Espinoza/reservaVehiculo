@@ -44,19 +44,23 @@
 
 <section>
     <div class="container" style="padding-top: 100px">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-1">
+        <div class="mx-auto">
+        <div class="align-items-center">
+<!--        <div class="row align-items-center">-->
+<!--            <div class="col-lg-10 order-lg-1">-->
                 <div class="p-5">
-
-                    <h2 class="display-4">Para comenzar la reserva ingrese el DNI del cliente</h2>
-                    <form action="/vehiculo/resEmp/" method="GET">
+                    <h2 class="display-8">COMPLETE LOS DATOS REQUERIDOS</h2>
+                    <form class="col-lg-4 " action="/vehiculo/resEmp/" method="GET">
                         <input type="hidden" name="ide" th:value="${empleadoLog.id}">
-                        <input type="text" class="form-control" name="dni"/>
-
-                        <br/>
+                        <label>DNI del Cliente</label>
+                        <input type="text" class="form-control" name="dni"/><br/>
+                        <label class="p-t-25">Fecha de Retiro</label>
+                        <input type="Date" class="form-control" name="fRetiro"/> <br/>
+                        <label>Fecha de Devolución</label>
+                        <input type="Date" class="form-control" name="fDevolucion"/><br/>
                         <button type="submit" class="btn btn-primary">Ingresar</button>
                     </form>
-                </div>
+<!--                </div>-->
             </div>
         </div>
         <div class="col-lg-10 order-lg-1">

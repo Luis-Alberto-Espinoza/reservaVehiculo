@@ -25,5 +25,6 @@ public interface VehiculoRepositorio extends JpaRepository<Vehiculo, Long> {
     @Query("SELECT r.datosVehiculo FROM ReservaWeb r WHERE NOT (r.fechaEntrega >= :checkin AND r.fechaEntrega <= :checkout AND r.fechaRetiro >= :checkin AND r.fechaRetiro <= :checkout AND r.fechaRetiro <= :checkin AND r.fechaEntrega >= :checkout  )")
     public List <Vehiculo> listadoVehiculoDisponiblesFechas (@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion);
 
-
+    @Query("SELECT v.precio FROM Vehiculo v WHERE v.id = :id ")
+    public Double precioDiaarioVehiculo (@Param("id") Long id);
 }

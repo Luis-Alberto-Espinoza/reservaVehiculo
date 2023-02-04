@@ -42,6 +42,8 @@
         <div class="row align-items-center">
             <table class="table table-hover">
                         <p type="hidden" name="idc" th:value="${clienteLog.id}">
+                        <p type="hidden" name="fRetiro" th:value="${fRetiro}">
+                        <p type="hidden" name="fDevolucion" th:value="${fDevolucion}">
 
                 <thead>
                 <tr>
@@ -51,22 +53,22 @@
                     <th scope="col">TIPO</th>
                     <th scope="col">GAMA</th>
                     <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">DISPONIBILIDAD</th>
+                    <th scope="col">PRECIO</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="vehiculo : ${autos}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.marca}">
+                    <td class="mayus "scope="row" th:text="${vehiculo.marca}">
                     <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
                     <td scope="row" th:text="${vehiculo.cilindradaMotor}">
                     <td class="mayus"scope="row" th:text="${vehiculo.tipoVehiculo}">
                     <td class="mayus"scope="row" th:text="${vehiculo.typeGama}">
                     <td class="mayus"scope="row" th:text="${vehiculo.combustible}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.operativo}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.precio}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
-                        <a th:href="@{/reserva/generar_reserva_empleado(idv=${vehiculo.id},idc=${clienteLog.id},ide=${empleadoLog.id})}">Reservar</a>
+                        <a th:href="@{/reserva/generar_reserva_empleado(idv=${vehiculo.id},idc=${clienteLog.id}, ide=${empleadoLog.id}, fRetiro=${fRetiro}, fDevolucion=${fDevolucion})}">Reservar</a>
                     </td>
                 </tr>
                 </tbody>

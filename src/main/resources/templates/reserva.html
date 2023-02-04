@@ -80,6 +80,8 @@
                         <input type="text" class="form-control mayus" name="tipoVehiculo" th:value="${vehiculo.tipoVehiculo}"/>
                         <label>Tipo Gama</label>
                         <input type="text" class="form-control mayus" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
+                        <label>Precio Diario</label>
+                        <input type="text" class="form-control" name="precio" th:value="${vehiculo.precio}"/><br>
 
                         <!--                DATOS RESERVA     -->
                         <label><h3>DATOS DE LA RESERVA</h3></label><br>
@@ -87,6 +89,8 @@
                         <input ttype="text" class="form-control mayus" name="fecha1" th:value="${fecha1}"/><br>
                         <label>Fecha de Devolución</label>
                         <input type="text" class="form-control mayus" name="fecha2" th:value="${fecha2}"/><br/>
+                        <label>Total a Pagar</label>
+                        <input type="text" class="form-control" name="total" th:value="${total}"/><br/>
                         <button type="submit" class="btn btn-primary">Aceptar</button>
                     </form>
                 </div>

@@ -57,6 +57,8 @@ public class ReservaControlador {
                                   String fecha2) throws Exception {
         Vehiculo auto = vehiculoServicio.findById(idv);
         Cliente cliente = clienteServicio.findById(idc);
+        Double precioTotal = vehiculoServicio.costoTotal(fecha1,fecha2, idv);
+        modelo.put("total", precioTotal);
         modelo.put("vehiculo", auto);
         modelo.put("clienteLog", cliente);
         modelo.put("fecha1", fecha1);
@@ -64,10 +66,17 @@ public class ReservaControlador {
         return "reserva";
     }
     @GetMapping("/generar_reserva_empleado")
-    public String generar_reserva_empleado(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc, @RequestParam Long ide) throws Exception {
+    public String generar_reserva_empleado(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc,
+                                           @RequestParam String fRetiro,
+                                           @RequestParam String fDevolucion,
+                                           @RequestParam Long ide) throws Exception {
         Vehiculo auto = vehiculoServicio.findById(idv);
         Cliente cliente = clienteServicio.findById(idc);
         Empleado empleado= empleadoServicio.findById(ide);
+        Double precioTotal = vehiculoServicio.costoTotal(fRetiro,fDevolucion, idv);
+        modelo.put("total", precioTotal);
+        modelo.put("fRetiro", fRetiro);
+        modelo.put("fDevolucion", fDevolucion);
         modelo.put("vehiculo", auto);
         modelo.put("clienteLog", cliente);
         modelo.put("empleadoLog", empleado);
@@ -186,4 +195,5 @@ public class ReservaControlador {
         return  "autos_disponibles";
 
     }
+
 }
