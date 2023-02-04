@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Alquiler de Vehiculo - Inicio</title>
+    <title>Listado de Automoviles</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
           rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/one-page-wonder.min.css" rel="stylesheet">
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Alquiler de Vehiculos</a>
+<!--        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home Empleado - Ventas</a>-->
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,69 +29,49 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/registro">Registro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link" href="/">Salir</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<header class="masthead text-center text-white">
-    <div class="masthead-content">
-        <div class="container">
-            <h1 class="masthead-heading mb-0">Alquiler de Vehiculos</h1>
-            <h2 class="masthead-subheading mb-0">Trabajo Final Practicas Profecionalizante.</h2>
-            <a href="/registro" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
-        </div>
-    </div>
-</header>
+
 <section>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-2">
-                <div class="p-5">
-                    <img class="img-fluid rounded-circle" src="" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <div class="p-5">
-                    <h2 class="display-8">Tabla de Vehículos disponibles</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section>
-    <div class="container">
+    <div class="container" style="padding-top: 100px">
+        <h3>Estos son nuestros autos</h3>
         <div class="row align-items-center">
             <table class="table table-hover">
+                        <p type="hidden" name="idc" th:value="${clienteLog.id}">
+
                 <thead>
                 <tr>
+<!--                    <th scope="col">Contador</th>-->
+                    <th scope="col">Id Vehiculo</th>
+
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
                     <th scope="col">CILINDRADA</th>
                     <th scope="col">TIPO</th>
                     <th scope="col">GAMA</th>
                     <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">PRECIO
-                    </th>
+                    <th scope="col">PRECIO</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="vehiculo : ${autos}">
-                    <td scope="row" th:text="${vehiculo.marca}">
-                    <td scope="row" th:text="${vehiculo.modelo}">
+<!--                    <td class="mayus"scope="row" th:text="${vehiculo.index}">-->
+                    <td class="mayus"scope="row" th:text="${vehiculo.id}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.marca}">
+                    <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
                     <td scope="row" th:text="${vehiculo.cilindradaMotor}">
-                    <td scope="row" th:text="${vehiculo.tipoVehiculo}">
-                    <td scope="row" th:text="${vehiculo.typeGama}">
-                    <td scope="row" th:text="${vehiculo.combustible}">
-                    <td scope="row" th:text="${vehiculo.precio}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.tipoVehiculo}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.typeGama}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.combustible}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.precio}">
                     <td>
-                        <!-- Se vincula el boton de reserva a la pagina de login -->
-                        <a th:href=login>Reservar</a>
+                        <!-- Declaramos y enviamos el valor de la variable action -->
+                        <a th:href="@{/reserva/generar_reserva(idv=${vehiculo.id},idc=${clienteLog.id}, fecha1=${fecha1}, fecha2=${fecha2})}">Reservar</a>
                     </td>
                 </tr>
                 </tbody>
@@ -100,11 +82,11 @@
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">
-        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p>
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
 </footer>
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

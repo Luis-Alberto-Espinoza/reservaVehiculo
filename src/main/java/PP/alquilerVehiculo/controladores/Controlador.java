@@ -3,10 +3,14 @@ package PP.alquilerVehiculo.controladores;
 import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Empleado;
 import PP.alquilerVehiculo.entidad.Vehiculo;
+import PP.alquilerVehiculo.excepciones.ClienteServiceException;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
 import PP.alquilerVehiculo.servicio.EmpleadoServicio;
+import PP.alquilerVehiculo.servicio.ServicioGeneral;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/")
@@ -28,7 +33,11 @@ public class Controlador {
     VehiculoServicio vehiculoServicio;
 
     @Autowired
+    ServicioGeneral sg;
+
+    @Autowired
     private EmpleadoServicio empleadoServicio;
+
 
     //Método que devolverá el index.html cuando se ingrese a la url raíz de la aplicación
     @GetMapping("/")
@@ -57,44 +66,6 @@ public class Controlador {
         return "login.html";
     }
 
-    //
-    @PostMapping("/login12")
-    public void login12(@RequestParam String correo, @RequestParam String password, ModelMap modelo) {
-        System.out.println("62 controlador login post");
-        System.out.println("correo " + correo);
-        System.out.println("password " + password);
-        boolean respuesta = false;
-        int numero = 0;
-        try {
-            List<Cliente> clienteList = clienteServicio.findAll();
-
-
-            for (int i = 0; i < clienteList.size(); i++) {
-                if (clienteList.get(i).getClave1().equals(password) & clienteList.get(i).getMail().equals(correo)) {
-//                    System.out.println("existe el correo " + clienteList.get(i).getMail());
-                    respuesta = true;
-                    numero = i;
-
-
-                } else {
-                    //  System.out.println("no existe coincidencias "+ clienteList.get(i).getMail());
-                }
-            }
-            System.out.println(" el id es el " + numero);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-
-        }
-        if (respuesta) {
-            System.out.println("pase por la 85");
-            modelo.put("correo", correo);
-            // return "index_cliente";
-        } else {
-            // return "/";
-        }
-
-    }
 
     //Método que devolverá el registro.html cuando se ingrese a la url raíz/registro
     @GetMapping("/registro")
@@ -107,26 +78,31 @@ public class Controlador {
     //
     //Método que responderá a una petición POST solicitada en la url raíz/registrar y recibirá una serie de argumentos
     @PostMapping("/registrar")
-    public String registrar(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido,
+    public String registrar(ModelMap modelo,
+                            @RequestParam String nombre, @RequestParam String apellido,
                             @RequestParam String email, @RequestParam String clave1, @RequestParam String clave2,
-                            @RequestParam String direccion, @RequestParam long edad,
-                            @RequestParam Integer telefono, @RequestParam Long dni) {
+                            @RequestParam String direccion, @RequestParam  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fNacimiento,
+                            @RequestParam Long telefono, @RequestParam Long dni) throws ClienteServiceException {
 
+        System.out.println("llegue al controlador");
         //Llamamos al método registrar de ClienteServicio y le pasamos los parámetros recibidos por el controlador
-        try {
-            clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, edad, telefono, dni);
-        } catch (Exception ex) {
+        if (clienteServicio.registrar(nombre, apellido, email, clave1, clave2, direccion, fNacimiento, telefono, dni)) {
+            //Inyectamos textos a los campos de exito.html
+            modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
+            modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
+
+            //Página que va a retornar si todo sale todo bien
+            return "exito.html";
+        } else {
 
             //Añadimos el Objeto ModelMap en los parámetros y usamos su método .put() para insertar un valor por pantalla.
-            modelo.put("error", ex.getMessage()); // 1ro Nombre de la variable - 2do Valor contenido
-
             //Seteamos los mismos valores recibidos como argumentos dentro de los inputs del HTML
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("email", email);
             modelo.put("clave1", clave1);
             modelo.put("direccion", direccion);
-            modelo.put("edad", edad);
+            modelo.put("fNacimiento", fNacimiento);
             modelo.put("telefono", telefono);
             modelo.put("dni", dni);
 
@@ -134,36 +110,25 @@ public class Controlador {
             return "registro.html";
         }
 
-        //Inyectamos textos a los campos de exito.html
-        modelo.put("titulo", "¡Bienvenido, encuentre su Auto!");
-        modelo.put("descripcion", "Tu usuario ha sido registrado con éxito.");
-
-        //Página que va a retornar si todo sale todo bien
-        return "exito.html";
     }
 
-    @PostMapping("/prueba")
-    public String usuarioType(ModelMap modelo, String correo) throws Exception {
-        System.out.println("llegue a usuarioType ");
-        System.out.println("correo de entrada " + correo);
-//        String correo = "CorreoEmpleado_07@correo.com";// ventas
-//        String correo = "CorreoEmpleado_01@correo.com"; //gerente
-//        String correo = "CorreoEmpleado_04@correo.com"; //administrador
-        // String correo = "Correocliente_11@correo.com"; // cliente
-
-        if (clienteServicio.buscarXcorreo(correo) != null) {
+    /*metodo simil LOGIN */
+    @PostMapping("/usuarioType")
+    public String usuarioType(ModelMap modelo, String correo, String password) throws Exception {
+        System.out.println("entre al controlador"+ correo+ "  "+ password);
+        String respuesta = validadorUsuario(correo, password);
+        System.out.println(respuesta +" line119 vcontrolador");
+        if (respuesta.equals("cliente")) {
             Cliente cliente = clienteServicio.buscarXcorreo(correo);
             modelo.put("clienteLog", cliente);
-            List<Vehiculo> listVehiculos = vehiculoServicio.findAll();
-            modelo.addAttribute("autos", listVehiculos);
             modelo.addAttribute("correo", cliente.getMail());
             return "/index_cliente";
-        } else if (empleadoServicio.buscarXmail(correo) != null) {
+        }
+        if (respuesta.equals("empleado")) {
             Empleado empleado = empleadoServicio.buscarXmail(correo);
-            System.out.println((empleado.getTypeEmpleado()));
             if (empleado.getTypeEmpleado().toLowerCase().equals("ventas")) {
                 modelo.put("empleadoLog", empleado);
-                return "index_ventas";
+                return "/index_ventas";
             } else if (empleado.getTypeEmpleado().toLowerCase().equals("gerente")) {
                 modelo.put("clienteLog", empleado);
                 return "index_gerente";
@@ -172,8 +137,26 @@ public class Controlador {
                 return "index_administrador";
             }
         }
-//       if( Cliente cliente = clienteServicio.buscarXcorreo(correo);
-        // Empleado empleado= empleadoServicio.buscarXmail(correo);
         return "login";
+    }
+
+    /* con el correo se determina a que base de datos pertenece '"empleado" o "cliente"'
+     * con el password se lo compara con la clave del registro en la bd*/
+    public String validadorUsuario(String correo, String password) throws Exception {
+        String respuesta = "";
+        System.out.println(clienteServicio.hayCliente(correo));
+        if (clienteServicio.hayCliente(correo).equals("1")) {
+            if (clienteServicio.buscarXcorreo(correo).getClave1().equals(password)) {
+                respuesta = "cliente";
+            }
+            System.out.println("cli err");
+        }
+        if (empleadoServicio.existeEmpleado(correo).equals("1")) {
+            if (empleadoServicio.buscarXmail(correo).getClave1().equals(password)) {
+                respuesta = "empleado";
+            }
+            System.out.println("empl err");
+        }
+        return respuesta;
     }
 }

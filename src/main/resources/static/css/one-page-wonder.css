@@ -113,6 +113,12 @@ header.masthead .bg-circle-4 {
   top: -5rem;
   right: 35%;
 }
+.mayus:first-letter{
+	text-transform: uppercase;
+}
+.mayustt{
+	text-transform: uppercase;
+}
 
 @media (min-width: 992px) {
   header.masthead {

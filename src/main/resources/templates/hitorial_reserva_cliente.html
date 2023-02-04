@@ -32,6 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
                 </li>
+
             </ul>
         </div>
     </div>
@@ -40,7 +41,7 @@
 <section>
     <div class="container" style="padding-top: 100px">
         <div>
-            <h2 th:text="${clienteLog.nombre}"></h2>
+            <h2 class="mayus" th:text="'cliente: '+${clienteLog.nombre}"></h2>
         </div>
         <div class="list-crear_mascota-btn">
             <a th:href="@{/cliente/(correo=${clienteLog.mail})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
@@ -55,8 +56,8 @@
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
                     <th scope="col">PATENTE</th>
-                    <th scope="col">FECHA INICIO</th>
-                    <th scope="col">FECHA FIN</th>
+                    <th scope="col">FECHA RETIRO</th>
+                    <th scope="col">FECHA ENTREGA</th>
                     <th scope="col">Acciones</th>
                     <th scope="col"></th>
                 </tr>
@@ -65,16 +66,17 @@
                 <tr th:each="autoReservado : ${autoReservado}">
                     <td scope="row" th:text="${autoReservado.id}">
                     </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.marca}">
+                    <td class="mayus" scope="row" th:text="${autoReservado.datosVehiculo.marca}">
                     </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.modelo}">
+                    <td class="mayustt" scope="row" th:text="${autoReservado.datosVehiculo.modelo}">
                     </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.patente}">
+                    <td class="mayustt" scope="row" th:text="${autoReservado.datosVehiculo.patente}">
                     </th>
                     <td scope="row" th:text="${autoReservado.fechaRetiro}">
                     </th>
                     <td scope="row" th:text="${autoReservado.fechaEntrega}">
                     <td>
+                        <a th:href="@{/reserva/delet_reserva/(id_reserva=${autoReservado.id})}" class="btn btn-danger">Editar</a>
                         <a th:href="@{/reserva/delet_reserva/(id_reserva=${autoReservado.id})}" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
@@ -83,8 +85,12 @@
         </div>
     </div>
 </section>
+<di style="padding-top: 100px">
+
+</di>
 <!-- Footer -->
-<footer class="py-5 bg-black">
+
+<footer class="py-5 bg-black" >
     <div class="container">
         <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>

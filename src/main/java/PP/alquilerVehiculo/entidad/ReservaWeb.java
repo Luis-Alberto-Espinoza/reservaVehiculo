@@ -29,6 +29,6 @@ public class ReservaWeb extends Base {
     private Cliente cliente;
 
     @OneToOne
-    @JoinColumn(name = "datos_vehiculo_id")
+        @JoinColumn(name = "datos_vehiculo_id")
     private Vehiculo datosVehiculo;
 }

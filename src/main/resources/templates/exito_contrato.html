@@ -27,14 +27,15 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="/">Alquiler de Vehiculo</a>
+        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home
+            Empleado - Ventas</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-<!--            <a class="nav-link" href="/registro">Registro</a>-->
+              <a class="nav-link" href="/">Salir</a>
           </li>
           <li class="nav-item">
 <!--            <a class="nav-link" href="/login">Log In</a>-->
@@ -47,7 +48,6 @@
   <header class="masthead text-center text-white">
     <div class="masthead-content">
       <div class="container">
-        <h1 class="masthead-heading mb-0">Alquiler de Vehiculo</h1>
         <h2 class="masthead-subheading mb-0">EL CONTRATO ESTA REGISTRADO.</h2>
 <!--        <a href="/#" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>-->
       </div>
@@ -60,15 +60,11 @@
           <div class="row align-items-center">
               <div class="col-lg-6 order-lg-2">
                   <div class="p-5">
-                      <!--            <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">-->
                   </div>
               </div>
-              <div class="col-lg-6 order-lg-1">
-                  <div class="p-5">
-                      <h2> EL NUMERO DE CONTRATO</h2>
-                      <h3 th:text="${id_contrato}"></h3>
-                      <!--            <h2 class="display-4" th:text="${titulo}"></h2>-->
-                      <!--            <p th:text="${descripcion}"></p>-->
+              <div class="col-lg-10 order-lg-1">
+                  <div class="p-3">
+                      <h1 class="masthead-subheading mb-0" th:text="' EL NUMERO DE CONTRATO ES EL: '+${id_contrato}"></h1>
                   </div>
               </div>
           </div>

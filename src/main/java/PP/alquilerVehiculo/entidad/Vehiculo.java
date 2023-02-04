@@ -25,6 +25,7 @@ public class Vehiculo extends Base {
     private String cilindradaMotor;
     private String combustible;
     private String typeGama;
+    private Double precio;
     private String operativo;
 
 
