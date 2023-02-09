@@ -4,6 +4,7 @@ import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.repositorios.VehiculoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,8 +36,14 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
     }
 
     @Override
+    @Transactional
     public Vehiculo save(Vehiculo entity) throws Exception {
-        return null;
+        try {
+            entity = vehiculoRepositorio.save(entity);
+            return entity;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     @Override
@@ -45,9 +52,14 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
     }
 
     @Override
-    public boolean delete(long id) throws Exception {
-        return false;
+    public void deleteById(long id) throws Exception {
+        try {
+            vehiculoRepositorio.deleteById(id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
+
 
     public Double costoTotal(String fRetiro, String fDevolucion, Long id) {
         //con el id del vehiculo se obtiene el precio diario

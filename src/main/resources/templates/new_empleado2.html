@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Alta nuevo Empleado</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home - administrador</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section>
+    <div class="container" style="padding-top: 100px">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Formulario Nuevo Empleado</h2>
+                    <form action="/empleado/new_empleado_3" method="POST" enctype="multipart/form-data">
+
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" name="nombre" th:value="${usuario.nombre}"/>
+
+                        <label>Apellido</label>
+                        <input type="text" class="form-control" name="apellido" th:value="${usuario.apellido}"/>
+
+                        <label>DNI</label>
+                        <input type="text" class="form-control" name="dni" th:value="${usuario.dni}"/>
+
+                        <label>Edad</label>
+                        <input type="text" class="form-control" name="fNacimiento" th:value="${usuario.fechaNacimiento}"/>
+
+                        <label>Telefono</label>
+                        <input type="text" class="form-control" name="telefono" th:value="${usuario.telefono}"/>
+
+                        <label>Direccion</label>
+                        <input type="text" class="form-control" name="direccion" th:value="${usuario.direccion}"/>
+
+
+                        <label>E-Mail</label>
+                        <input type="text" class="form-control" name="email" th:value="${usuario.mail}" />
+
+                        <label>Clave por defecto</label>
+                        <input type="text" class="form-control" name="clave1" value="123456"/>
+
+                        <label>Puesto del Nuevo Empleado</label>
+                        <!--              <input type="select" class="form-control" name="typeEmpleado" th:value="${usuario.typeEmpleado}" />-->
+                        <select name="typeEmpleado">
+                            <option>Categoria Emppleado</option>
+                            <option value="ventas" text="ventas">Venta</option>
+                            <option value="administrador" text="administrativo">Administrativo</option>
+                            <option value="gerente" text="gerente">Gerente</option>
+                        </select>
+
+                        <br/>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

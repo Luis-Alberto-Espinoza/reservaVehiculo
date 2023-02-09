@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Editar Vehiculo</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Home Administrador</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+<!--                    <a class="nav-link" th:href="@{/reserva/hreservas(id=${clienteLog.id})}">Historial</a>-->
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section>
+    <div class="container" style="padding-top: 60px">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h1 class="display-5">Editar Vehículo</h1>
+                    <form action="/vehiculo/actualizar_vehiculo" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="idv" th:value="${vehiculo.id}">
+                        <input type="hidden" name="ide" th:value="${empleadoLog.id}">
+
+                        <!--                DATOS VEHICULO     -->
+                        <label><h3>DATOS DEL VEHICULO</h3></label><br>
+                        <label>Patente</label>
+                        <input type="text" class="form-control mayustt" name="patente" th:value="${vehiculo.patente}"/>
+                        <label>marca</label>
+                        <input type="text" class="form-control mayus" name="marca" th:value="${vehiculo.marca}"/>
+                        <label>Modelo</label>
+                        <input type="text" class="form-control mayustt" name="modelo" th:value="${vehiculo.modelo}"/>
+                        <label>Color</label>
+                        <input type="text" class="form-control mayus" name="color" th:value="${vehiculo.color}"/>
+                        <label>Tipo Vehiculo</label>
+                        <input type="text" class="form-control mayus" name="tipoVehiculo" th:value="${vehiculo.tipoVehiculo}"/>
+                        <label>Cilindrada del Motor</label>
+                        <input type="text" class="form-control mayus" name="cilindradaMotor" th:value="${vehiculo.cilindradaMotor}"/>
+                        <label>Combustible</label>operativo
+                        <input type="text" class="form-control mayustt" name="combustible" th:value="${vehiculo.combustible}"/>
+                        <label>Tipo Gama</label>
+                        <input type="text" class="form-control mayus" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
+                        <label>Precio Diario</label>
+                        <input type="text" class="form-control" name="precio" th:value="${vehiculo.precio}"/><br>
+                        <label>Operativo</label>
+                        <input type="text" class="form-control mayustt" name="operativo" th:value="${vehiculo.operativo}"/><br/>
+
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

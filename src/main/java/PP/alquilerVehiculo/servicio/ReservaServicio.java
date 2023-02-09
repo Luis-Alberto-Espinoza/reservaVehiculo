@@ -55,14 +55,11 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
 
     @Override
     @Transactional
-    public boolean delete(long id) throws Exception {
+    public void deleteById(long id) throws Exception {
         try {
-            if (reservaRepositorio.existsById(id)) {
+            System.out.println("rs. el id " + id);
                 reservaRepositorio.deleteById(id);
-                return true;
-            } else {
-                throw new Exception();
-            }
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

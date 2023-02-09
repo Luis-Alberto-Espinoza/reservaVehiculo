@@ -15,4 +15,11 @@ public interface EmpleadoRepositorio extends JpaRepository<Empleado, Long> {
     public String existeEmpleado(@Param("mail") String mail);
 
 
+    @Query("SELECT COUNT(e.dni) FROM Empleado e WHERE e.dni = :dni")
+    public String existeEmpleadoXdni(@Param("dni") long dni);
+
+
+    @Query("Select e from Empleado e where e.dni = :dni")
+    public Empleado buscarXdni (@Param("dni")long dni);
+
 }

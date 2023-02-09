@@ -16,7 +16,6 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehiculo extends Base {
-    //
     private String patente;
     private String marca;
     private String modelo;

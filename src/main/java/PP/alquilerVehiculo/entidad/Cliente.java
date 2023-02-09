@@ -16,23 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente extends Persona{
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    //@GeneratedValue(generator = "uuid")
-//    // @GenericGenerator(name = "uuid", strategy = "uuid2")
-//    private long id ;
-//    private String nombre;
-//    private String apellido;
-//    private String direccion;
-//    private long edad;
-//    private long dni;
-//    private long telefono;
-//    private String mail;
-//    private String clave1;
-
+    private Date alta;
+    private Date baja;
 
     @OneToMany(mappedBy = "cliente")
     private List<ReservaWeb> reserva;
-    private Date alta;
-    private Date baja;
+
 }

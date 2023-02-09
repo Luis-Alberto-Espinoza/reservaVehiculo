@@ -166,7 +166,7 @@ public class ReservaControlador {
         modelo.addAttribute("autos", listaAutos);
         Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
         modelo.put("clienteLog", cliente);
-        return "autos_reserva";
+        return "reserva";
     }
 
     @GetMapping("/delet_reserva")
@@ -174,7 +174,7 @@ public class ReservaControlador {
         ReservaWeb reservaWeb = reservaServicio.findById(id_reserva);
         System.out.println("129 ResContr reserva id " + reservaWeb.getId());
         Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
-        reservaServicio.delete(id_reserva);
+        reservaServicio.deleteById(id_reserva);
         List<ReservaWeb> autosReservados = reservaServicio.lDeAutosR(cliente);
         modelo.put("autoReservado", autosReservados);
         modelo.put("clienteLog", cliente);

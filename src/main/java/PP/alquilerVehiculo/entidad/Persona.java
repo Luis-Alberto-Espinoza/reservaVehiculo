@@ -22,14 +22,12 @@ public abstract class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String mail;
-
     private String nombre;
     private String apellido;
     private String direccion;
     private LocalDate fechaNacimiento;
     private long dni;
     private long telefono;
-
     private String clave1;
 
 }

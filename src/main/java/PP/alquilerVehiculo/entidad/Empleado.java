@@ -19,7 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Empleado extends Persona{
     private String typeEmpleado;
-
     @OneToMany(mappedBy = "empleado")
     private List<Contrato> contrato;
 }

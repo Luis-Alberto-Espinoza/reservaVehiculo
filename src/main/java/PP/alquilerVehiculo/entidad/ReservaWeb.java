@@ -21,14 +21,11 @@ public class ReservaWeb extends Base {
     private LocalDate fechaRetiro;
     private LocalDate fechaEntrega;
     private LocalDate fechaReserva;
-
-
     private String estadoReserva;
-    @ManyToOne (fetch = FetchType.EAGER )
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_cliente", nullable = false)
     private Cliente cliente;
-
     @OneToOne
-        @JoinColumn(name = "datos_vehiculo_id")
+    @JoinColumn(name = "datos_vehiculo_id")
     private Vehiculo datosVehiculo;
 }

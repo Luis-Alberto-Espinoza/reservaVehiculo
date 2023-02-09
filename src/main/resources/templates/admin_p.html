@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Alquiler de Vehiculo - Historial Reserva</title>
+    <title>Listado de Empleados</title>
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
@@ -17,22 +16,16 @@
     <link href="/css/one-page-wonder.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/cliente/(correo=${clienteLog.mail})}">Alquiler de Vehículos - Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Home Administrador</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -41,55 +34,51 @@
 <section>
     <div class="container" style="padding-top: 100px">
         <div>
-            <h2 class="mayus" th:text="'cliente: '+${clienteLog.nombre}"></h2>
+            <h2 class="mayus" th:text="'Administrador: '+${empleadoLog.nombre}"></h2>
         </div>
         <div class="list-crear_mascota-btn">
-            <a th:href="@{/cliente/(correo=${clienteLog.mail})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
-                ¡Agrega una Reserva!</a>
+            <a th:href="@{/empleado/new_empleado_1(ide=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
+                Agregar nuev@ Emplead@</a>
         </div>
-        <br>
+        <h3>Estos son nuestros Empleados</h3>
         <div class="row align-items-center">
             <table class="table table-hover">
+                        <p type="hidden" name="ide" th:value="${empleadoLog.id}">
+
                 <thead>
                 <tr>
-                    <th scope="col">ID Reserva</th>
-                    <th scope="col">MARCA</th>
-                    <th scope="col">MODELO</th>
-                    <th scope="col">PATENTE</th>
-                    <th scope="col">FECHA RETIRO</th>
-                    <th scope="col">FECHA ENTREGA</th>
+<!--                    <th scope="col">Contador</th>-->
+                    <th scope="col">Id Empleado</th>
+
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">APELLIDO</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">CATEGORIA</th>
                     <th scope="col">Acciones</th>
-                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="autoReservado : ${autoReservado}">
-                    <td scope="row" th:text="${autoReservado.id}">
-                    </th>
-                    <td class="mayus" scope="row" th:text="${autoReservado.datosVehiculo.marca}">
-                    </th>
-                    <td class="mayustt" scope="row" th:text="${autoReservado.datosVehiculo.modelo}">
-                    </th>
-                    <td class="mayustt" scope="row" th:text="${autoReservado.datosVehiculo.patente}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.fechaRetiro}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.fechaEntrega}">
+                <tr th:each="emleado : ${emleado}">
+<!--                    <td class="mayus"scope="row" th:text="${emleado.index}">-->
+                    <td class="mayus"scope="row" th:text="${emleado.id}">
+                    <td class="mayus"scope="row" th:text="${emleado.nombre}">
+                    <td class="mayustt"scope="row" th:text="${emleado.apellido}">
+                    <td scope="row" th:text="${emleado.dni}">
+                    <td class="mayus"scope="row" th:text="${emleado.mail}">
+                    <td class="mayus"scope="row" th:text="${emleado.typeEmpleado}">
                     <td>
-                        <a th:href="@{/reserva/delet_reserva/(id_reserva=${autoReservado.id})}" class="btn btn-danger">Eliminar</a>
-                    </td>
+                        <!-- Declaramos y enviamos el valor de la variable action -->
+                    <a th:href="@{/empleado/edit_empleado(idm=${emleado.id},ide=${empleadoLog.id})}" class="btn btn-warning">Editar</a>
+                    <a th:href="@{/empleado/delet_empleado(idm=${emleado.id},ide=${empleadoLog.id})}" class="btn btn-danger">Eliminar</a>                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </section>
-<di style="padding-top: 100px">
-
-</di>
 <!-- Footer -->
-
-<footer class="py-5 bg-black" >
+<footer class="py-5 bg-black">
     <div class="container">
         <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
