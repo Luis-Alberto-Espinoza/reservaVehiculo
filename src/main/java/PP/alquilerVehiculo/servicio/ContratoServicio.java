@@ -69,8 +69,8 @@ public class ContratoServicio implements BaseService<Contrato> {
     }
 
     @Override
-    public boolean delete(long id) throws Exception {
-        return false;
+    public void deleteById(long id) throws Exception {
+
     }
 
 

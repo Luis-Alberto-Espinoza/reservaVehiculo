@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alquiler de Vehiculos - Reserva</title>
+    <title>New Empleado - DNI</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,8 +26,8 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home
-            Empleado - Ventas</a>
+        <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home
+            Empleado - Administrador</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,22 +43,18 @@
 </nav>
 
 <section>
-    <div class="container" style="padding-top: 100px">
+    <div class="container" style="padding-top: 80px">
         <div class="mx-auto">
         <div class="align-items-center">
 <!--        <div class="row align-items-center">-->
 <!--            <div class="col-lg-10 order-lg-1">-->
                 <div class="p-5">
-                    <h2 class="display-8">COMPLETE LOS DATOS REQUERIDOS</h2>
-                    <form class="col-lg-4 " action="/reserva/resEmp/" method="GET">
+                    <h2 class="display-8">INGRESE EL DNI DEL NUEVO EMPLEADO</h2>
+                    <form class="col-lg-4 " action="/empleado/new_empleado_2/" method="GET">
                         <input type="hidden" name="ide" th:value="${empleadoLog.id}">
-                        <label>DNI del Cliente</label>
+                        <label>DNI</label>
                         <input type="text" class="form-control" name="dni"/><br/>
-                        <label class="p-t-25">Fecha de Retiro</label>
-                        <input type="Date" class="form-control" name="fRetiro"/> <br/>
-                        <label>Fecha de Devolución</label>
-                        <input type="Date" class="form-control" name="fDevolucion"/><br/>
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                        <button type="submit" class="btn btn-primary">Siguiente</button>
                     </form>
 <!--                </div>-->
             </div>

@@ -24,6 +24,9 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
     @Query("SELECT COUNT(c.mail) FROM Cliente c WHERE c.mail = :mail")
     public String existeCliente(@Param("mail") String mail);
 
+    @Query("SELECT COUNT(c.dni) FROM Cliente c WHERE c.dni = :dni")
+    public String existeClienteXdni(@Param("dni") long dni);
+
     @Query("SELECT COUNT(c.clave1) FROM Cliente c WHERE c.clave1 = :clave")
     public String validaPass(@Param("clave") String clave);
 

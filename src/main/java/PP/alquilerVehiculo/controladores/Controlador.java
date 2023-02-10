@@ -1,14 +1,11 @@
 package PP.alquilerVehiculo.controladores;
-
 import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Empleado;
 import PP.alquilerVehiculo.entidad.Vehiculo;
 import PP.alquilerVehiculo.excepciones.ClienteServiceException;
 import PP.alquilerVehiculo.servicio.ClienteServicio;
 import PP.alquilerVehiculo.servicio.EmpleadoServicio;
-import PP.alquilerVehiculo.servicio.ServicioGeneral;
 import PP.alquilerVehiculo.servicio.VehiculoServicio;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -32,8 +29,7 @@ public class Controlador {
     @Autowired
     VehiculoServicio vehiculoServicio;
 
-    @Autowired
-    ServicioGeneral sg;
+
 
     @Autowired
     private EmpleadoServicio empleadoServicio;
@@ -130,11 +126,11 @@ public class Controlador {
                 modelo.put("empleadoLog", empleado);
                 return "/index_ventas";
             } else if (empleado.getTypeEmpleado().toLowerCase().equals("gerente")) {
-                modelo.put("clienteLog", empleado);
+                modelo.put("empleadoLog", empleado);
                 return "index_gerente";
             } else if (empleado.getTypeEmpleado().toLowerCase().equals("administrador")) {
-                modelo.put("clienteLog", empleado);
-                return "index_administrador";
+                modelo.put("empleadoLog", empleado);
+                return "index_admin";
             }
         }
         return "login";

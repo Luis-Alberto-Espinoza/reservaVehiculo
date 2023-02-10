@@ -42,7 +42,13 @@ public class EmpleadoServicio implements BaseService<Empleado> {
 
     @Override
     public Empleado save(Empleado entity) throws Exception {
-        return null;
+        try {
+            empleadoRepositorio.save(entity);
+            return entity;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     @Override
@@ -51,9 +57,14 @@ public class EmpleadoServicio implements BaseService<Empleado> {
     }
 
     @Override
-    public boolean delete(long id) throws Exception {
-        return false;
+    public void deleteById(long id) throws Exception {
+        try {
+            empleadoRepositorio.deleteById(id);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
+
 
     public Empleado buscarXmail(String correo) throws Exception {
         try {
@@ -67,5 +78,15 @@ public class EmpleadoServicio implements BaseService<Empleado> {
     }
     public String existeEmpleado(String correo){
         return empleadoRepositorio.existeEmpleado(correo);
+    }
+    public String existeEmpleadoXdni(String dni){
+        Long entrada = Long.parseLong(dni);
+         return ( empleadoRepositorio.existeEmpleadoXdni(entrada));
+
+    }
+    public Empleado buscarXdni(String dni){
+        Long entrada = Long.parseLong(dni);
+        return (empleadoRepositorio.buscarXdni(entrada));
+
     }
 }

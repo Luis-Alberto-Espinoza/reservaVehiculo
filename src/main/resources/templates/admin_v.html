@@ -20,12 +20,8 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/empleado/ventas/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home Empleado - Ventas</a>
+        <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Home Administrador</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -38,17 +34,23 @@
 
 <section>
     <div class="container" style="padding-top: 100px">
-        <h3>Estos son nuestros autos</h3>
+        <div>
+            <h2 class="mayus" th:text="'Administrador: '+${empleadoLog.nombre}"></h2>
+        </div>
+        <div class="list-crear_mascota-btn">
+            <a th:href="@{/vehiculo/new_auto_1(id=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
+                Agregar un nuevo vehículo</a>
+        </div>
+        <h3 style="padding-top: 18px">Nuestros autos</h3>
         <div class="row align-items-center">
             <table class="table table-hover">
-                        <p type="hidden" name="idc" th:value="${clienteLog.id}">
-                        <p type="hidden" name="fRetiro" th:value="${fRetiro}">
-                        <p type="hidden" name="fDevolucion" th:value="${fDevolucion}">
+                        <p type="hidden" name="ide" th:value="${empleadoLog.id}">
 
                 <thead>
                 <tr>
+<!--                    <th scope="col">Contador</th>-->
+                    <th scope="col">Id Vehiculo</th>
 
-                    <th scope="col">ID-V</th>
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
                     <th scope="col">CILINDRADA</th>
@@ -61,8 +63,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="vehiculo : ${autos}">
-                    <td class="mayus "scope="row" th:text="${vehiculo.id}">
-                    <td class="mayus "scope="row" th:text="${vehiculo.marca}">
+<!--                    <td class="mayus"scope="row" th:text="${vehiculo.index}">-->
+                    <td class="mayus"scope="row" th:text="${vehiculo.id}">
+                    <td class="mayus"scope="row" th:text="${vehiculo.marca}">
                     <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
                     <td scope="row" th:text="${vehiculo.cilindradaMotor}">
                     <td class="mayus"scope="row" th:text="${vehiculo.tipoVehiculo}">
@@ -71,7 +74,9 @@
                     <td class="mayus"scope="row" th:text="${vehiculo.precio}">
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
-                        <a th:href="@{/reserva/generar_reserva_empleado(idv=${vehiculo.id},idc=${clienteLog.id}, ide=${empleadoLog.id}, fRetiro=${fRetiro}, fDevolucion=${fDevolucion})}">Reservar</a>
+<!--                    /**/-->
+                            <a th:href="@{/vehiculo/edit_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}" class="btn btn-warning">Editar</a>
+                            <a th:href="@{/vehiculo/delet_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
                 </tbody>

@@ -55,6 +55,8 @@
                         <input type="hidden" name="ide" th:value="${empleadoLog.id}">
 
                         <label><h3>DATOS DEL CLIENTE</h3></label><br>
+                        <label>ID - Cliente</label>
+                        <input type="text" class="form-control mayus" name="id" th:value="${clienteLog.id}"/>
                         <label>Nombre</label>
                         <input type="text" class="form-control mayus" name="nombre" th:value="${clienteLog.nombre}"/>
                         <label>Apellido</label>
@@ -72,6 +74,8 @@
 
                         <!--                DATOS VEHICULO     -->
                         <label><h3>DATOS DEL VEHICULO</h3></label><br>
+                        <label>ID - Vehiculo</label>
+                        <input type="text" class="form-control mayustt" name="id" th:value="${vehiculo.id}"/>
                         <label>Patente</label>
                         <input type="text" class="form-control mayustt" name="patente" th:value="${vehiculo.patente}"/>
                         <label>marca</label>

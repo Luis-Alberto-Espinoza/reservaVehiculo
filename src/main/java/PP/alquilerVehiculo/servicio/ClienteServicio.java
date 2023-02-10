@@ -1,6 +1,5 @@
 package PP.alquilerVehiculo.servicio;
 
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.excepciones.ClienteServiceException;
@@ -21,6 +20,10 @@ public class ClienteServicio implements BaseService<Cliente> {
     public String hayCliente(String correo) {
         return clienteRepositorio.existeCliente(correo);
     }
+    public String hayClienteXdni(String dni) {
+        Long entrada = Long.parseLong(dni);
+        return clienteRepositorio.existeClienteXdni(entrada);
+    }
 
     public String validaContraseniaCliente(String clave) {
         return clienteRepositorio.validaPass(clave);
@@ -31,7 +34,8 @@ public class ClienteServicio implements BaseService<Cliente> {
     }
 
     @Transactional
-    public Cliente buscarXdni(long dni) {
+    public Cliente buscarXdni(Long dni) {
+        Cliente cliente;
         return clienteRepositorio.buscarPorDNI(dni);
     }
 
@@ -349,12 +353,10 @@ public class ClienteServicio implements BaseService<Cliente> {
 
     @Override
     @Transactional
-    public boolean delete(long id) throws Exception {
-
+    public void deleteById(long id) throws Exception {
         try {
             if (clienteRepositorio.existsById(id)) {
                 clienteRepositorio.deleteById(id);
-                return true;
             } else {
                 throw new Exception();
             }

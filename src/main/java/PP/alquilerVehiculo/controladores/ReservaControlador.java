@@ -57,7 +57,7 @@ public class ReservaControlador {
                                   String fecha2) throws Exception {
         Vehiculo auto = vehiculoServicio.findById(idv);
         Cliente cliente = clienteServicio.findById(idc);
-        Double precioTotal = vehiculoServicio.costoTotal(fecha1,fecha2, idv);
+        Double precioTotal = vehiculoServicio.costoTotal(fecha1, fecha2, idv);
         modelo.put("total", precioTotal);
         modelo.put("vehiculo", auto);
         modelo.put("clienteLog", cliente);
@@ -65,6 +65,7 @@ public class ReservaControlador {
         modelo.put("fecha2", fecha2);
         return "reserva";
     }
+
     @GetMapping("/generar_reserva_empleado")
     public String generar_reserva_empleado(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc,
                                            @RequestParam String fRetiro,
@@ -72,8 +73,8 @@ public class ReservaControlador {
                                            @RequestParam Long ide) throws Exception {
         Vehiculo auto = vehiculoServicio.findById(idv);
         Cliente cliente = clienteServicio.findById(idc);
-        Empleado empleado= empleadoServicio.findById(ide);
-        Double precioTotal = vehiculoServicio.costoTotal(fRetiro,fDevolucion, idv);
+        Empleado empleado = empleadoServicio.findById(ide);
+        Double precioTotal = vehiculoServicio.costoTotal(fRetiro, fDevolucion, idv);
         modelo.put("total", precioTotal);
         modelo.put("fRetiro", fRetiro);
         modelo.put("fDevolucion", fDevolucion);
@@ -82,6 +83,26 @@ public class ReservaControlador {
         modelo.put("empleadoLog", empleado);
         return "reserva_empleado";
     }
+
+    @GetMapping("/resEmp")
+    public String listarAutosReserva(ModelMap modelo, @RequestParam long dni, @RequestParam Long ide,
+                                     @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
+                                     @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
+    ) throws Exception {
+        System.out.println("35 de VehiculoControlador " + fRetiro + "  -  " + fDevolucion);
+        Empleado empleado = empleadoServicio.findById(ide);
+        List<Vehiculo> listaAutos = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
+        Cliente cliente = clienteServicio.buscarXdni(dni);
+        System.out.println("38 line cliente " + cliente);
+        modelo.put("fRetiro", fRetiro);
+        modelo.put("fDevolucion", fDevolucion);
+        modelo.put("empleadoLog", empleado);
+        modelo.addAttribute("autos", listaAutos);
+        modelo.put("clienteLog", cliente);
+        return "autos_reserva";
+
+    }
+
     @PostMapping("/confi_reserva")
     public String reserva(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc,
                           @RequestParam("fecha1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
@@ -96,12 +117,12 @@ public class ReservaControlador {
         LocalDate fechaRegistro = fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         //se crea una lista para pasar mas rapido todas las fechas
-        System.out.println("90 fechas 1 "+ fRetiro+"  2: "+fDevolucion);
+        System.out.println("90 fechas 1 " + fRetiro + "  2: " + fDevolucion);
         List<LocalDate> listadoFechas = new ArrayList<>();
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         listadoFechas.add(fechaRegistro);
-          try {
+        try {
             reservaServicio.guardarReserva(cliente, auto, listadoFechas);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -112,10 +133,11 @@ public class ReservaControlador {
         modelo.put("id_ures", reservaWeb.getId());
         return "/exito_reserva";
     }
+
     @PostMapping("/confi_reserva_empleado")
-    public String reserva_empleado(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc,@RequestParam Long ide,
-                          @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
-                          @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
+    public String reserva_empleado(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc, @RequestParam Long ide,
+                                   @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
+                                   @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
     ) throws Exception {
         Empleado empleado = empleadoServicio.findById(ide);
         Cliente cliente = clienteServicio.findById(idc);
@@ -130,7 +152,7 @@ public class ReservaControlador {
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         listadoFechas.add(fechaRegistro);
-           try {
+        try {
             reservaServicio.guardarReserva(cliente, auto, listadoFechas);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -166,7 +188,7 @@ public class ReservaControlador {
         modelo.addAttribute("autos", listaAutos);
         Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
         modelo.put("clienteLog", cliente);
-        return "autos_reserva";
+        return "reserva";
     }
 
     @GetMapping("/delet_reserva")
@@ -174,7 +196,7 @@ public class ReservaControlador {
         ReservaWeb reservaWeb = reservaServicio.findById(id_reserva);
         System.out.println("129 ResContr reserva id " + reservaWeb.getId());
         Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
-        reservaServicio.delete(id_reserva);
+        reservaServicio.deleteById(id_reserva);
         List<ReservaWeb> autosReservados = reservaServicio.lDeAutosR(cliente);
         modelo.put("autoReservado", autosReservados);
         modelo.put("clienteLog", cliente);
@@ -184,15 +206,15 @@ public class ReservaControlador {
 
     @GetMapping("/recibir_fecha")
     public String recibir_fecha(@RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
-                             @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion,
-                             long idc, ModelMap modelo) throws Exception {
+                                @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion,
+                                long idc, ModelMap modelo) throws Exception {
         Cliente cliente = clienteServicio.findById(idc);
         List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
         modelo.put("autos", vehiculosDisponibles);
         modelo.put("clienteLog", cliente);
         modelo.put("fecha1", fRetiro);
         modelo.put("fecha2", fDevolucion);
-        return  "autos_disponibles";
+        return "autos_disponibles";
 
     }
 
