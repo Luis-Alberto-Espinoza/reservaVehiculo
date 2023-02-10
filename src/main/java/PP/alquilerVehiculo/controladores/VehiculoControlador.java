@@ -39,24 +39,7 @@ public class VehiculoControlador {
 
     }
 
-    @GetMapping("/resEmp")
-    public String listarAutosReserva(ModelMap modelo, @RequestParam long dni, @RequestParam Long ide,
-                                     @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
-                                     @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
-    ) throws Exception {
-        System.out.println("35 de VehiculoControlador " + fRetiro + "  -  " + fDevolucion);
-        Empleado empleado = empleadoServicio.findById(ide);
-        List<Vehiculo> listaAutos = vehiculoServicio.findAll();
-        Cliente cliente = clienteServicio.buscarXdni(dni);
-        System.out.println("38 line cliente " + cliente);
-        modelo.put("fRetiro", fRetiro);
-        modelo.put("fDevolucion", fDevolucion);
-        modelo.put("empleadoLog", empleado);
-        modelo.addAttribute("autos", listaAutos);
-        modelo.put("clienteLog", cliente);
-        return "autos_reserva";
 
-    }
 
     @GetMapping("/new_auto_1")
     public String new_auto_1(@RequestParam Long id, ModelMap modelo) throws Exception {

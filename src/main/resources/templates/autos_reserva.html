@@ -47,6 +47,8 @@
 
                 <thead>
                 <tr>
+
+                    <th scope="col">ID-V</th>
                     <th scope="col">MARCA</th>
                     <th scope="col">MODELO</th>
                     <th scope="col">CILINDRADA</th>
@@ -59,6 +61,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="vehiculo : ${autos}">
+                    <td class="mayus "scope="row" th:text="${vehiculo.id}">
                     <td class="mayus "scope="row" th:text="${vehiculo.marca}">
                     <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
                     <td scope="row" th:text="${vehiculo.cilindradaMotor}">

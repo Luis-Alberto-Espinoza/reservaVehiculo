@@ -23,11 +23,17 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
         return listaVehiculos;
     }
 
-    public List<Vehiculo> autosDisponiblesXfechas(LocalDate fRetiro, LocalDate fDevolucion) throws Exception {
-        System.out.println("23 sv cantidad de vehiculos" + vehiculoRepositorio.listadoVehiculoDisponiblesFechas(fRetiro, fDevolucion).size());
-        return vehiculoRepositorio.listadoVehiculoDisponiblesFechas(fRetiro, fDevolucion);
-    }
 
+    public List<Vehiculo> autosDisponiblesXfechas(LocalDate fRetiro, LocalDate fDevolucion) throws Exception {
+        List<Vehiculo> lista1 = vehiculoRepositorio.caso1(fRetiro, fDevolucion);
+        List<Vehiculo> lista2 = vehiculoRepositorio.caso2(fRetiro, fDevolucion);
+        List<Vehiculo> todos = vehiculoRepositorio.findAll();
+
+        todos.removeAll(lista1);
+        todos.removeAll(lista2);
+
+        return todos;
+    }
     @Override
     public Vehiculo findById(long id) throws Exception {
         Optional<Vehiculo> obj = vehiculoRepositorio.findById(id);
