@@ -75,48 +75,48 @@ public class ClienteServicio implements BaseService<Cliente> {
 
     private boolean validar(String nombre, String apellido, String email, String clave1, String clave2,
                             String direccion, LocalDate fNacimiento, long telefono, Long dni) {
-        int contaor = 0;
+        int contador = 0;
         System.out.println("//////////////////////////////////////////////////////////////////////");
         System.out.println("");
         System.out.println("SEGUN LA VALIDACION");
         //Validaciones de los argumentos
         if (nombre == null || nombre.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El nombre del cliente no puede ser nulo.");
         }
 
         if (apellido == null || apellido.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El apellido del cliente no puede ser nulo.");
         }
 
         if (email == null || email.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El email del cliente no puede ser nulo.");
         } else if (!email.contains("@")) {
-            contaor++;
+            contador++;
             System.out.println("El email del cliente no es válido.");
         } else if (clienteRepositorio.buscarPorMail(email) != null) {
-            contaor++;
+            contador++;
             System.out.println("El mail ya está en uso.");
         }
 
         if (clave1 == null || clave1.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("La clave del cliente no puede ser nulo.");
         } else if (clave1.length() < 3) {
-            contaor++;
+            contador++;
             System.out.println("La clave del cliente debe contener 3 o más caracteres.");
         }
 
         //Validamos que las dos claves recibidas sean iguales
         if (!clave1.equals(clave2)) {
-            contaor++;
+            contador++;
             System.out.println("Las contraseñas no coinciden.");
         }
 
         if (direccion == null || direccion.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("La direccion del cliente no puede ser nulo.");
         }
         Date fechaActual = new Date();
@@ -124,22 +124,22 @@ public class ClienteServicio implements BaseService<Cliente> {
         int fechaRegistro = (fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).getYear();
 
         if (fNacimiento == null || (fechaRegistro-fNacimiento.getYear()) < 18) {
-            contaor++;
+            contador++;
             System.out.println("El Edad del cliente no puede ser menor a 18 años.");
         }
         if (dni == null || dni.longValue() < 8) {
-            contaor++;
+            contador++;
             System.out.println("El DNI del cliente no fue bien colocado.");
         }
         if (telefono == 0) {
-            contaor++;
+            contador++;
             System.out.println("El telefono del cliente no puede ser nulo.");
         }
 
         System.out.println("");
         System.out.println("FIN DE LA VALIDACION");
         System.out.println("//////////////////////////////////////////////////////////////////////");
-        if(contaor == 0){
+        if(contador == 0){
             return true;
         }else {
             return false;

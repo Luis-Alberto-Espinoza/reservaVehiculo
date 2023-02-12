@@ -48,16 +48,11 @@ public class ContratoControlador {
 
         System.out.println("antes de la validacion  ");
         if (contratoServicio.validarReserva(idres)) {
-            System.out.println("  1 -contratoServicio.validarReserva(idres) " + contratoServicio.validarReserva(idres));
-
             Empleado empleado = empleadoServicio.findById(ide);
-            //Vehiculo auto = vehiculoServicio.findById(idv);
-            //Cliente cliente = clienteServicio.findById(idc);
             ReservaWeb reservaWeb = reservaServicio.findById(idres);
             System.out.println(reservaWeb.getId());
             Cliente cliente = reservaWeb.getCliente();
             Vehiculo auto = reservaWeb.getDatosVehiculo();
-            double precio = auto.getPrecio();
             Double precioTotal = vehiculoServicio.costoTotal
                     (String.valueOf(reservaWeb.getFechaRetiro()),String.valueOf(reservaWeb.getFechaEntrega()), auto.getId());
             modelo.put("total", precioTotal);

@@ -90,14 +90,14 @@
                           <td scope="row" th:text="${cliente.id}">
                           <td scope="row" th:text="${cliente.apellido}">
                           <td scope="row" th:text="${cliente.nombre}">
-                          <td scope="row" th:text="${cliente.edad}">
+<!--                          <td scope="row" th:text="${cliente.edad}">-->
                           <td scope="row" th:text="${cliente.mail}">
                           <td scope="row" th:text="${cliente.telefono}">
                           <td scope="row" th:text="${cliente.direccion}">
                           <td>
                               <!-- Declaramos y enviamos el valor de la variable action -->
                               <a th:href="@{/cliente/editar-perfil(id=__${cliente.id}__,accion=Editar)}">Editar</a>
-                              <a th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">Editar</a>
+<!--                              <a th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">Editar</a>-->
 
                           </td>
                       </tr>

@@ -208,13 +208,21 @@ public class ReservaControlador {
     public String recibir_fecha(@RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
                                 @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion,
                                 long idc, ModelMap modelo) throws Exception {
-        Cliente cliente = clienteServicio.findById(idc);
-        List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
-        modelo.put("autos", vehiculosDisponibles);
-        modelo.put("clienteLog", cliente);
-        modelo.put("fecha1", fRetiro);
-        modelo.put("fecha2", fDevolucion);
-        return "autos_disponibles";
+        if(fRetiro.compareTo(LocalDate.now())>=0){
+            System.out.println(" la primera es mas grande ");
+            Cliente cliente = clienteServicio.findById(idc);
+            List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
+            modelo.put("autos", vehiculosDisponibles);
+            modelo.put("clienteLog", cliente);
+            modelo.put("fecha1", fRetiro);
+            modelo.put("fecha2", fDevolucion);
+            return "autos_disponibles";
+        }else {
+            System.out.println("La segunda es mas grande");
+            modelo.put("error", "la fecha retiro no puede ser anteriior a la fecha actual ");
+            return  "index_cliente";
+        }
+
 
     }
 
