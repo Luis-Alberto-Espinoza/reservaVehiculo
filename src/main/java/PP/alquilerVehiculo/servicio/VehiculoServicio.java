@@ -22,7 +22,7 @@ public class VehiculoServicio implements BaseService<Vehiculo> {
         List<Vehiculo> listaVehiculos = vehiculoRepositorio.findAll();
         return listaVehiculos;
     }
-
+/**/
 
     public List<Vehiculo> autosDisponiblesXfechas(LocalDate fRetiro, LocalDate fDevolucion) throws Exception {
         List<Vehiculo> lista1 = vehiculoRepositorio.caso1(fRetiro, fDevolucion);

@@ -55,6 +55,8 @@
 
                         <!--                DATOS DEL CLIENTE      -->
                         <label><h3>DATOS DEL CLIENTE</h3></label><br>
+                        <label>ID - Cliente</label>
+                        <input type="text" class="form-control mayus" name="id" th:value="${clienteLog.id}"/>
                         <label>Nombre</label>
                         <input type="text" class="form-control mayus" name="nombre" th:value="${clienteLog.nombre}"/>
                         <label>Apellido</label>
@@ -74,6 +76,8 @@
 
                         <!--                DATOS VEHICULO     -->
                         <label><h3>DATOS DEL VEHICULO</h3></label><br>
+                        <label>ID - Vehículo</label>
+                        <input type="text" class="form-control mayustt" name="patente" th:value="${vehiculo.id}"/>
                         <label>Patente</label>
                         <input type="text" class="form-control mayustt" name="patente" th:value="${vehiculo.patente}"/>
                         <label>marca</label>
@@ -86,6 +90,9 @@
                         <label>Tipo Gama</label>
                         <input type="text" class="form-control mayus" name="typeGama"
                                th:value="${vehiculo.typeGama}"/><br>
+                        <label>Precio Diario</label>
+                        <input type="text" class="form-control mayus" name="precio"
+                               th:value="${vehiculo.precio}"/><br>
 
                         <!--                DATOS RESERVA     -->
                         <label><h3>DATOS DE LA RESERVA</h3></label><br>
@@ -95,7 +102,11 @@
                         <input type="text" class="form-control" name="fReserva" th:value="${datoReserva.fechaRetiro}"/>
                         <label>Fecha de Devolución</label>
                         <input type="text" class="form-control" name="fDevolucion"
-                               th:value="${datoReserva.fechaEntrega}"/> <br/>
+                               th:value="${datoReserva.fechaEntrega}"/>
+                        <label>PRECIO TOTAL</label>
+                        <input type="text" class="form-control" name="total" th:value="${total}"/>
+                        .<br/>
+
 
                         <!--                DATOS DEL EMPLEADO-->
                         <label><h3>DATOS DEL EMPLEADO</h3></label><br>

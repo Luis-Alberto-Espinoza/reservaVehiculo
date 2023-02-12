@@ -50,22 +50,5 @@ public interface ReservaRepositorio extends JpaRepository<ReservaWeb, Long> {//e
     @Query("SELECT r FROM ReservaWeb r WHERE r.datosVehiculo.id = :id")
     public List<ReservaWeb> xIdVehiculo(@Param("id") Long id);
 
-    //// x fechas encontrar los autos disponibles
-
-    /////a
-//    @Query("SELECT r FROM ReservaWeb r RIGHT JOIN Vehiculo v on r.datosVehiculo = v.id WHERE r.id is null")
-//    public List<ReservaWeb> metodoA();
-//    public List<ReservaWeb> metodoA(@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion);
-
-//    SELECT * FROM reserva r
-//    INNER JOIN vehiculo v on r.datos_vehiculo_id = v.id
-//    WHERE v.color = 'blanco'
-
-
-
-    //esta consulta trae los vehiculos que no tienen reservas !!!!
-//    SELECT * FROM reserva r
-//    RIGHT  JOIN vehiculo v on r.datos_vehiculo_id = v.id
-//    WHERE r.id is null
 
 }

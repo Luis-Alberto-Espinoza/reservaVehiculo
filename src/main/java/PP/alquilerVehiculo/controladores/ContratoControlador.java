@@ -39,18 +39,39 @@ public class ContratoControlador {
     @GetMapping("/generar_contrato")
     public String generar_contrato(ModelMap modelo, @RequestParam long idres, @RequestParam long ide) throws Exception {
         System.out.println("llegue al controlador de contratos line 44");
-        Empleado empleado = empleadoServicio.findById(ide);
-        //Vehiculo auto = vehiculoServicio.findById(idv);
-        //Cliente cliente = clienteServicio.findById(idc);
-        ReservaWeb reservaWeb = reservaServicio.findById(idres);
-        System.out.println(reservaWeb.getId());
-        Cliente cliente = reservaWeb.getCliente();
-        Vehiculo auto = reservaWeb.getDatosVehiculo();
-        modelo.put("empleadoLog", empleado);
-        modelo.put("datoReserva", reservaWeb);
-        modelo.put("vehiculo", auto);
-        modelo.put("clienteLog", cliente);
-        return "genera_contrato";
+        /*
+         * verificar que la reserva no se a convertido en contrato
+         * verificar que la reserva no sea vieja
+         *
+         * */
+        System.out.println("**************** inicio ********************** ");
+
+        System.out.println("antes de la validacion  ");
+        if (contratoServicio.validarReserva(idres)) {
+            System.out.println("  1 -contratoServicio.validarReserva(idres) " + contratoServicio.validarReserva(idres));
+
+            Empleado empleado = empleadoServicio.findById(ide);
+            //Vehiculo auto = vehiculoServicio.findById(idv);
+            //Cliente cliente = clienteServicio.findById(idc);
+            ReservaWeb reservaWeb = reservaServicio.findById(idres);
+            System.out.println(reservaWeb.getId());
+            Cliente cliente = reservaWeb.getCliente();
+            Vehiculo auto = reservaWeb.getDatosVehiculo();
+            double precio = auto.getPrecio();
+            Double precioTotal = vehiculoServicio.costoTotal
+                    (String.valueOf(reservaWeb.getFechaRetiro()),String.valueOf(reservaWeb.getFechaEntrega()), auto.getId());
+            modelo.put("total", precioTotal);
+            modelo.put("empleadoLog", empleado);
+            modelo.put("datoReserva", reservaWeb);
+            modelo.put("vehiculo", auto);
+            modelo.put("clienteLog", cliente);
+            return "genera_contrato";
+        } else {
+            System.out.println("  2 -contratoServicio.validarReserva(idres) " + contratoServicio.validarReserva(idres));
+            return "index";
+        }
+
+
     }
 
     @PostMapping("/confi_contrato")

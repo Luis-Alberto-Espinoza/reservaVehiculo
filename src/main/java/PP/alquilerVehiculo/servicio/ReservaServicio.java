@@ -80,8 +80,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
 
     @Transactional
     public void guardarReserva(Cliente cliente, Vehiculo vehiculo, List<LocalDate> lFechas) throws Exception {
-        //validar que la reserva se pueda realizar teniendo en cuenta las fechas y el vehiculo
-        if (disponibilidadReserva(lFechas.get(1), lFechas.get(0), vehiculo)) {
             //Se crea la nueva reserva y se le setea los atributos recibidos
             ReservaWeb newReserva = new ReservaWeb();
             newReserva.setCliente(cliente);
@@ -93,9 +91,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             //Se hace persistir a la nueva reserva
             reservaRepositorio.save(newReserva);
             System.out.println("SI!!!! se guardo la reserva!!!!!");
-        } else {
-            System.out.println("no se guardo la reserva");
-        }
     }
 
     public List<ReservaWeb> lDeAutosR(Cliente cliente) {

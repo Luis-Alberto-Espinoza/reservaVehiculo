@@ -93,6 +93,7 @@ public class EmpleadoControlador {
         } else {
             System.out.println("el dni es de una persona no registrada");
             modelo.put("usuario", null);
+            return "registro";
         }
 
         //        List<Vehiculo> listaAutos = vehiculoServicio.findAll();

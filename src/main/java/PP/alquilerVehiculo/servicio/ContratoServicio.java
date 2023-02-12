@@ -82,4 +82,20 @@ public class ContratoServicio implements BaseService<Contrato> {
         contrato.setEmpleado(empleado);
         contratoRepositorio.save(contrato);
     }
+
+    public boolean validarReserva(long idres) throws Exception {
+        System.out.println(" 87 - entre a validar reserva 87  con el idres "+idres);
+        String reservaWeb = contratoRepositorio.encontrarReservaLigada(idres);
+        System.out.println(" 89 - reservaWeb.isEmpty()  "+reservaWeb.isEmpty());
+        if(reservaWeb.equals("1")){
+
+            System.out.println("  92 - esto devuelve el metodo en 1 " +reservaWeb);
+            return false;
+        }else {
+
+            System.out.println(" 96 - esto devuelve el metodo en 0 " +reservaWeb);
+            return true;
+        }
+
+    }
 }

@@ -2,6 +2,7 @@ package PP.alquilerVehiculo.repositorios;
 
 import PP.alquilerVehiculo.entidad.Cliente;
 import PP.alquilerVehiculo.entidad.Contrato;
+import PP.alquilerVehiculo.entidad.ReservaWeb;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,9 @@ public interface ContratoRepositorio extends JpaRepository<Contrato, Long> {
 
     @Query("SELECT c FROM Contrato c WHERE c.reserva.cliente.id = :id")
     public List<Cliente> contratoXidCliente(@Param("id") Long id);
+
+//    @Query("SELECT reserva.id from Contrato c WHERE reserva.id = :idres")
+//    public String encontrarReservaLigada(@Param("idres") Long idres);
+    @Query("SELECT count (reserva.id) FROM Contrato WHERE reserva.id = :idres")
+    public String  encontrarReservaLigada(@Param("idres") Long idres);
 }
