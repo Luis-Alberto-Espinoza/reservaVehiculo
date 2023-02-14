@@ -122,16 +122,30 @@ public class ReservaControlador {
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         listadoFechas.add(fechaRegistro);
+        String titulo1 = "", titulo2 = "", descripcion = "";
+
         try {
             reservaServicio.guardarReserva(cliente, auto, listadoFechas);
+            titulo1 = "EXITO!!!!";
+            titulo2 = "Su Reserva fue generada";
+            descripcion = "Tome Nota del número de reserva";
+
         } catch (Exception e) {
+            titulo1 = "ERROR!!!!";
+            titulo2 = "Su Reserva  NO fue generada";
+            descripcion = "Realice nuevamente su reserva";
             throw new RuntimeException(e);
         }
         //con el id del cliente se busca la reserva recien guardada para poder pasarla al modelo
         ReservaWeb reservaWeb = reservaServicio.ultimaReserva(cliente);
+        modelo.addAttribute("titulo1", titulo1);
+        modelo.addAttribute("titulo2", titulo2);
+        modelo.addAttribute("descripcion", descripcion);
         modelo.put("clienteLog", cliente);
-        modelo.put("id_ures", reservaWeb.getId());
-        return "/exito_reserva";
+        modelo.put("numero", reservaWeb.getId());
+        String home = "/cliente/?correo=" + cliente.getMail();
+        modelo.addAttribute("home", home);
+        return "/exitoGeneral";
     }
 
     @PostMapping("/confi_reserva_empleado")
@@ -152,17 +166,30 @@ public class ReservaControlador {
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         listadoFechas.add(fechaRegistro);
+        String titulo1 = "", titulo2 = "", descripcion = "";
+
         try {
             reservaServicio.guardarReserva(cliente, auto, listadoFechas);
+            titulo1 = "EXITO!!!!";
+            titulo2 = "Su Reserva fue generada";
+            descripcion = "Tome Nota del número de reserva";
         } catch (Exception e) {
+            titulo1 = "ERROR!!!!";
+            titulo2 = "Su Reserva  NO fue generada";
+            descripcion = "Realice nuevamente su reserva";
             throw new RuntimeException(e);
         }
         //con el id del cliente se busca la reserva recien guardada para poder pasarla al modelo
         ReservaWeb reservaWeb = reservaServicio.ultimaReserva(cliente);
         modelo.put("empleadoLog", empleado);
         modelo.put("clienteLog", cliente);
-        modelo.put("id_ures", reservaWeb.getId());
-        return "/exito_reserva_empleado";
+        modelo.addAttribute("titulo1", titulo1);
+        modelo.addAttribute("titulo2", titulo2);
+        modelo.addAttribute("descripcion", descripcion);
+        String home = "/empleado/ventas/?correo=" + empleado.getMail();
+        modelo.addAttribute("home", home);
+        modelo.put("numero", reservaWeb.getId());
+        return "/exitoGeneral";
     }
 
     @GetMapping("/mis_reservas")
@@ -208,13 +235,21 @@ public class ReservaControlador {
     public String recibir_fecha(@RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
                                 @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion,
                                 long idc, ModelMap modelo) throws Exception {
-        Cliente cliente = clienteServicio.findById(idc);
-        List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
-        modelo.put("autos", vehiculosDisponibles);
-        modelo.put("clienteLog", cliente);
-        modelo.put("fecha1", fRetiro);
-        modelo.put("fecha2", fDevolucion);
-        return "autos_disponibles";
+        if (fRetiro.compareTo(LocalDate.now()) >= 0) {
+            System.out.println(" la primera es mas grande ");
+            Cliente cliente = clienteServicio.findById(idc);
+            List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
+            modelo.put("autos", vehiculosDisponibles);
+            modelo.put("clienteLog", cliente);
+            modelo.put("fecha1", fRetiro);
+            modelo.put("fecha2", fDevolucion);
+            return "autos_disponibles";
+        } else {
+            System.out.println("La segunda es mas grande");
+            modelo.put("error", "la fecha retiro no puede ser anteriior a la fecha actual ");
+            return "index_cliente";
+        }
+
 
     }
 

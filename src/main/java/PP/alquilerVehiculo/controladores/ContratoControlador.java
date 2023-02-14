@@ -48,16 +48,11 @@ public class ContratoControlador {
 
         System.out.println("antes de la validacion  ");
         if (contratoServicio.validarReserva(idres)) {
-            System.out.println("  1 -contratoServicio.validarReserva(idres) " + contratoServicio.validarReserva(idres));
-
             Empleado empleado = empleadoServicio.findById(ide);
-            //Vehiculo auto = vehiculoServicio.findById(idv);
-            //Cliente cliente = clienteServicio.findById(idc);
             ReservaWeb reservaWeb = reservaServicio.findById(idres);
             System.out.println(reservaWeb.getId());
             Cliente cliente = reservaWeb.getCliente();
             Vehiculo auto = reservaWeb.getDatosVehiculo();
-            double precio = auto.getPrecio();
             Double precioTotal = vehiculoServicio.costoTotal
                     (String.valueOf(reservaWeb.getFechaRetiro()),String.valueOf(reservaWeb.getFechaEntrega()), auto.getId());
             modelo.put("total", precioTotal);
@@ -75,23 +70,30 @@ public class ContratoControlador {
     }
 
     @PostMapping("/confi_contrato")
-//    public String reserva(ModelMap modelo, @RequestParam Long idv, @RequestParam Long idc
     public String reserva(ModelMap modelo, @RequestParam Long id_reserva, @RequestParam Long ide
     ) throws Exception {
         ReservaWeb reserva = reservaServicio.findById(id_reserva);
         Empleado empleado = empleadoServicio.findById(ide);
         List<Date> listadoFechas = new ArrayList<>();
-//        listadoFechas.add(fDevolucion);
-//        listadoFechas.add(fRetiro);
         Date fechaRegistrp = new Date();
+        String titulo1 = "", titulo2 = "", descripcion = "";
+
         contratoServicio.guardarContrato(reserva, empleado);
+        titulo1 = "EXITO!!!!";
+        titulo2 = "Su Contrato fue generado";
+        descripcion = "Tome Nota del número de Contrato";
         Vehiculo auto = reserva.getDatosVehiculo();
         Cliente cliente = reserva.getCliente();
         Contrato contrato = contratoServicio.contratoXidReserva(reserva.getId());
         modelo.put("vehiculo", auto);
         modelo.put("clienteLog", cliente);
         modelo.put("empleadoLog", empleado);
-        modelo.put("id_contrato", contrato.getId());
-        return "exito_contrato";
+        modelo.addAttribute("titulo1", titulo1);
+        modelo.addAttribute("titulo2", titulo2);
+        modelo.addAttribute("descripcion", descripcion);
+        String home = "/empleado/ventas/?correo=" + empleado.getMail();
+        modelo.addAttribute("home", home);
+        modelo.put("numero", contrato.getId());
+        return "exitoGeneral";
     }
 }

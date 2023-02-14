@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente extends Persona{
-    private Date alta;
-    private Date baja;
+    private LocalDate alta;
+    private LocalDate baja;
 
     @OneToMany(mappedBy = "cliente")
     private List<ReservaWeb> reserva;

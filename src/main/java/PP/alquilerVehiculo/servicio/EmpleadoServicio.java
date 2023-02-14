@@ -53,7 +53,7 @@ public class EmpleadoServicio implements BaseService<Empleado> {
 
     @Override
     public Empleado update(long id, Empleado entity) throws Exception {
-        return null;
+      return null;
     }
 
     @Override

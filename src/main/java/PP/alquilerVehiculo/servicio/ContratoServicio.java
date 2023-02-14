@@ -5,6 +5,9 @@ import PP.alquilerVehiculo.repositorios.ContratoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +17,9 @@ public class ContratoServicio implements BaseService<Contrato> {
     @Autowired
     ContratoRepositorio contratoRepositorio;
 
-    //    metodos
-    // Registrar
-    // buscar contrato por id reserva
-    // listar todos los contratos de un cliente
-    // listar todos los contratos de un empleado
-    // listar todos los contratos pór fechas
+    @Autowired
+    ReservaServicio reservaServicio;
+
     public void registrarContrato(Empleado empleado, ReservaWeb reserva) throws Exception {
         Contrato contrato = new Contrato();
         contrato.setEmpleado(empleado);
@@ -35,7 +35,6 @@ public class ContratoServicio implements BaseService<Contrato> {
     }
 
     public List<Contrato> ListCxCliente() throws Exception {
-
         return null;
     }
 
@@ -46,7 +45,6 @@ public class ContratoServicio implements BaseService<Contrato> {
 
     @Override
     public List<Contrato> findAll() throws Exception {
-//        List<Contrato>
         return null;
     }
 
@@ -58,8 +56,6 @@ public class ContratoServicio implements BaseService<Contrato> {
 
     @Override
     public Contrato save(Contrato entity) throws Exception {
-        // Contrato newContrato = new Contrato();
-
         return null;
     }
 
@@ -75,7 +71,6 @@ public class ContratoServicio implements BaseService<Contrato> {
 
 
     public void guardarContrato(ReservaWeb reserva, Empleado empleado) {
-        System.out.println(" 81 apellido empleado");
         Contrato contrato = new Contrato();
         contrato.setReserva(reserva);
         contrato.setFechaContrato(new Date());
@@ -84,18 +79,14 @@ public class ContratoServicio implements BaseService<Contrato> {
     }
 
     public boolean validarReserva(long idres) throws Exception {
-        System.out.println(" 87 - entre a validar reserva 87  con el idres "+idres);
         String reservaWeb = contratoRepositorio.encontrarReservaLigada(idres);
-        System.out.println(" 89 - reservaWeb.isEmpty()  "+reservaWeb.isEmpty());
+        LocalDate fechaActual = LocalDate.now();
         if(reservaWeb.equals("1")){
-
-            System.out.println("  92 - esto devuelve el metodo en 1 " +reservaWeb);
             return false;
-        }else {
-
-            System.out.println(" 96 - esto devuelve el metodo en 0 " +reservaWeb);
+        }else if(reservaServicio.findById(idres).getFechaRetiro().compareTo(fechaActual) > 0 ) {
             return true;
+        }else {
+            return false;
         }
-
     }
 }

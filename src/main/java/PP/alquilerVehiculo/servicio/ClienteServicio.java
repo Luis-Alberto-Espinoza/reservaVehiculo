@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.LocalDate.now;
+
 @Service
 public class ClienteServicio implements BaseService<Cliente> {
     public ClienteRepositorio clienteRepositorio;
@@ -58,7 +60,7 @@ public class ClienteServicio implements BaseService<Cliente> {
             cliente.setApellido(apellido);
             cliente.setMail(email);
             cliente.setClave1(clave1);
-            cliente.setAlta(new Date());
+            cliente.setAlta(LocalDate.now());
             cliente.setDni(dni);
             cliente.setDireccion(direccion);
             cliente.setTelefono(telefono);
@@ -75,48 +77,48 @@ public class ClienteServicio implements BaseService<Cliente> {
 
     private boolean validar(String nombre, String apellido, String email, String clave1, String clave2,
                             String direccion, LocalDate fNacimiento, long telefono, Long dni) {
-        int contaor = 0;
+        int contador = 0;
         System.out.println("//////////////////////////////////////////////////////////////////////");
         System.out.println("");
         System.out.println("SEGUN LA VALIDACION");
         //Validaciones de los argumentos
         if (nombre == null || nombre.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El nombre del cliente no puede ser nulo.");
         }
 
         if (apellido == null || apellido.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El apellido del cliente no puede ser nulo.");
         }
 
         if (email == null || email.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("El email del cliente no puede ser nulo.");
         } else if (!email.contains("@")) {
-            contaor++;
+            contador++;
             System.out.println("El email del cliente no es válido.");
         } else if (clienteRepositorio.buscarPorMail(email) != null) {
-            contaor++;
+            contador++;
             System.out.println("El mail ya está en uso.");
         }
 
         if (clave1 == null || clave1.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("La clave del cliente no puede ser nulo.");
         } else if (clave1.length() < 3) {
-            contaor++;
+            contador++;
             System.out.println("La clave del cliente debe contener 3 o más caracteres.");
         }
 
         //Validamos que las dos claves recibidas sean iguales
         if (!clave1.equals(clave2)) {
-            contaor++;
+            contador++;
             System.out.println("Las contraseñas no coinciden.");
         }
 
         if (direccion == null || direccion.isEmpty()) {
-            contaor++;
+            contador++;
             System.out.println("La direccion del cliente no puede ser nulo.");
         }
         Date fechaActual = new Date();
@@ -124,22 +126,22 @@ public class ClienteServicio implements BaseService<Cliente> {
         int fechaRegistro = (fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).getYear();
 
         if (fNacimiento == null || (fechaRegistro-fNacimiento.getYear()) < 18) {
-            contaor++;
+            contador++;
             System.out.println("El Edad del cliente no puede ser menor a 18 años.");
         }
         if (dni == null || dni.longValue() < 8) {
-            contaor++;
+            contador++;
             System.out.println("El DNI del cliente no fue bien colocado.");
         }
         if (telefono == 0) {
-            contaor++;
+            contador++;
             System.out.println("El telefono del cliente no puede ser nulo.");
         }
 
         System.out.println("");
         System.out.println("FIN DE LA VALIDACION");
         System.out.println("//////////////////////////////////////////////////////////////////////");
-        if(contaor == 0){
+        if(contador == 0){
             return true;
         }else {
             return false;
@@ -200,7 +202,7 @@ public class ClienteServicio implements BaseService<Cliente> {
             Cliente cliente = respuesta.get();
 
             //Seteamos la fecha actual de baja del Cliente
-            cliente.setBaja(new Date());
+            cliente.setBaja(LocalDate.now());
 
             //Actualizamos la entrada dentro del repositorio usando el mismo método save()
             clienteRepositorio.save(cliente);

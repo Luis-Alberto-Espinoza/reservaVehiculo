@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/")
@@ -154,5 +156,44 @@ public class Controlador {
             System.out.println("empl err");
         }
         return respuesta;
+    }
+    @GetMapping("/prueba")
+    public String pruebaExito(ModelMap model){
+
+        String nombre = "luis";
+        String apellido = "apellido";
+        String tituloAAA = "/registro";
+        String  tituloBBB = "/login";
+        String  descripcion3 = "descripcion3 este es el titulo 3";
+        String  descripcion2 = "descripcion2 este es el titulo 2";
+        int num1 = 14;
+        int num2 = 15;
+Date fechaActual = new Date();
+double numeros = 123345567.25896;
+boolean respuesta = true;
+List<String> paises= new ArrayList<String>();
+paises.add("argentina");
+paises.add("chile");
+paises.add("venezuela");
+paises.add("españa");
+
+
+
+model.addAttribute("paises", paises);
+model.addAttribute("num1", num1);
+model.addAttribute("num2", num2);
+
+model.addAttribute("numeros", numeros);
+model.put("fechaactual",fechaActual);
+model.put("respuesta", respuesta);
+
+        model.put("nombre", nombre);
+        model.put("apellido", apellido);
+        model.put("tituloAAA", tituloAAA);
+        model.put("titulobbb", tituloBBB);
+        model.put("descripcion1", descripcion3);
+        model.put("descripcion2", descripcion2);
+
+        return "exitoPrueba";
     }
 }

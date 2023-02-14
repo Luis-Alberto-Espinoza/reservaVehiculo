@@ -52,7 +52,7 @@ public class VehiculoControlador {
     }
 
     @PostMapping("/alta")
-    public String alta_vehiculo(ModelMap model, Long id,
+    public String alta_vehiculo(ModelMap model, Long id, Long ide,
                                 @RequestParam String marca, @RequestParam String modelo,
                                 @RequestParam String patente, @RequestParam String color,
                                 @RequestParam String tipoVehiculo, @RequestParam String cilindradaMotor,
@@ -60,6 +60,10 @@ public class VehiculoControlador {
                                 @RequestParam String precio, @RequestParam String operativo
 
     ) throws Exception {
+        Empleado empleado = empleadoServicio.findById(ide);
+        String home = "/empleado/admin/?correo=" + empleado.getMail();
+
+        String titulo1 = "", titulo2 = "", descripcion = "";
         Vehiculo newVehiculo = new Vehiculo();
         newVehiculo.setTipoVehiculo(tipoVehiculo);
         newVehiculo.setMarca(marca);
@@ -72,22 +76,37 @@ public class VehiculoControlador {
         newVehiculo.setPrecio(Double.parseDouble(precio));
         newVehiculo.setOperativo(operativo);
         vehiculoServicio.save(newVehiculo);
-        model.put("titulo", "¡Su gestión fue realizada con éxito !");
-        model.put("descripcion", "El vehículo fue guardado en la Base de Datos.");
-        return "exito";
+        titulo1 = "EXITO!!!!";
+        titulo2 = "¡Su gestión fue realizada con éxito !";
+        descripcion = "El vehículo fue guardado en la Base de Datos.";
+        model.addAttribute("titulo1", titulo1);
+        model.addAttribute("titulo2", titulo2);
+        model.addAttribute("descripcion", descripcion);
+        model.addAttribute("home", home);
+        return "exitoGeneral";
+
     }
 
     @GetMapping("/delet_vehiculo")
-    public String eliminarVehiculo(Long idv, Long ide, ModelMap modelo) throws Exception {
+    public String eliminarVehiculo(Long idv, Long ide, ModelMap model) throws Exception {
         System.out.println("llegue a delet vehiculo");
+
         Empleado empleado = empleadoServicio.findById(ide);
         Vehiculo vehiculo = vehiculoServicio.findById(idv);
+        String home = "/empleado/admin/?correo=" + empleado.getMail();
+
+        String titulo1 = "", titulo2 = "", descripcion = "";
         vehiculoServicio.deleteById(idv);
         List<Vehiculo> autos = vehiculoServicio.findAll();
-        modelo.put("autos", autos);
-        modelo.put("empleadoLog.id", empleado.getId());
-//        modelo.addAttribute("id_empleado" )
-        return "redirect:/admin_p/{empleadoLog.id}";
+        model.put("autos", autos);
+        titulo1 = "EXITO!!!!";
+        titulo2 = "¡Su gestión fue realizada con éxito !";
+        descripcion = "El vehículo fue eliminado en la Base de Datos.";
+        model.addAttribute("titulo1", titulo1);
+        model.addAttribute("titulo2", titulo2);
+        model.addAttribute("descripcion", descripcion);
+        model.addAttribute("home", home);
+        return "exitoGeneral";
     }
 
     @GetMapping("/edit_vehiculo")
@@ -108,6 +127,10 @@ public class VehiculoControlador {
                                    @RequestParam String precio, @RequestParam String operativo
                                    ) throws Exception {
         System.out.println("llegue a edit vehiculo1");
+        String titulo1 = "", titulo2 = "", descripcion = "";
+        Empleado empleado = empleadoServicio.findById(ide);
+        String home = "/empleado/admin/?correo=" + empleado.getMail();
+
         Vehiculo vehiculo = vehiculoServicio.findById(idv);
 
         vehiculo.setId(idv);
@@ -122,10 +145,17 @@ public class VehiculoControlador {
         vehiculo.setPrecio(Double.parseDouble(precio));
         vehiculo.setOperativo(operativo);
         vehiculoServicio.save(vehiculo);
+        titulo1 = "EXITO!!!!";
+        titulo2 = "Su Gestión fue satisfactoria";
+//        descripcion = "Tome Nota del número de Contrato";
         List<Vehiculo> autos = vehiculoServicio.findAll();
         model.put("titulo", "¡Su gestión fue realizada con éxito !");
         model.put("descripcion", "El vehículo fue modificado en la Base de Datos.");
-        return "exito";
+        model.addAttribute("titulo1", titulo1);
+        model.addAttribute("titulo2", titulo2);
+//        model.addAttribute("descripcion", descripcion);
+        model.addAttribute("home", home);
+        return "exitoGeneral";
     }
 
 }
