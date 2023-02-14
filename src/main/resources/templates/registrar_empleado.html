@@ -31,6 +31,7 @@
     <div class="container">
         <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Alquiler de Vehículos - Home
             Empleado - Administrador</a>
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -55,31 +56,31 @@
                     <h2 class="display-4" th:text="'Formulario '+${formularioTipo}+' Empleado'"></h2>
                     <form action="/empleado/new_empleado_3" method="POST" enctype="multipart/form-data" >
                         <input type="hidden" name="ide" th:value="${empleadoLog.id}">
+
                         <label>Nombre</label>
-                        <input type="text" class="form-control mayus" name="nombre" th:value="${usuario.nombre}"/>
+                        <input type="text" class="form-control mayus" name="nombre" th:text="${nombre}"/>
 
                         <label>Apellido</label>
-                        <input type="text" class="form-control mayus" name="apellido" th:value="${usuario.apellido}"/>
+                        <input type="text" class="form-control mayus" name="apellido" th:text="${apellido}"/>
 
                         <label>DNI</label>
-                        <input type="text" class="form-control mayus" name="dni" th:value="${usuario.dni}"/>
+                        <input type="text" class="form-control" name="dni" th:text="${dni}"/>
 
                         <label>Fecha de Nacimiento</label>
-                        <input type="text" class="form-control" name="fNacimiento" th:value="${usuario.fechaNacimiento}"/>
+                        <input type="date" class="form-control" name="fNacimiento" th:text="${fechaNacimiento}"/>
 
                         <label>Telefono</label>
-                        <input type="text" class="form-control mayus" name="telefono" th:value="${usuario.telefono}"/>
+                        <input type="text" class="form-control" name="telefono" th:text="${telefono}"/>
 
                         <label>Direccion</label>
-                        <input type="text" class="form-control mayus" name="direccion" th:value="${usuario.direccion}"/>
+                        <input type="text" class="form-control mayus" name="direccion" th:text="${direccion}"/>
 
 
                         <label>E-Mail</label>
-                        <input type="text" class="form-control " name="email" th:value="${usuario.mail}" />
+                        <input type="text" class="form-control" name="email" th:text="${mail}" />
 
                         <label>Clave por defecto</label>
-                        <input type="text" class="form-control mayus" name="clave1" value="123456"/>
-
+                        <input type="text" class="form-control" name="clave1" text="123456"/>
                         <label>Puesto del Nuevo Empleado</label>
                         <!--              <input type="select" class="form-control" name="typeEmpleado" th:value="${usuario.typeEmpleado}" />-->
                         <select name="typeEmpleado">

@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.http.HttpClient;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,20 +82,32 @@ public class EmpleadoControlador {
 
     @GetMapping("/new_empleado_2")//?ide=2009&dni=29148574
     public String new_empleado_2(@RequestParam Long ide, String dni, ModelMap modelo) throws Exception {
-        System.out.println("new_empleado_2 78+dni " + dni);
+        System.out.println("new_empleado_2 ide " + ide);
         System.out.println("por cliente " + clienteServicio.hayClienteXdni(dni));
+        Empleado empleadoLog = empleadoServicio.findById(ide);
+
         if (clienteServicio.hayClienteXdni(dni).equals("1")) {
-            Cliente clienteNew  = clienteServicio.buscarXdni(Long.parseLong(dni));
+            Cliente clienteNew = clienteServicio.buscarXdni(Long.parseLong(dni));
+            modelo.addAttribute("empleadoLog", empleadoLog);
             modelo.put("usuario", clienteNew);
+            modelo.addAttribute("formularioTipo", "Alta");
             System.out.println("el dni pertenece a un cliente");
         } else if (empleadoServicio.existeEmpleadoXdni(dni).equals("1")) {
+            modelo.addAttribute("empleadoLog", empleadoLog);
+
             Empleado empleadoNew = empleadoServicio.buscarXdni(dni);
             modelo.put("usuario", empleadoNew);
+            modelo.addAttribute("formularioTipo", "Editar");
+
             System.out.println("el dni pertenese a un empleado ");
         } else {
+
+            modelo.addAttribute("empleadoLog", empleadoLog);
+
             System.out.println("el dni es de una persona no registrada");
             modelo.put("usuario", null);
-            return "registro";
+            modelo.addAttribute("formularioTipo", "Alta");
+            return "registrar_empleado";
         }
 
         //        List<Vehiculo> listaAutos = vehiculoServicio.findAll();
@@ -101,19 +115,35 @@ public class EmpleadoControlador {
 //        Empleado empleado = empleadoServicio.findById(id);
 //        modelo.put("empleadoLog", empleado);
 //        modelo.addAttribute("autos", listaAutos);
+
         return "new_empleado2";
 
     }
 
     @PostMapping("/new_empleado_3")
-    public String saveNewEmpleado(ModelMap model,
+    public String saveNewEmpleado(ModelMap modelo, Long ide,
                                   @RequestParam String nombre, @RequestParam String apellido,
                                   @RequestParam String email, @RequestParam String clave1,
                                   @RequestParam String direccion, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fNacimiento,
                                   @RequestParam Long telefono, @RequestParam Long dni, @RequestParam String typeEmpleado) throws Exception {
-
+        System.out.println("llegue a empleado3");
+        System.out.println("ide es esto " + ide);
+        Empleado empleado = empleadoServicio.findById(ide);
+        String titulo1 = "", titulo2 = "", descripcion = "";
+        String hayEmpleado = empleadoServicio.existeEmpleado(email);
+//        Empleado aRegisrtar =
         System.out.println("llegue al new empleado 3  +typeEmpleado  " + typeEmpleado);
-        Empleado newEmpleado = new Empleado();
+        Empleado newEmpleado;
+        if (hayEmpleado.equals("0")) {
+            newEmpleado = new Empleado();
+            titulo2 = "El empleado fue creado";
+            LocalDate fechaRegistro = LocalDate.now();
+            newEmpleado.setAlta(fechaRegistro);
+        } else {
+            newEmpleado = empleadoServicio.buscarXdni(String.valueOf(dni));
+            titulo2 = "El empleado fue actualizado";
+
+        }
         newEmpleado.setNombre(nombre);
         newEmpleado.setApellido(apellido);
         newEmpleado.setMail(email);
@@ -123,11 +153,38 @@ public class EmpleadoControlador {
         newEmpleado.setTelefono(telefono);
         newEmpleado.setDni(dni);
         newEmpleado.setTypeEmpleado(typeEmpleado);
+
         Empleado empleadoGuarado = empleadoServicio.save(newEmpleado);
         System.out.println("despues de guardar al empleado " + empleadoGuarado.getId() + " " + empleadoGuarado.getNombre());
-        return "exito";
+        // return "exitoGeneral";
+        titulo1 = "EXITO!!!!";
+
+        descripcion = "Tome Nota del número de empleado";
+        modelo.addAttribute("titulo1", titulo1);
+        modelo.addAttribute("titulo2", titulo2);
+        modelo.addAttribute("descripcion", descripcion);
+        String home = "/empleado/admin/?correo=" + empleado.getMail();
+        modelo.addAttribute("home", home);
+        modelo.put("numero", empleadoServicio.buscarXdni(String.valueOf(dni)).getId());
+        return "/exitoGeneral";
     }
 
+
+    /*estoy aca
+     * para editar empleado
+     * usar como plantilla
+     * registro de empleado pero hay que hacerla general
+     * new empleado 2*/
+    @GetMapping("/edit_empleado")
+    public String editarVehiculoEmpleado(Long idm, Long ide, ModelMap model) throws Exception {
+        Empleado aModificar = empleadoServicio.findById(idm);
+        Empleado empleado = empleadoServicio.findById(ide);
+        model.addAttribute("formularioTipo", "Editar");
+
+        model.put("usuario", aModificar);
+        model.put("empleadoLog", empleado);
+        return "new_empleado2";
+    }
 
 //    edit_empleado
 

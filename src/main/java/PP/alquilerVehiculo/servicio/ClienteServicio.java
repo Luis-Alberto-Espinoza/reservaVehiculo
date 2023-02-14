@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.LocalDate.now;
+
 @Service
 public class ClienteServicio implements BaseService<Cliente> {
     public ClienteRepositorio clienteRepositorio;
@@ -58,7 +60,7 @@ public class ClienteServicio implements BaseService<Cliente> {
             cliente.setApellido(apellido);
             cliente.setMail(email);
             cliente.setClave1(clave1);
-            cliente.setAlta(new Date());
+            cliente.setAlta(LocalDate.now());
             cliente.setDni(dni);
             cliente.setDireccion(direccion);
             cliente.setTelefono(telefono);
@@ -200,7 +202,7 @@ public class ClienteServicio implements BaseService<Cliente> {
             Cliente cliente = respuesta.get();
 
             //Seteamos la fecha actual de baja del Cliente
-            cliente.setBaja(new Date());
+            cliente.setBaja(LocalDate.now());
 
             //Actualizamos la entrada dentro del repositorio usando el mismo método save()
             clienteRepositorio.save(cliente);

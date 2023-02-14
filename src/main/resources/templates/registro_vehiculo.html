@@ -55,8 +55,9 @@
         </div>
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <h2 class="display-4">Registrate</h2>
+            <h2 class="display-4">Formulario de registro nuevo vehículo</h2>
             <form action="/vehiculo/alta" method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="ide" th:value="${empleadoLog.id}" />
 
               <label>MARCA</label>
               <input type="text" class="form-control mayus" name="marca" th:value="${marca}" />
