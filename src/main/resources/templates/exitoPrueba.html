@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Alquiler de Vehiculos - Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Alquiler de Vehiculo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="${tituloAAA}">Registro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">INICIO</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="${titulobbb}">Log In</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">Prueba Thymeleaf</h1>
+            <h2 class="masthead-subheading mb-0">entrada de datos por variables.</h2>
+            <a href="/" class="btn btn-primary btn-xl rounded-pill mt-5">¡Registrate!</a>
+        </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <!--           foto <img class="img-fluid rounded-circle" src="img/m2.jpg" alt="">-->
+                </div>
+            </div>
+            <div th:if="${num1 != null or num2 != null}" class="col-lg-6 order-lg-1">
+                <h4>Primer caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${num1}"></h2>
+                    <p th:text="${num2}"></p>
+                </div>
+            </div>
+
+            <div th:if="${num2 != null}" class="col-lg-6 order-lg-1">
+                <h4>Segundo caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${num1 + num2}"></h2>
+                    <h2 class="display-4" th:text="'concateno num1 y num2 '+${num1 + num2}"></h2>
+                    <p th:text="${num2*4}"></p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-lg-1">
+                <h4>tercero caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="'Nombre: '+${nombre}+'  Apellido: '+${apellido}"></h2>
+                    <!--            <p th:text="${'este es un mensaje desde el mismo html'}"></p>-->
+                </div>
+            </div>
+
+            <div th:if="${pais != null}" class="col-lg-6 order-lg-1">
+                <h4>cuarto caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${titulo}"></h2>
+                    <p th:text="'hola mundo del 2 '+${descripcion2}"></p>
+                </div>
+            </div>
+
+            <div th:if="${num1 != null}" class="col-lg-6 order-lg-1">
+                <h4>quinto caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4"
+                        th:text="${num1 == 12 ? '  numero uno es == 12' : ' num1 no es igual a 12 '}"></h2>
+                    <p th:text="${num1}+' este es num1'"></p>
+                </div>
+            </div>
+
+            <div th:if="${num1 != null}" class="col-lg-6 order-lg-1">
+                <h4>switch caso </h4>
+                <div class="p-5" th:switch="${num2}">
+
+                    <h2 class="display-4" th:case="10">es 10</h2>
+                    <h2 class="display-4" th:case="15">es 15</h2>
+                    <p th:text="${num2}+' este es num1'"></p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-lg-1">
+                <h4>recorrer listas </h4>
+                <div class="p-5">
+                    <ul>
+                        <li th:each="pais:${paises}" th:text="${pais}"></li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-lg-1">
+                <h4>obtener el indice de la lista</h4>
+                <div class="p-5">
+                    <ul>
+                        <li th:each="pais:${paises}" th:text="${paisStat}+' - '+${pais}"></li>
+
+                    </ul>
+                </div>
+            </div>
+<!--          usando el Stat en la variable a iterar obtenemos lo siguiente -->
+<!--          {index = 0, count = 1, size = 4, current = argentina} - argentina-->
+<!--          {index = 1, count = 2, size = 4, current = chile} - chile-->
+<!--          {index = 2, count = 3, size = 4, current = venezuela} - venezuela-->
+<!--          {index = 3, count = 4, size = 4, current = españa} - españa-->
+          <div class="col-lg-6 order-lg-1">
+            <h4>obtener el indice de la lista usando el count</h4>
+            <div class="p-5">
+              <ul>
+                <li th:each="pais:${paises}" th:text="${paisStat.count}+' - '+${pais}"></li>
+
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <h4>obtener el indice de la lista usando el current</h4>
+            <div class="p-5">
+              <ul>
+                <li th:each="pais:${paises}" th:text="${paisStat.current}+' - '+${pais}"></li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-6 order-lg-1">
+            <h4>obtener el indice de la lista usando el index</h4>
+            <div class="p-5">
+              <ul>
+                <li th:each="pais:${paises}" th:text="${paisStat.index}+' - '+${pais}"></li>
+
+              </ul>
+            </div>
+          </div>
+
+
+
+
+            <div class="col-lg-6 order-lg-1">
+                <h4>FECHAS </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${fechaactual}"></h2>
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MM/YYY')}">'dd/MM/YYY'</p><!--13/02/2023-->
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MM/YY')}">'dd/MM/YY'</p><!--13/02/23-->
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MMM/YY')}">'dd/MMM/YY'</p><!--13/feb./23-->
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MMM/yyYY')}">'dd/MMM/YYYY'</p><!--13/feb./2323-->
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MM/yyYY')}">'dd/MM/yyyy'</p><!--13/02/2323-->
+                    <p th:text="${#calendars.format(fechaactual, 'dd/MMMMM/yyyy')}">'dd/MMMMM/yyyy'</p><!--13/febrero/2023-->
+                    <p th:text="${#calendars.format(fechaactual, 'EEE, dd/MMMMM/yyyy')}">'dd/MMMMM/yyyy'</p><!--lun., 13/febrero/2023-->
+                    <p th:text="${#calendars.format(fechaactual, 'EEEEE, dd/MMMMM/yyyy')}">'dd/MMMMM/yyyy'</p><!--lunes, 13/febrero/2023-->
+                    <p th:text="${#calendars.format(fechaactual, 'EEEEE, dd/MMMMM/yyyy HH:mm:ss Z')}">'dd/MMMMM/yyyy'</p><!--lunes, 13/febrero/2023 15:24:32 -0300-->
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div th:if="${resouesta != false}" class="col-lg-6 order-lg-1">
+                <h4>septimo caso </h4>
+
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${respuesta}"></h2>
+                    <p th:text="${respuesta}"></p>
+                </div>
+            </div>
+            <div th:if="${numeros != null}" class="col-lg-6 order-lg-1">
+                <h4>octavo caso </h4>
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${#numbers.formatDecimal(numeros, 15, 'POINT', 3, 'COMMA')}"></h2>
+                    <h2 class="display-4" th:text="${#numbers.formatCurrency(numeros)}"></h2>
+<!--                    <p th:text="${#numbers.formatPercent(numeros/80)}"></p>-->
+                    <p th:text="${numeros}"></p>
+                </div>
+            </div>
+
+
+        </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
