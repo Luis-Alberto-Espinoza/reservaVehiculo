@@ -33,10 +33,8 @@ public class EmpleadoServicio implements BaseService<Empleado> {
         try {
             Optional<Empleado> entityOptional = empleadoRepositorio.findById(id);
             return entityOptional.get();
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -48,12 +46,11 @@ public class EmpleadoServicio implements BaseService<Empleado> {
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
     }
 
     @Override
     public Empleado update(long id, Empleado entity) throws Exception {
-      return null;
+        return null;
     }
 
     @Override
@@ -65,28 +62,26 @@ public class EmpleadoServicio implements BaseService<Empleado> {
         }
     }
 
-
     public Empleado buscarXmail(String correo) throws Exception {
         try {
-
             Empleado empleado = empleadoRepositorio.buscarPorEmail(correo);
             return empleado;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-
     }
-    public String existeEmpleado(String correo){
+
+    public String existeEmpleado(String correo) {
         return empleadoRepositorio.existeEmpleado(correo);
     }
-    public String existeEmpleadoXdni(String dni){
-        Long entrada = Long.parseLong(dni);
-         return ( empleadoRepositorio.existeEmpleadoXdni(entrada));
 
+    public String existeEmpleadoXdni(String dni) {
+        Long entrada = Long.parseLong(dni);
+        return (empleadoRepositorio.existeEmpleadoXdni(entrada));
     }
-    public Empleado buscarXdni(String dni){
+
+    public Empleado buscarXdni(String dni) {
         Long entrada = Long.parseLong(dni);
         return (empleadoRepositorio.buscarXdni(entrada));
-
     }
 }

@@ -12,22 +12,12 @@ import java.util.List;
 
 @Repository
 public interface ContratoRepositorio extends JpaRepository<Contrato, Long> {
-
-    //aca van las Query
-    //    metodos
-    // Registrar
-    // buscar contrato por id reserva
-    // listar todos los contratos de un cliente
-    // listar todos los contratos de un empleado
-    // listar todos los contratos pór fechas
     @Query("SELECT c FROM Contrato c WHERE c.reserva.id = :id")
     public Contrato contratoXidReserva(@Param("id") Long id);
 
     @Query("SELECT c FROM Contrato c WHERE c.reserva.cliente.id = :id")
     public List<Cliente> contratoXidCliente(@Param("id") Long id);
 
-//    @Query("SELECT reserva.id from Contrato c WHERE reserva.id = :idres")
-//    public String encontrarReservaLigada(@Param("idres") Long idres);
     @Query("SELECT count (reserva.id) FROM Contrato WHERE reserva.id = :idres")
-    public String  encontrarReservaLigada(@Param("idres") Long idres);
+    public String encontrarReservaLigada(@Param("idres") Long idres);
 }

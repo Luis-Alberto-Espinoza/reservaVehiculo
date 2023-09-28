@@ -22,6 +22,7 @@ public class ClienteServicio implements BaseService<Cliente> {
     public String hayCliente(String correo) {
         return clienteRepositorio.existeCliente(correo);
     }
+
     public String hayClienteXdni(String dni) {
         Long entrada = Long.parseLong(dni);
         return clienteRepositorio.existeClienteXdni(entrada);
@@ -47,14 +48,10 @@ public class ClienteServicio implements BaseService<Cliente> {
 
     @Transactional
     public boolean registrar(String nombre, String apellido, String email, String clave1, String clave2, String direccion, LocalDate fNacimiento, long telefono, long dni) throws ClienteServiceException {
-        System.out.println("llegue a registrar");
         //Validación de los parámetros
         if (validar(nombre, apellido, email, clave1, clave2, direccion, fNacimiento, telefono, dni)) {
-            System.out.println("despues de la validacion en el controlador");
-
             //Creamos el Objeto Cliente
             Cliente cliente = new Cliente();
-
             //Seteamos sus atributos con los parámetros recibidos
             cliente.setNombre(nombre);
             cliente.setApellido(apellido);
@@ -70,7 +67,7 @@ public class ClienteServicio implements BaseService<Cliente> {
         de JpaRepository) y llamamos al método 'save' enviándole como argumento el Objeto
         Cliente para que lo guarde en la base de datos.*/
             clienteRepositorio.save(cliente);
-            return  true;
+            return true;
         }
         return false;
     }
@@ -78,9 +75,6 @@ public class ClienteServicio implements BaseService<Cliente> {
     private boolean validar(String nombre, String apellido, String email, String clave1, String clave2,
                             String direccion, LocalDate fNacimiento, long telefono, Long dni) {
         int contador = 0;
-        System.out.println("//////////////////////////////////////////////////////////////////////");
-        System.out.println("");
-        System.out.println("SEGUN LA VALIDACION");
         //Validaciones de los argumentos
         if (nombre == null || nombre.isEmpty()) {
             contador++;
@@ -125,7 +119,7 @@ public class ClienteServicio implements BaseService<Cliente> {
 
         int fechaRegistro = (fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).getYear();
 
-        if (fNacimiento == null || (fechaRegistro-fNacimiento.getYear()) < 18) {
+        if (fNacimiento == null || (fechaRegistro - fNacimiento.getYear()) < 18) {
             contador++;
             System.out.println("El Edad del cliente no puede ser menor a 18 años.");
         }
@@ -137,13 +131,9 @@ public class ClienteServicio implements BaseService<Cliente> {
             contador++;
             System.out.println("El telefono del cliente no puede ser nulo.");
         }
-
-        System.out.println("");
-        System.out.println("FIN DE LA VALIDACION");
-        System.out.println("//////////////////////////////////////////////////////////////////////");
-        if(contador == 0){
+        if (contador == 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -151,37 +141,20 @@ public class ClienteServicio implements BaseService<Cliente> {
     //Modificar un Cliente ya existente en la base de datos
     @Transactional
     public void modificar(long id, String nombre, String apellido, String email, String clave1, String clave2) throws ClienteServiceException { //  ,  String direccion, long edad, long telefono, Long dni ) throws ClienteServiceException {
-
-        /* Llamamos a un método de ClienteRepositorio para buscar un registro por el Id,
-        atrapamos el resultado usando el método get() y lo guardo en mi Objeto Cliente */
-        // Cliente cliente = clienteRepositorio.findById(id).get();
-        //
-        //Validación de los parámetros
-        System.out.println(" ClienteServicio 104 Modificar + mail " + email);
-        //validar(nombre, apellido, email, clave1, clave2 ); // , direccion, edad, telefono, dni);
-        //Validación del mail
-        // validarMail(id, email);
-
         //Validamos que se encuentre un Cliente con el Id recibido
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
-        System.out.println(" ClienteServicio 111 Modificar + respuesta " + respuesta.toString());
 
         //Método que devuelve true si se encontró un registro en la base de datos
         if (respuesta.isPresent()) {
-
             //Guardamos el resultado de la búsqueda en el repositorio en el Objeto Cliente
             Cliente cliente = respuesta.get();
-
             //Seteamos los nuevos atributos al Objeto Cliente
             cliente.setNombre(nombre);
             cliente.setApellido(apellido);
             cliente.setMail(email);
             cliente.setClave1(clave1);
-
-
             //Actualizamos la entrada dentro del repositorio usando el mismo método save()
             clienteRepositorio.save(cliente);
-
         } else {
             //Si el método .isPresent() da false es porque no se encontró ningún Cliente
             throw new ClienteServiceException("No se encontró el cliente solicitado.");
@@ -249,11 +222,9 @@ public class ClienteServicio implements BaseService<Cliente> {
         if (nombre == null || nombre.isEmpty()) {
             throw new ClienteServiceException("El nombre del cliente no puede ser nulo.");
         }
-
         if (apellido == null || apellido.isEmpty()) {
             throw new ClienteServiceException("El apellido del cliente no puede ser nulo.");
         }
-
         if (email == null || email.isEmpty()) {
             throw new ClienteServiceException("El email del cliente no puede ser nulo.");
         } else if (!email.contains("@")) {
@@ -261,7 +232,6 @@ public class ClienteServicio implements BaseService<Cliente> {
         } else if (clienteRepositorio.buscarPorMail(email) != null && newUser) {
             throw new ClienteServiceException("El mail ya está en uso.");
         }
-
         if (clave1 == null || clave1.isEmpty()) {
             throw new ClienteServiceException("La clave del cliente no puede ser nulo.");
         } else if (clave1.length() < 8) {
@@ -272,34 +242,6 @@ public class ClienteServicio implements BaseService<Cliente> {
         if (!clave1.equals(clave2)) {
             throw new ClienteServiceException("Las contraseñas no coinciden.");
         }
-
-
-    }
-
-    /**
-     * Validamos que el nuevo mail ingresado de un cliente ya registrado sea nuevo o no pertenezca a otro cliente
-     *
-     * @param id
-     * @param email
-     * @throws ClienteServiceException
-     */
-    private void validarMail(long id, String email) throws ClienteServiceException {
-        Cliente newUser = clienteRepositorio.buscarPorMail(email);
-//        if (newUser != null && id != (newUser.getId())) {
-//            throw new ClienteServiceException("El nuevo mail ya está en uso.");
-//        }
-    }
-
-    public void GenerarReservas() {
-    }
-
-    public void CancelarReservas() {
-    }
-
-    public void consultarReservas() {
-    }
-
-    public void RegistraCleinte() {
     }
 
     @Override
@@ -308,7 +250,6 @@ public class ClienteServicio implements BaseService<Cliente> {
         try {
             List<Cliente> entities = clienteRepositorio.findAll();
             return entities;
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -320,10 +261,8 @@ public class ClienteServicio implements BaseService<Cliente> {
         try {
             Optional<Cliente> entityOptional = clienteRepositorio.findById(id);
             return entityOptional.get();
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -335,7 +274,6 @@ public class ClienteServicio implements BaseService<Cliente> {
             return entity;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -349,7 +287,6 @@ public class ClienteServicio implements BaseService<Cliente> {
             return cliente;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
     }
 
@@ -362,11 +299,8 @@ public class ClienteServicio implements BaseService<Cliente> {
             } else {
                 throw new Exception();
             }
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
-
         }
-
     }
 }

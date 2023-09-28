@@ -24,7 +24,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
         try {
             List<ReservaWeb> entities = reservaRepositorio.findAll();
             return entities;
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -36,7 +35,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
         try {
             Optional<ReservaWeb> entityOptional = reservaRepositorio.findById(id);
             return entityOptional.get();
-
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -57,9 +55,7 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
     @Transactional
     public void deleteById(long id) throws Exception {
         try {
-            System.out.println("rs. el id " + id);
-                reservaRepositorio.deleteById(id);
-
+            reservaRepositorio.deleteById(id);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -80,33 +76,27 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
 
     @Transactional
     public void guardarReserva(Cliente cliente, Vehiculo vehiculo, List<LocalDate> lFechas) throws Exception {
-            //Se crea la nueva reserva y se le setea los atributos recibidos
-            ReservaWeb newReserva = new ReservaWeb();
-            newReserva.setCliente(cliente);
-            newReserva.setDatosVehiculo(vehiculo);
-            newReserva.setFechaRetiro(lFechas.get(1));
-            newReserva.setFechaEntrega(lFechas.get(0));
-            newReserva.setFechaReserva(lFechas.get(2));
-
-            //Se hace persistir a la nueva reserva
-            reservaRepositorio.save(newReserva);
-            System.out.println("SI!!!! se guardo la reserva!!!!!");
+        //Se crea la nueva reserva y se le setea los atributos recibidos
+        ReservaWeb newReserva = new ReservaWeb();
+        newReserva.setCliente(cliente);
+        newReserva.setDatosVehiculo(vehiculo);
+        newReserva.setFechaRetiro(lFechas.get(1));
+        newReserva.setFechaEntrega(lFechas.get(0));
+        newReserva.setFechaReserva(lFechas.get(2));
+        //Se hace persistir a la nueva reserva
+        reservaRepositorio.save(newReserva);
     }
 
     public List<ReservaWeb> lDeAutosR(Cliente cliente) {
-//        List<ReservaWeb> listaVehiculosR = new ArrayList<>();
         List<ReservaWeb> listaVehiculosR = reservaRepositorio.listaVehiculoXcliente(cliente.getId());
         return listaVehiculosR;
     }
 
     public void prueba(ReservaWeb reservaWeb) {
-        System.out.println(reservaWeb.getId() + " linea 111 RS");
         ReservaWeb clienteReserva = reservaRepositorio.reservaxid(reservaWeb.getId());
-        System.out.println(" 113 RS " + clienteReserva.getDatosVehiculo().getMarca());
     }
 
     public void pruebaD(Cliente cliente) {
-        System.out.println(" 120 rs " + cliente.getId() + "  " + cliente.getNombre());
         List<ReservaWeb> listaDeReservaXcliente = reservaRepositorio.listaVehiculoXcliente(cliente.getId());
     }
 
@@ -126,11 +116,6 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             List<ReservaWeb> metodo2 = reservaRepositorio.metodo2(fRetiro, fDevolucion, vehiculo.getId());
             List<ReservaWeb> metodo3 = reservaRepositorio.metodo3(fRetiro, fDevolucion, vehiculo.getId());
             List<ReservaWeb> metodoC = reservaRepositorio.metodoCombinado(fRetiro, fDevolucion, vehiculo.getId());
-            System.out.println(" el metodo combinado tiene esto -- "+metodoC.size());
-        //    List<ReservaWeb> metodoA = reservaRepositorio.metodoA();
-//
-//            System.out.println("El metodo a nos trae esto "+metodoA.get(0).getDatosVehiculo().getId());
-            //System.out.println("cantidad de autos sin reservas es =>>>>> " + metodoA.size());
             if (metodo1.size() == 0 & metodo2.size() == 0 & metodo3.size() == 0) {
                 sePuedeReservar = true;
             }
@@ -139,11 +124,4 @@ public class ReservaServicio implements BaseService<ReservaWeb> {
             throw new Exception(e.getMessage());
         }
     }
-
-    //con las fechas buscar disponibilidad de reservas
-    public void xFechasDisponibilidadVehiculos(LocalDate fRetiro, LocalDate fDevolucion) {
-
-
-    }
-
 }

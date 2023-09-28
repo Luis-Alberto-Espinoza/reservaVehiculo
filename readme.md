@@ -24,13 +24,14 @@ Este proyecto de "Reserva de Vehículo" es una aplicación web desarrollada en J
 2. Importa el proyecto en tu IDE de desarrollo Java.
 3. Configura la base de datos MySQL y actualiza las credenciales de acceso en el archivo `application.properties`.
 4. Ejecuta la aplicación y accede a través de tu navegador web en `http://localhost:9000`
-5. Para cargar datos en las tablas y poder probar la aplicación, en el directorio /reservaVehiculo/src/main/resources/static/sql_script se encuentra el archivo "cargarRegistrosEnLasTablas.sql"
+5. Para cargar datos en las tablas y poder probar la aplicación, en el directorio /reservaVehiculo/src/main/resources/static/sql_script se encuentra el arc																																																																																																																																			hivo																									 "cargarRegistrosEnLasTablas.sql"
 
 ## Documentación
 
-En la carpeta Documentacion se encuentra un archivo llamado "alquilerDeVehiculo.pdf" donde se detalla toda la documentación del proyecto.
+En la carpeta Documentacion se encuentra un archivo llamado "[alquilerDeV									ehiculo.pdf](documentacion/alquilerDeVehiculo.pdf)" donde se detalla toda la documentación del proyecto.
 
-## Contribución
+## 
+    Contribución
 
 Las contribuciones son bienvenidas. Si deseas mejorar este proyecto, sigue estos pasos:
 

@@ -36,10 +36,7 @@ public class VehiculoControlador {
         List<Vehiculo> listaAutos = vehiculoServicio.findAll();
         modelo.addAttribute("autos", listaAutos);
         return "autos";
-
     }
-
-
 
     @GetMapping("/new_auto_1")
     public String new_auto_1(@RequestParam Long id, ModelMap modelo) throws Exception {
@@ -48,7 +45,6 @@ public class VehiculoControlador {
         modelo.put("empleadoLog", empleado);
         modelo.addAttribute("autos", listaAutos);
         return "registro_vehiculo.html";
-
     }
 
     @PostMapping("/alta")
@@ -62,7 +58,6 @@ public class VehiculoControlador {
     ) throws Exception {
         Empleado empleado = empleadoServicio.findById(ide);
         String home = "/empleado/admin/?correo=" + empleado.getMail();
-
         String titulo1 = "", titulo2 = "", descripcion = "";
         Vehiculo newVehiculo = new Vehiculo();
         newVehiculo.setTipoVehiculo(tipoVehiculo);
@@ -84,17 +79,13 @@ public class VehiculoControlador {
         model.addAttribute("descripcion", descripcion);
         model.addAttribute("home", home);
         return "exitoGeneral";
-
     }
 
     @GetMapping("/delet_vehiculo")
     public String eliminarVehiculo(Long idv, Long ide, ModelMap model) throws Exception {
-        System.out.println("llegue a delet vehiculo");
-
         Empleado empleado = empleadoServicio.findById(ide);
         Vehiculo vehiculo = vehiculoServicio.findById(idv);
         String home = "/empleado/admin/?correo=" + empleado.getMail();
-
         String titulo1 = "", titulo2 = "", descripcion = "";
         vehiculoServicio.deleteById(idv);
         List<Vehiculo> autos = vehiculoServicio.findAll();
@@ -118,21 +109,19 @@ public class VehiculoControlador {
         model.put("empleadoLog", empleado);
         return "editar_vehiculo";
     }
+
     @PostMapping("/actualizar_vehiculo")
     public String editarVehiculo1(Long idv, Long ide, ModelMap model,
-                                   @RequestParam String marca, @RequestParam String modelo,
-                                   @RequestParam String patente, @RequestParam String color,
-                                   @RequestParam String tipoVehiculo, @RequestParam String cilindradaMotor,
-                                   @RequestParam String combustible, @RequestParam String typeGama,
-                                   @RequestParam String precio, @RequestParam String operativo
-                                   ) throws Exception {
-        System.out.println("llegue a edit vehiculo1");
+                                  @RequestParam String marca, @RequestParam String modelo,
+                                  @RequestParam String patente, @RequestParam String color,
+                                  @RequestParam String tipoVehiculo, @RequestParam String cilindradaMotor,
+                                  @RequestParam String combustible, @RequestParam String typeGama,
+                                  @RequestParam String precio, @RequestParam String operativo
+    ) throws Exception {
         String titulo1 = "", titulo2 = "", descripcion = "";
         Empleado empleado = empleadoServicio.findById(ide);
         String home = "/empleado/admin/?correo=" + empleado.getMail();
-
         Vehiculo vehiculo = vehiculoServicio.findById(idv);
-
         vehiculo.setId(idv);
         vehiculo.setTipoVehiculo(tipoVehiculo);
         vehiculo.setMarca(marca);
@@ -147,15 +136,12 @@ public class VehiculoControlador {
         vehiculoServicio.save(vehiculo);
         titulo1 = "EXITO!!!!";
         titulo2 = "Su Gestión fue satisfactoria";
-//        descripcion = "Tome Nota del número de Contrato";
         List<Vehiculo> autos = vehiculoServicio.findAll();
         model.put("titulo", "¡Su gestión fue realizada con éxito !");
         model.put("descripcion", "El vehículo fue modificado en la Base de Datos.");
         model.addAttribute("titulo1", titulo1);
         model.addAttribute("titulo2", titulo2);
-//        model.addAttribute("descripcion", descripcion);
         model.addAttribute("home", home);
         return "exitoGeneral";
     }
-
 }

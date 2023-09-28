@@ -1,21 +1,22 @@
 package PP.alquilerVehiculo.repositorios;
+
 import PP.alquilerVehiculo.entidad.ReservaWeb;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface ReservaRepositorio extends JpaRepository<ReservaWeb, Long> {//extends JpaRepository<ReservaWeb, String> {
+public interface ReservaRepositorio extends JpaRepository<ReservaWeb, Long> {
 
     @Query("SELECT m FROM ReservaWeb m WHERE m.cliente.id = :id ")
     public List<ReservaWeb> buscarReservasPorUsuario(@Param("id") String id);
 
     @Query("SELECT r FROM ReservaWeb r  WHERE id = :id")
-    //funciona //public ReservaWeb reservaxid (@Param("id") Long id);
     public ReservaWeb reservaxid(@Param("id") Long id);
 
     @Query("SELECT r FROM ReservaWeb r  WHERE fechaReserva = :fechaReserva")
@@ -39,16 +40,13 @@ public interface ReservaRepositorio extends JpaRepository<ReservaWeb, Long> {//e
     public List<ReservaWeb> metodo2(@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion, @Param("id") Long id);
 
     /////3
-
     @Query("SELECT r FROM ReservaWeb r WHERE r.fechaRetiro <= :checkin AND r.fechaEntrega >= :checkout  AND r.datosVehiculo.id = :id")
     public List<ReservaWeb> metodo3(@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion, @Param("id") Long id);
 
     @Query("SELECT r FROM ReservaWeb r WHERE NOT (r.fechaEntrega >= :checkin AND r.fechaEntrega <= :checkout AND r.fechaRetiro >= :checkin AND r.fechaRetiro <= :checkout AND r.fechaRetiro <= :checkin AND r.fechaEntrega >= :checkout  AND  r.datosVehiculo.id = :id)")
-    public List <ReservaWeb> metodoCombinado (@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion, @Param("id") Long id);
+    public List<ReservaWeb> metodoCombinado(@Param("checkin") LocalDate fRetiro, @Param("checkout") LocalDate fDevolcion, @Param("id") Long id);
 
     //// x id vehiculo
     @Query("SELECT r FROM ReservaWeb r WHERE r.datosVehiculo.id = :id")
     public List<ReservaWeb> xIdVehiculo(@Param("id") Long id);
-
-
 }

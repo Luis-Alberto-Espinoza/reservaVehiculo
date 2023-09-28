@@ -69,7 +69,6 @@ public class ContratoServicio implements BaseService<Contrato> {
 
     }
 
-
     public void guardarContrato(ReservaWeb reserva, Empleado empleado) {
         Contrato contrato = new Contrato();
         contrato.setReserva(reserva);
@@ -81,11 +80,11 @@ public class ContratoServicio implements BaseService<Contrato> {
     public boolean validarReserva(long idres) throws Exception {
         String reservaWeb = contratoRepositorio.encontrarReservaLigada(idres);
         LocalDate fechaActual = LocalDate.now();
-        if(reservaWeb.equals("1")){
+        if (reservaWeb.equals("1")) {
             return false;
-        }else if(reservaServicio.findById(idres).getFechaRetiro().compareTo(fechaActual) > 0 ) {
+        } else if (reservaServicio.findById(idres).getFechaRetiro().compareTo(fechaActual) > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

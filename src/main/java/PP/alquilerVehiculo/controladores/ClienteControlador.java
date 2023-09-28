@@ -17,7 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/cliente")
 public class ClienteControlador {
-
     @Autowired
     private ClienteServicio clienteServicio;
     @Autowired
@@ -27,13 +26,9 @@ public class ClienteControlador {
 
 
     @GetMapping("/")
-    //http://localhost:9000/cliente/?correo=Correocliente_14%40correo.com&password=123456
     public String clienteInicio(@RequestParam String correo, ModelMap modelo) throws Exception {
-//    public String clienteInicio(@RequestParam String correo, @RequestParam String password, ModelMap modelo) throws Exception {
-
         Cliente usuario = clienteServicio.buscarXcorreo(correo);
-        System.out.println(">==== usuario " + usuario.getApellido());
-        modelo.addAttribute("clienteLog" , usuario);
+        modelo.addAttribute("clienteLog", usuario);
         List<Vehiculo> listVehiculos = vehiculoServicio.findAll();
         modelo.addAttribute("autos", listVehiculos);
         return "index_cliente";
@@ -43,7 +38,6 @@ public class ClienteControlador {
     public String editarPerfil(@RequestParam Long id, ModelMap modelo) {
         Cliente clienteLog = null;
         clienteLog = clienteServicio.buscarPorId(id);
-
         modelo.addAttribute("perfil", clienteLog);
         return "perfil";
     }
@@ -58,7 +52,6 @@ public class ClienteControlador {
         clienteLog = clienteServicio.buscarPorId(id);
         clienteServicio.modificar(id, nombre, apellido, email, clave1, clave2);// , direccion, edad, telefono, dni);
         clienteLog = clienteServicio.buscarPorId(id);
-        System.out.println("cliContr 70 :" + clienteLog.getNombre() + " id:" + clienteLog.getId());
         return "redirect:/login";
     }
 

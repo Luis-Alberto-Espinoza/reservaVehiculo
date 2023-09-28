@@ -34,15 +34,12 @@ public class ReservaControlador {
     ClienteServicio clienteServicio;
     @Autowired
     VehiculoServicio vehiculoServicio;
-
     @Autowired
     EmpleadoServicio empleadoServicio;
 
     @GetMapping("/")
     public String soloReserva(ModelMap modelo, @RequestParam Long ide) throws Exception {
-        System.out.println("llegue a soloreserva 42");
         Empleado empleado = empleadoServicio.findById(ide);
-        System.out.println(empleado.getNombre());
         modelo.put("empleadoLog", empleado);
         List<Vehiculo> listaAutos = vehiculoServicio.findAll();
         modelo.put("autos", listaAutos);
@@ -89,18 +86,15 @@ public class ReservaControlador {
                                      @RequestParam("fRetiro") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fRetiro,
                                      @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion
     ) throws Exception {
-        System.out.println("35 de VehiculoControlador " + fRetiro + "  -  " + fDevolucion);
         Empleado empleado = empleadoServicio.findById(ide);
         List<Vehiculo> listaAutos = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
         Cliente cliente = clienteServicio.buscarXdni(dni);
-        System.out.println("38 line cliente " + cliente);
         modelo.put("fRetiro", fRetiro);
         modelo.put("fDevolucion", fDevolucion);
         modelo.put("empleadoLog", empleado);
         modelo.addAttribute("autos", listaAutos);
         modelo.put("clienteLog", cliente);
         return "autos_reserva";
-
     }
 
     @PostMapping("/confi_reserva")
@@ -111,13 +105,10 @@ public class ReservaControlador {
 
         Cliente cliente = clienteServicio.findById(idc);
         Vehiculo auto = vehiculoServicio.findById(idv);
-
         //se genera la fecha actual para dejar asentado la fecha de gestion de la reserva
         Date fechaActual = new Date();
         LocalDate fechaRegistro = fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
         //se crea una lista para pasar mas rapido todas las fechas
-        System.out.println("90 fechas 1 " + fRetiro + "  2: " + fDevolucion);
         List<LocalDate> listadoFechas = new ArrayList<>();
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
@@ -129,7 +120,6 @@ public class ReservaControlador {
             titulo1 = "EXITO!!!!";
             titulo2 = "Su Reserva fue generada";
             descripcion = "Tome Nota del número de reserva";
-
         } catch (Exception e) {
             titulo1 = "ERROR!!!!";
             titulo2 = "Su Reserva  NO fue generada";
@@ -156,18 +146,15 @@ public class ReservaControlador {
         Empleado empleado = empleadoServicio.findById(ide);
         Cliente cliente = clienteServicio.findById(idc);
         Vehiculo auto = vehiculoServicio.findById(idv);
-
         //se genera la fecha actual para dejar asentado la fecha de gestion de la reserva
         Date fechaActual = new Date();
         LocalDate fechaRegistro = fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
         //se crea una lista para pasar mas rapido todas las fechas
         List<LocalDate> listadoFechas = new ArrayList<>();
         listadoFechas.add(fDevolucion);
         listadoFechas.add(fRetiro);
         listadoFechas.add(fechaRegistro);
         String titulo1 = "", titulo2 = "", descripcion = "";
-
         try {
             reservaServicio.guardarReserva(cliente, auto, listadoFechas);
             titulo1 = "EXITO!!!!";
@@ -221,7 +208,6 @@ public class ReservaControlador {
     @GetMapping("/delet_reserva")
     public String eliminarReserva(long id_reserva, ModelMap modelo) throws Exception {
         ReservaWeb reservaWeb = reservaServicio.findById(id_reserva);
-        System.out.println("129 ResContr reserva id " + reservaWeb.getId());
         Cliente cliente = clienteServicio.buscarXdni(reservaWeb.getCliente().getDni());
         reservaServicio.deleteById(id_reserva);
         List<ReservaWeb> autosReservados = reservaServicio.lDeAutosR(cliente);
@@ -236,7 +222,6 @@ public class ReservaControlador {
                                 @RequestParam(value = "fDevolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fDevolucion,
                                 long idc, ModelMap modelo) throws Exception {
         if (fRetiro.compareTo(LocalDate.now()) >= 0) {
-            System.out.println(" la primera es mas grande ");
             Cliente cliente = clienteServicio.findById(idc);
             List<Vehiculo> vehiculosDisponibles = vehiculoServicio.autosDisponiblesXfechas(fRetiro, fDevolucion);
             modelo.put("autos", vehiculosDisponibles);
@@ -245,12 +230,8 @@ public class ReservaControlador {
             modelo.put("fecha2", fDevolucion);
             return "autos_disponibles";
         } else {
-            System.out.println("La segunda es mas grande");
             modelo.put("error", "la fecha retiro no puede ser anteriior a la fecha actual ");
             return "index_cliente";
         }
-
-
     }
-
 }

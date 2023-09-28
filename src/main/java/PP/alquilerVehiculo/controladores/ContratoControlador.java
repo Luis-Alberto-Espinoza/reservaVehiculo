@@ -20,8 +20,6 @@ public class ContratoControlador {
     @Autowired
     ReservaServicio reservaServicio;
     @Autowired
-    ClienteServicio clienteServicio;
-    @Autowired
     VehiculoServicio vehiculoServicio;
     @Autowired
     ContratoServicio contratoServicio;
@@ -30,7 +28,6 @@ public class ContratoControlador {
 
     @GetMapping("/")
     public String index_contrato(ModelMap modelo, @RequestParam long ide) throws Exception {
-        System.out.println("llegue al controlador de contratos");
         Empleado empleado = empleadoServicio.findById(ide);
         modelo.put("empleadoLog", empleado);
         return "contrato_index";
@@ -38,15 +35,10 @@ public class ContratoControlador {
 
     @GetMapping("/generar_contrato")
     public String generar_contrato(ModelMap modelo, @RequestParam long idres, @RequestParam long ide) throws Exception {
-        System.out.println("llegue al controlador de contratos line 44");
         /*
          * verificar que la reserva no se a convertido en contrato
          * verificar que la reserva no sea vieja
-         *
-         * */
-        System.out.println("**************** inicio ********************** ");
-
-        System.out.println("antes de la validacion  ");
+         */
         if (contratoServicio.validarReserva(idres)) {
             Empleado empleado = empleadoServicio.findById(ide);
             ReservaWeb reservaWeb = reservaServicio.findById(idres);
@@ -54,7 +46,7 @@ public class ContratoControlador {
             Cliente cliente = reservaWeb.getCliente();
             Vehiculo auto = reservaWeb.getDatosVehiculo();
             Double precioTotal = vehiculoServicio.costoTotal
-                    (String.valueOf(reservaWeb.getFechaRetiro()),String.valueOf(reservaWeb.getFechaEntrega()), auto.getId());
+                    (String.valueOf(reservaWeb.getFechaRetiro()), String.valueOf(reservaWeb.getFechaEntrega()), auto.getId());
             modelo.put("total", precioTotal);
             modelo.put("empleadoLog", empleado);
             modelo.put("datoReserva", reservaWeb);
@@ -62,11 +54,8 @@ public class ContratoControlador {
             modelo.put("clienteLog", cliente);
             return "genera_contrato";
         } else {
-            System.out.println("  2 -contratoServicio.validarReserva(idres) " + contratoServicio.validarReserva(idres));
             return "index";
         }
-
-
     }
 
     @PostMapping("/confi_contrato")

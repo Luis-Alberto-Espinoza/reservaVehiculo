@@ -8,13 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
-//similar a un DAO patron que separa la base de datos de la logica de la api
-//    @Query("SELECT u FROM Cliente u WHERE u.mail = :mail")
-//    public Cliente buscarPorMail(@Param("mail") String mail);
-//
-//    @Query(value = "SELECT * FROM Cliente", nativeQuery = true)
-//    List<Cliente> findAllActivo();
-
     @Query("SELECT c FROM Cliente c WHERE c.mail = :mail")
     public Cliente buscarPorMail(@Param("mail") String mail);
 
@@ -29,5 +22,4 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
 
     @Query("SELECT COUNT(c.clave1) FROM Cliente c WHERE c.clave1 = :clave")
     public String validaPass(@Param("clave") String clave);
-
 }
