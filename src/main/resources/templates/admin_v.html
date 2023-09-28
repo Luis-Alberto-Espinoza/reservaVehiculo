@@ -38,50 +38,48 @@
             <h2 class="mayus" th:text="'Administrador: '+${empleadoLog.nombre}"></h2>
         </div>
         <div class="list-crear_mascota-btn">
-            <a th:href="@{/vehiculo/new_auto_1(id=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
+            <a th:href="@{/vehiculo/new_auto_1(id=${empleadoLog.id})}"
+               class="btn btn-primary btn-xl rounded-pill mt-5 ">
                 Agregar un nuevo vehículo</a>
         </div>
         <h3 style="padding-top: 18px">Nuestros autos</h3>
         <div class="row align-items-center">
             <table class="table table-hover">
-                        <p type="hidden" name="ide" th:value="${empleadoLog.id}">
-
-                <thead>
-                <tr>
-<!--                    <th scope="col">Contador</th>-->
-                    <th scope="col">Id Vehiculo</th>
-
-                    <th scope="col">MARCA</th>
-                    <th scope="col">MODELO</th>
-                    <th scope="col">CILINDRADA</th>
-                    <th scope="col">TIPO</th>
-                    <th scope="col">GAMA</th>
-                    <th scope="col">COMBUSTIBLE</th>
-                    <th scope="col">PRECIO</th>
-                    <th scope="col">ESTADO</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="vehiculo : ${autos}">
-<!--                    <td class="mayus"scope="row" th:text="${vehiculo.index}">-->
-                    <td class="mayus"scope="row" th:text="${vehiculo.id}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.marca}">
-                    <td class="mayustt"scope="row" th:text="${vehiculo.modelo}">
-                    <td scope="row" th:text="${vehiculo.cilindradaMotor}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.tipoVehiculo}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.typeGama}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.combustible}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.precio}">
-                    <td class="mayus"scope="row" th:text="${vehiculo.operativo}">
-                    <td>
-                        <!-- Declaramos y enviamos el valor de la variable action -->
-<!--                    /**/-->
-                            <a th:href="@{/vehiculo/edit_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}" class="btn btn-warning">Editar</a>
-                            <a th:href="@{/vehiculo/delet_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}" class="btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-                </tbody>
+                <p type="hidden" name="ide" th:value="${empleadoLog.id}">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id Vehiculo</th>
+                        <th scope="col">MARCA</th>
+                        <th scope="col">MODELO</th>
+                        <th scope="col">CILINDRADA</th>
+                        <th scope="col">TIPO</th>
+                        <th scope="col">GAMA</th>
+                        <th scope="col">COMBUSTIBLE</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="vehiculo : ${autos}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.id}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.marca}">
+                        <td class="mayustt" scope="row" th:text="${vehiculo.modelo}">
+                        <td scope="row" th:text="${vehiculo.cilindradaMotor}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.tipoVehiculo}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.typeGama}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.combustible}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.precio}">
+                        <td class="mayus" scope="row" th:text="${vehiculo.operativo}">
+                        <td>
+                            <!-- Declaramos y enviamos el valor de la variable action -->
+                            <a th:href="@{/vehiculo/edit_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}"
+                               class="btn btn-warning">Editar</a>
+                            <a th:href="@{/vehiculo/delet_vehiculo(idv=${vehiculo.id},ide=${empleadoLog.id})}"
+                               class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    </tbody>
             </table>
         </div>
     </div>

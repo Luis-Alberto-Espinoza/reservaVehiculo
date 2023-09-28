@@ -3,95 +3,97 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Tinder de Mascota - Configuración de Perfil</title>
+    <title>Tinder de Mascota - Configuración de Perfil</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-    rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" th:href="@{/cliente/(correo=${perfil.mail})}" >Home </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Salir</a>
-          </li>
-        </ul>
-      </div>
+        <a class="navbar-brand" th:href="@{/cliente/(correo=${perfil.mail})}">Home </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Salir</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </nav>
-  <section>
+</nav>
+<section>
     <div class="container " style="padding-top: 100px">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
 
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Actualiza tus Datos</h2>
+                    <!-- Action actualizado para apuntar al controlador de actualizar perfil -->
+                    <form th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:value="${perfil.id}">
+
+                        <!-- Atributos del formulario pre-cargados con los datos del Objeto inyecado 'perfil' -->
+                        <label>Nuevo Nombre</label>
+                        <input type="text" class="form-control mayus" name="nombre" th:value="${perfil.nombre}"/>
+
+                        <label>Nuevo Apellido</label>
+                        <input type="text" class="form-control mayus" name="apellido" th:value="${perfil.apellido}"/>
+
+                        <label>Nuevo E-Mail</label>
+                        <input type="email" class="form-control" name="email" th:value="${perfil.mail}"/>
+
+
+                        <label>Nueva Clave</label>
+                        <input type="password" class="form-control" name="clave1" th:value="${clave1}"/>
+
+                        <label>Repetir Clave</label>
+                        <input type="password" class="form-control" name="clave2" th:value="${clave2}"/>
+
+                        <br/>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-            <h2 class="display-4">Actualiza tus Datos</h2>
-            <!-- Action actualizado para apuntar al controlador de actualizar perfil -->
-            <form th:action="@{/cliente/actualizar-perfil(id=${perfil.id})}" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="id" th:value="${perfil.id}">
-
-              <!-- Atributos del formulario pre-cargados con los datos del Objeto inyecado 'perfil' -->
-              <label>Nuevo Nombre</label>
-              <input type="text" class="form-control mayus" name="nombre" th:value="${perfil.nombre}" />
-
-              <label>Nuevo Apellido</label>
-              <input type="text" class="form-control mayus" name="apellido" th:value="${perfil.apellido}" />
-
-              <label>Nuevo E-Mail</label>
-              <input type="email" class="form-control" name="email" th:value="${perfil.mail}" />
-
-
-              <label>Nueva Clave</label>
-              <input type="password" class="form-control" name="clave1"  th:value="${clave1}" />
-
-              <label>Repetir Clave</label>
-              <input type="password" class="form-control" name="clave2" th:value="${clave2}" />
-
-              <br /><button type="submit" class="btn btn-primary">Actualizar</button>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
 
-  <!-- Footer -->
-  <footer class="py-5 bg-black">
+<!-- Footer -->
+<footer class="py-5 bg-black">
     <div class="container">
-      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
     <!-- /.container -->
-  </footer>
+</footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -26,8 +26,6 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-<!--                    <a class="nav-link" th:href="@{/reserva/hreservas(id=${clienteLog.id})}">Historial</a>-->
-
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/">Salir</a>
@@ -59,17 +57,22 @@
                         <label>Color</label>
                         <input type="text" class="form-control mayus" name="color" th:value="${vehiculo.color}"/>
                         <label>Tipo Vehiculo</label>
-                        <input type="text" class="form-control mayus" name="tipoVehiculo" th:value="${vehiculo.tipoVehiculo}"/>
+                        <input type="text" class="form-control mayus" name="tipoVehiculo"
+                               th:value="${vehiculo.tipoVehiculo}"/>
                         <label>Cilindrada del Motor</label>
-                        <input type="text" class="form-control mayus" name="cilindradaMotor" th:value="${vehiculo.cilindradaMotor}"/>
+                        <input type="text" class="form-control mayus" name="cilindradaMotor"
+                               th:value="${vehiculo.cilindradaMotor}"/>
                         <label>Combustible</label>operativo
-                        <input type="text" class="form-control mayustt" name="combustible" th:value="${vehiculo.combustible}"/>
+                        <input type="text" class="form-control mayustt" name="combustible"
+                               th:value="${vehiculo.combustible}"/>
                         <label>Tipo Gama</label>
-                        <input type="text" class="form-control mayus" name="typeGama" th:value="${vehiculo.typeGama}"/><br>
+                        <input type="text" class="form-control mayus" name="typeGama"
+                               th:value="${vehiculo.typeGama}"/><br>
                         <label>Precio Diario</label>
                         <input type="text" class="form-control" name="precio" th:value="${vehiculo.precio}"/><br>
                         <label>Operativo</label>
-                        <input type="text" class="form-control mayustt" name="operativo" th:value="${vehiculo.operativo}"/><br/>
+                        <input type="text" class="form-control mayustt" name="operativo"
+                               th:value="${vehiculo.operativo}"/><br/>
 
                         <button type="submit" class="btn btn-primary">Modificar</button>
                     </form>

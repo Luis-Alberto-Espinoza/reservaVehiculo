@@ -37,42 +37,42 @@
             <h2 class="mayus" th:text="'Administrador: '+${empleadoLog.nombre}"></h2>
         </div>
         <div class="list-crear_mascota-btn">
-            <a th:href="@{/empleado/new_empleado_1(ide=${empleadoLog.id})}" class="btn btn-primary btn-xl rounded-pill mt-5 ">
+            <a th:href="@{/empleado/new_empleado_1(ide=${empleadoLog.id})}"
+               class="btn btn-primary btn-xl rounded-pill mt-5 ">
                 Agregar nuev@ Emplead@</a>
         </div>
         <h3>Estos son nuestros Empleados</h3>
         <div class="row align-items-center">
             <table class="table table-hover">
-                        <p type="hidden" name="ide" th:value="${empleadoLog.id}">
+                <p type="hidden" name="ide" th:value="${empleadoLog.id}">
 
-                <thead>
-                <tr>
-<!--                    <th scope="col">Contador</th>-->
-                    <th scope="col">Id Empleado</th>
-
-                    <th scope="col">NOMBRE</th>
-                    <th scope="col">APELLIDO</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">EMAIL</th>
-                    <th scope="col">CATEGORIA</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="emleado : ${emleado}">
-<!--                    <td class="mayus"scope="row" th:text="${emleado.index}">-->
-                    <td class="mayus"scope="row" th:text="${emleado.id}">
-                    <td class="mayus"scope="row" th:text="${emleado.nombre}">
-                    <td class="mayustt"scope="row" th:text="${emleado.apellido}">
-                    <td scope="row" th:text="${emleado.dni}">
-                    <td class=""scope="row" th:text="${emleado.mail}">
-                    <td class="mayus"scope="row" th:text="${emleado.typeEmpleado}">
-                    <td>
-                        <!-- Declaramos y enviamos el valor de la variable action -->
-                    <a th:href="@{/empleado/edit_empleado(idm=${emleado.id},ide=${empleadoLog.id})}" class="btn btn-warning">Editar</a>
-                    <a th:href="@{/empleado/delet_empleado(idm=${emleado.id},ide=${empleadoLog.id})}" class="btn btn-danger">Eliminar</a>                    </td>
-                </tr>
-                </tbody>
+                    <thead>
+                    <tr>
+                        <th scope="col">Id Empleado</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">APELLIDO</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">CATEGORIA</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="emleado : ${emleado}">
+                        <td class="mayus" scope="row" th:text="${emleado.id}">
+                        <td class="mayus" scope="row" th:text="${emleado.nombre}">
+                        <td class="mayustt" scope="row" th:text="${emleado.apellido}">
+                        <td scope="row" th:text="${emleado.dni}">
+                        <td class="" scope="row" th:text="${emleado.mail}">
+                        <td class="mayus" scope="row" th:text="${emleado.typeEmpleado}">
+                        <td>
+                            <!-- Declaramos y enviamos el valor de la variable action -->
+                            <a th:href="@{/empleado/edit_empleado(idm=${emleado.id},ide=${empleadoLog.id})}"
+                               class="btn btn-warning">Editar</a>
+                            <a th:href="@{/empleado/delet_empleado(idm=${emleado.id},ide=${empleadoLog.id})}"
+                               class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    </tbody>
             </table>
         </div>
     </div>

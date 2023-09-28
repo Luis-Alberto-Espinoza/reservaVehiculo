@@ -3,112 +3,114 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Registrar Vehículo</title>
+    <title>Registrar Vehículo</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-    rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="/css/one-page-wonder.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+    <!-- Custom styles for this template -->
+    <link href="/css/one-page-wonder.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Home Administrador</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Salir</a>
-          </li>
-        </ul>
-      </div>
+        <a class="navbar-brand" th:href="@{/empleado/admin/(correo=${empleadoLog.mail})}">Home Administrador</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Salir</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
 
 
-  <section>
+<section>
     <div class="container" style="padding-top: 100px">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="p-5">
-            <img class="img-fluid rounded-circle" src="" alt="">
-          </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2">
+                <div class="p-5">
+                    <img class="img-fluid rounded-circle" src="" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4">Formulario de registro nuevo vehículo</h2>
+                    <form action="/vehiculo/alta" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="ide" th:value="${empleadoLog.id}"/>
+
+                        <label>MARCA</label>
+                        <input type="text" class="form-control mayus" name="marca" th:value="${marca}"/>
+
+                        <label>MODELO</label>
+                        <input type="text" class="form-control mayus" name="modelo" th:value="${modelo}"/>
+
+                        <label>PATENTE</label>
+                        <input type="text" class="form-control mayustt" name="patente" th:value="${patente}"/>
+
+                        <label>COLOR</label>
+                        <input type="text" class="form-control mayus" name="color" th:value="${color}"/>
+
+                        <label>TIPO DE VEHICULO</label>
+                        <input type="text" class="form-control mayus" name="tipoVehiculo" th:value="${tipoVehiculo}"/>
+
+                        <label>CILINDRADA</label>
+                        <input type="text" class="form-control mayus" name="cilindradaMotor"
+                               th:value="${cilindradaMotor}"/>
+
+                        <label>COMBUSTIBLE</label>
+                        <input type="text" class="form-control mayus" name="combustible" th:value="${combustible}"/>
+
+                        <label>GAMA</label>
+                        <input type="text" class="form-control mayus" name="typeGama" th:value="${typeGama}"/>
+
+                        <label>PRECIO</label>
+                        <input type="text" class="form-control mayus" name="precio" th:value="${precio}"/>
+
+                        <label>OPERATIVO</label>
+                        <input type="text" class="form-control mayus" name="operativo" th:value="${operativo}"/>
+
+                        <br/>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-            <h2 class="display-4">Formulario de registro nuevo vehículo</h2>
-            <form action="/vehiculo/alta" method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="ide" th:value="${empleadoLog.id}" />
-
-              <label>MARCA</label>
-              <input type="text" class="form-control mayus" name="marca" th:value="${marca}" />
-
-              <label>MODELO</label>
-              <input type="text" class="form-control mayus" name="modelo" th:value="${modelo}" />
-
-              <label>PATENTE</label>
-              <input type="text" class="form-control mayustt" name="patente" th:value="${patente}" />
-
-              <label>COLOR</label>
-              <input type="text" class="form-control mayus" name="color" th:value="${color}" />
-
-              <label>TIPO DE VEHICULO</label>
-              <input type="text" class="form-control mayus" name="tipoVehiculo" th:value="${tipoVehiculo}" />
-
-              <label>CILINDRADA</label>
-              <input type="text" class="form-control mayus" name="cilindradaMotor" th:value="${cilindradaMotor}" />
-
-              <label>COMBUSTIBLE</label>
-              <input type="text" class="form-control mayus" name="combustible" th:value="${combustible}" />
-
-              <label>GAMA</label>
-              <input type="text" class="form-control mayus" name="typeGama" th:value="${typeGama}" />
-
-              <label>PRECIO</label>
-              <input type="text" class="form-control mayus" name="precio" th:value="${precio}" />
-
-              <label>OPERATIVO</label>
-              <input type="text" class="form-control mayus" name="operativo" th:value="${operativo}" />
-
-              <br /><button type="submit" class="btn btn-primary">Registrar</button>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
 
-  <!-- Footer -->
-  <footer class="py-5 bg-black">
+<!-- Footer -->
+<footer class="py-5 bg-black">
     <div class="container">
-      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
+        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p>
     </div>
     <!-- /.container -->
-  </footer>
+</footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

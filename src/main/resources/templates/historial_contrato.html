@@ -37,7 +37,8 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Home</a>
+                    <a class="nav-link"
+                       th:href="@{/reserva/generar_reserva(idv=__${vehiculo.id}__,idc=${clienteLog.id})}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Salir</a>
@@ -58,10 +59,6 @@
 <section>
 
     <div class="container">
-<!--        <div class="list-crear_mascota-btn">-->
-<!--            <a th:href="@{/cliente/}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una-->
-<!--                Reserva!</a>-->
-<!--        </div>-->
         <br>
         <div class="row align-items-center">
             <table class="table table-hover">
@@ -78,16 +75,11 @@
                 </thead>
                 <tbody>
                 <tr th:each="autoReservado : ${autoReservado}">
-                    <td scope="row" th:text="${autoReservado.id}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.marca}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.modelo}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.datosVehiculo.patente}">
-                    </th>
-                    <td scope="row" th:text="${autoReservado.fechaReserva}">
-                    </th>
+                    <td scope="row" th:text="${autoReservado.id}"></td>
+                    <td scope="row" th:text="${autoReservado.datosVehiculo.marca}"></td>
+                    <td scope="row" th:text="${autoReservado.datosVehiculo.modelo}"></td>
+                    <td scope="row" th:text="${autoReservado.datosVehiculo.patente}"></td>
+                    <td scope="row" th:text="${autoReservado.fechaReserva}"></td>
                     <td>
                         <!-- Declaramos y enviamos el valor de la variable action -->
                         <!--                <a terfil(id=__${mascota.id}__, action='Eliminar')}">Eliminar</a>-->

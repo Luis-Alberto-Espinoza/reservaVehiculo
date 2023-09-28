@@ -51,9 +51,9 @@
                 </div>
             </div>
             <div class="col-lg-6 order-lg-1">
-                <div class="p-5" >
+                <div class="p-5">
                     <h2 class="display-4" th:text="'Formulario '+${formularioTipo}+' Empleado'"></h2>
-                    <form action="/empleado/new_empleado_3" method="POST" enctype="multipart/form-data" >
+                    <form action="/empleado/new_empleado_3" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="ide" th:value="${empleadoLog.id}">
                         <label>Nombre</label>
                         <input type="text" class="form-control mayus" name="nombre" th:value="${usuario.nombre}"/>
@@ -65,7 +65,8 @@
                         <input type="text" class="form-control mayus" name="dni" th:value="${usuario.dni}"/>
 
                         <label>Fecha de Nacimiento</label>
-                        <input type="text" class="form-control" name="fNacimiento" th:value="${usuario.fechaNacimiento}"/>
+                        <input type="text" class="form-control" name="fNacimiento"
+                               th:value="${usuario.fechaNacimiento}"/>
 
                         <label>Telefono</label>
                         <input type="text" class="form-control mayus" name="telefono" th:value="${usuario.telefono}"/>
@@ -75,7 +76,7 @@
 
 
                         <label>E-Mail</label>
-                        <input type="text" class="form-control " name="email" th:value="${usuario.mail}" />
+                        <input type="text" class="form-control " name="email" th:value="${usuario.mail}"/>
 
                         <label>Clave por defecto</label>
                         <input type="text" class="form-control mayus" name="clave1" value="123456"/>
@@ -98,8 +99,6 @@
         </div>
     </div>
 </section>
-
-
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">
